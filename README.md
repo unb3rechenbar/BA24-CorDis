@@ -1,5 +1,5 @@
 # BA24-CorDis
-Code Base to the bachelor's thesis "Studies of ERM Models with Correlated Disorder". It holds the code to simulate the ERM models with correlated disorder using Born approximation, as well as the final version of the thesis. It corresponds to the print version of the thesis, which is available at the University of Constance. Its reference is:
+Code Base to the bachelor's thesis "Studies of ERM Models with Correlated Disorder". It holds the code to simulate the ERM models with correlated disorder using Born approximation, as well as the final version of the thesis as a PDF file. It corresponds to the print version of the thesis, which is available at the University of Constance. Its reference is:
 
 ```
     BA2024-StudiesOfERMmodelswithcorrelateddisorder Final.pdf
@@ -8,8 +8,7 @@ Code Base to the bachelor's thesis "Studies of ERM Models with Correlated Disord
 ## Table of Contents
 1. [Structure](#structure)
 2. [Usage](#usage)
-3. [Dependencies](#dependencies)
-4. [Corrections](#corrections)
+3. [Corrections](#corrections)
 
 
 ### Structure
@@ -25,4 +24,15 @@ Hereby `Cor-S-SOS-Comp` contains results for the Heaviside approach presented in
 ```
     DENSITY - GRID SIZE - MAX k - SPRING FUNCTION APPROACH .csv
 ```
-There are logs provided which contain information about the computation time and the parameters used for the `Simulation/runsim.sh` script, as well as norm values for every iteration of the fixed point solver.  
+There are logs provided which contain information about the computation time and the parameters used for the `Simulation/runsim.sh` script, as well as norm values for every iteration of the fixed point solver involved in the Dyson equation. 
+
+### Usage
+The LaTeX project files requires a package containing several customizations I have made. It is not publicly available at the moment. Therefore the user is advised to use the provided PDF file. 
+
+The numerical results can reproduced by running the `Simulation/runsim.sh` script. Needed packages for the julia simulation can be checked and installed via `Simulation/PackageCheck.jl`. For the fixed point solver multithreading is recommended. It can be activated using the `-t` flag in the `runsim.sh` script.
+
+### Corrections
+The final version of the thesis that was used for the print version might contain mistakes. Since the project formally is completed, any corrections made will be stored in the `Bachelorarbeit` folder. To access the original LaTeX code please see the commit with the hash:
+```
+    2611f066b6d9c5a104089db123ca1d1eb520cbe4
+```
