@@ -1,0 +1,41 @@
+# LaTeX
+*.pdf
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.bbl
+
+# Apple
+.DS_Store
+
+# Visual Studio Code
+.vscode/
+
+# Python
+__pycache__
+
+# C/C++
+*.o
+*.out
+*.exe
+
+# Ordner
+local/
+
+Bachelorarbeit/Inhalt/Numerik/Approaches
+Bachelorarbeit/Inhalt/Numerik/CodeWrapper.tex
+Bachelorarbeit/Inhalt/Numerik/CodeWrapperHeader.tex
+Bachelorarbeit/Inhalt/Numerik/EasApprox
+Bachelorarbeit/Inhalt/Numerik/Julia Analytics
+Bachelorarbeit/Inhalt/Numerik/Maxima
+Bachelorarbeit/Inhalt/Numerik/SymPy
+Bachelorarbeit/Inhalt/Numerik/Technical
+Bachelorarbeit/Inhalt/Numerik/TestOZ
+Bachelorarbeit/Inhalt/Numerik/Vertices.jl
+Bachelorarbeit/Inhalt/Numerik/main.jl
