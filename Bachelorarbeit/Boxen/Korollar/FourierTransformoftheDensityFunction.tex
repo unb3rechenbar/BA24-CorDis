@@ -1,0 +1,9 @@
+\begin{mcor}{Fourier Transform of the Density Functional}{FourierTransformOfDensityFunctional}
+    Let $r\in (\R^d)^N$ be a particle localization and for $x\in\R^d$ be $\rho_{r}(x) := \rho_*^{-1}\cdot\sum_{i\in[N]}\delta_{r_i}(x)$ the density functional. Then the Fourier transform of $\rho_{r}$ is given by
+    \[
+        \R^d\ni q\mapsto (\mcF\rho_{r})(q) = \frac{1}{\rho_*}\cdot\sum_{n\in[N]}\exp(\cmath\cdot \scpr{q}{r_n})\in\C.
+    \]
+\end{mcor}
+\begin{proof}
+    This can be linearly deduced from C.\ref{mcor:FourierTransformationOfDeltaDistributions}. 
+\end{proof}

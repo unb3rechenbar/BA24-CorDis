@@ -1,0 +1,332 @@
+\documentclass[a4paper,final,twoside]{article}
+
+\usepackage[en,aufgaben]{kern}
+
+
+\newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
+
+\usepackage{listingsutf8}
+
+
+\lstset{
+    numbers=left,
+    numberstyle=\tiny, % Set the font size for line numbers to tiny
+    stepnumber=1,      % Show line numbers for every line
+    numbersep=5pt,     % Distance between line numbers and code
+    xleftmargin=1em,
+    inputencoding=utf8/latin1,
+    extendedchars=true,
+    literate={α}{{\ensuremath{\alpha}}}1
+            {β}{{\ensuremath{\beta}}}1
+            {γ}{{\ensuremath{\gamma}}}1
+            {δ}{{\ensuremath{\delta}}}1
+            {ε}{{\ensuremath{\epsilon}}}1
+            {ζ}{{\ensuremath{\zeta}}}1
+            {η}{{\ensuremath{\eta}}}1
+            {θ}{{\ensuremath{\theta}}}1
+            {ι}{{\ensuremath{\iota}}}1
+            {κ}{{\ensuremath{\kappa}}}1
+            {λ}{{\ensuremath{\lambda}}}1
+            {μ}{{\ensuremath{\mu}}}1
+            {ν}{{\ensuremath{\nu}}}1
+            {ξ}{{\ensuremath{\xi}}}1
+            {π}{{\ensuremath{\pi}}}1
+            {ο}{{\ensuremath{\omicron}}}1
+            {ρ}{{\ensuremath{\rho}}}1
+            {σ}{{\ensuremath{\sigma}}}1
+            {τ}{{\ensuremath{\tau}}}1
+            {υ}{{\ensuremath{\upsilon}}}1
+            {φ}{{\ensuremath{\phi}}}1
+            {χ}{{\ensuremath{\chi}}}1
+            {ψ}{{\ensuremath{\psi}}}1
+            {ω}{{\ensuremath{\omega}}}1
+		    {Α}{{\ensuremath{\Alpha}}}1
+            {Β}{{\ensuremath{\Beta}}}1
+            {Γ}{{\ensuremath{\Gamma}}}1
+            {Δ}{{\ensuremath{\Delta}}}1
+            {Ε}{{\ensuremath{\Epsilon}}}1
+            {Ζ}{{\ensuremath{\Zeta}}}1
+            {Η}{{\ensuremath{\Eta}}}1
+            {Θ}{{\ensuremath{\Theta}}}1
+            {Ι}{{\ensuremath{\Iota}}}1
+            {Κ}{{\ensuremath{\Kappa}}}1
+            {Λ}{{\ensuremath{\Lambda}}}1
+            {Μ}{{\ensuremath{\Mu}}}1
+            {Ν}{{\ensuremath{\Nu}}}1
+            {Ξ}{{\ensuremath{\Xi}}}1
+            {Ο}{{\ensuremath{\Omicron}}}1
+            {Π}{{\ensuremath{\Pi}}}1
+            {Ρ}{{\ensuremath{\Rho}}}1
+            {Σ}{{\ensuremath{\Sigma}}}1
+            {Τ}{{\ensuremath{\Tau}}}1
+            {Υ}{{\ensuremath{\Upsilon}}}1
+            {Φ}{{\ensuremath{\Phi}}}1
+            {Χ}{{\ensuremath{\Chi}}}1
+            {Ψ}{{\ensuremath{\Psi}}}1
+            {Ω}{{\ensuremath{\Omega}}}1
+}
+
+\definecolor{pointone}{RGB}{255,0,0}
+\definecolor{pointtwo}{RGB}{255,89,0}
+\definecolor{pointseven}{RGB}{255,179,0}
+\definecolor{onepointzero}{RGB}{240,255,0}
+\definecolor{twopointzero}{RGB}{149,255,0}
+\definecolor{threepointzero}{RGB}{59,255,0}
+\definecolor{fivepointzero}{RGB}{0,255,30}
+\definecolor{eightpointzero}{RGB}{0,255,120}
+\definecolor{tenpointzero}{RGB}{0,255,210}
+\definecolor{twelvepointzero}{RGB}{0,209,255}
+\definecolor{twentypointzero}{RGB}{0,120,255}
+\definecolor{thirtypointzero}{RGB}{0,29,255}
+\definecolor{fiftypointzero}{RGB}{60,0,255}
+\definecolor{onehundredpointzero}{RGB}{150,0,255}
+\definecolor{twohundredpointzero}{RGB}{239,0,255}
+\definecolor{fivehundredpointzero}{RGB}{255,0,179}
+\definecolor{thousandpointzero}{RGB}{255,0,89}
+
+
+
+
+\geometry{ 
+    bindingoffset=1.0471975512cm, 
+    left=3cm, 
+    right=2.5cm, 
+    top=3.5cm, 
+    bottom=3.5cm
+}
+
+\renewcommand{\baselinestretch}{1.25} 
+
+% Set boolean for Sign switch
+\newbool{signswitch}
+\setbool{signswitch}{false}
+
+\newcommand{\spm}{\ifbool{signswitch}{-}{+}}
+
+
+\definecolor{YvesKlein}{HTML}{002FA7}
+
+% > =============== CHAPTER DESIGN =============== <
+\input{../journal/Custom Latex/Chapterdesign.tex}
+
+
+% > =============== Symbols =============== <
+\input{../journal/Custom Latex/Symbols.tex}
+
+\def\BAtitle{Studies of ERM Models with Correlated Disorder}
+\def\BAauthor{Tom Folgmann}
+\def\BAyear{2024}
+\def\BAreaderone{Prof. Dr. Matthias Fuchs}
+\def\BAreadertwo{Florian Vogel}
+
+
+\ohead{}
+% \chead{\textsc{\BAtitle}}
+\ifoot{\BAauthor}
+\ofoot{\thepage}
+
+
+
+\begin{document}
+    \input{Titelseite/Titelseite.tex}
+
+    \chapterstar{Danksagung}
+        \input{Vorsatz/Danksagung.tex}
+
+    \cleardoublepage
+    \chapterstar{Abstract}
+        \input{Vorsatz/Abstract.tex}
+    
+    \newpage
+    \chapterstar{Zusammenfassung}
+        \input{Vorsatz/Zusammenfassung.tex}
+
+    \cleardoublepage
+    \tableofcontents
+    \cleardoublepage
+
+    \pagestyle{headings}
+    \setcounter{page}{1}
+    \pagenumbering{arabic}
+
+
+
+    \chapter{Introduction}
+    \cfoot{\textsc{Introduction}}
+
+        \input{Inhalt/Sektionen/Einleitung.tex}
+
+
+    \cleardoublepage
+    \chapter{The System}
+    \cfoot{\textsc{The System}}
+
+        \noindent
+        \input{Inhalt/Sektionen/System-Intro.tex}
+
+
+        \subchapter{Mathematical Principles}
+        \cfoot{\textsc{The System: Mathematical Principles}}
+        
+            \noindent
+            \input{Inhalt/Sektionen/System-Subchapters/MathematicalPrinciples.tex}
+
+
+        \newpage
+        \subchapter{Foundations}
+        \cfoot{\textsc{The System: Foundations}}
+    
+            \noindent
+            \input{Inhalt/Sektionen/System-Subchapters/Foundations.tex}
+
+
+        \subchapter{Eigenvalue Measurement}
+        \cfoot{\textsc{The System: Eigenvalue Measurement}}
+        
+            \noindent
+            \input{Inhalt/Sektionen/System-Subchapters/EigenvalueMeasurement.tex}
+
+
+        \subchapter{Approximation of the Moment Generating Function}
+        \cfoot{\textsc{The System: Approximation of the \\Moment Generating Function}}
+        
+            \noindent
+            \input{Inhalt/Sektionen/System-Subchapters/ApproximationoftheMomentGeneratingFunction.tex}
+
+
+        \subchapter{Feynman Diagrammatics}
+        \cfoot{\textsc{The System: Feynman Diagrammatics}}
+            
+            \noindent
+            \input{Inhalt/Sektionen/System-Subchapters/FeynmanNotation.tex}
+
+        
+        \subchapter{Dyson Fixed Point Equation}
+        \cfoot{\textsc{The System: Dyson Fixed Point Equation}}
+            \label{subchapter:DysonFixedPointEquation}
+        
+            \noindent
+            \input{Inhalt/Sektionen/System-Subchapters/DysonFixedPointEquation.tex}
+        
+
+
+    \cleardoublepage
+    \chapter{Density Fluctuation Analysis}
+    \cfoot{\textsc{Density Fluctuation Analysis}}
+
+        \noindent
+        \input{Inhalt/Sektionen/Density-Subchapters/Density-Intro.tex}
+
+        % \subchapter{Foundations}
+        % \cfoot{\textsc{Density Fluctuation Analysis: Foundations Hallo!}}
+        % 
+        %     \noindent
+        %     \input{Inhalt/Sektionen/Density-Subchapters/Foundations.tex}
+
+
+        \subchapter{Expectency of Density Fluctuation}
+        \cfoot{\textsc{Density Fluctuation Analysis: \\Expectency of Density Fluctuation}}
+        
+            \noindent
+            \input{Inhalt/Sektionen/Density-Subchapters/ExpectencyofDensityFluctuation.tex}
+
+
+        \subchapter{Structual Corrected Diagrammatics}
+        \cfoot{\textsc{Density Fluctuation Analysis: \\Structual Corrected Diagrammatics}}
+        
+            \noindent
+            \input{Inhalt/Sektionen/Density-Subchapters/StructualCorrectedDiagammatics.tex}
+
+
+    \cleardoublepage
+    \chapter{Numerical Analysis}
+    \cfoot{\textsc{Numerical Analysis}}
+
+        \noindent
+        \input{Inhalt/Sektionen/Numerics/Numerics-Intro.tex}
+
+        \subchapter{Analytical Methods}
+        \cfoot{\textsc{Numerical Analysis: Analytical Methods}}
+
+            \noindent
+            \input{Inhalt/Sektionen/Numerics/AnalyticalMethods.tex}
+
+
+        \subchapter{Numerical Methods}
+        \cfoot{\textsc{Numerical Analysis: Numerical Methods}}
+        
+            \noindent
+            \input{Inhalt/Sektionen/Numerics/NumericalMethods.tex}
+
+        \subchapter{Numerical Results}
+        \cfoot{\textsc{Numerical Analysis: Numerical Results}}
+        
+            \noindent
+            \input{Inhalt/Sektionen/Numerics/NumericalResults.tex}
+
+    \cleardoublepage
+    \chapter{Conclusion and Outlook}
+    \cfoot{\textsc{Conclusion and Outlook}}
+    
+        \noindent
+        \input{Vorsatz/Fazit.tex}
+
+
+
+    
+    \cleardoublepage
+    \input{Appendix/Titelseite.tex}
+    
+    % \cleardoublepage
+    % \chapterstar{Zur Existenz von Funktionalableitungen}
+    % \cfoot{\textsc{Appendix: Zur Existenz\\ von Funktionalableitungen}}
+    % 
+    %     \noindent
+    %     \input{Appendix/Functionals.tex}
+    %     \newpage
+
+    % \cleardoublepage
+    % \chapterstar{Spectrum of Operators}
+    % \cfoot{\textsc{Appendix: Spectrum of Operators}}
+    % 
+    %     \noindent
+    %     \input{Appendix/Operatorspectrum.tex}
+    %     \newpage
+
+    \cleardoublepage
+    \chapterstar{Missed Proofs}
+    \cfoot{\textsc{Appendix: Missed Proofs}}
+    
+        \noindent
+        \input{Appendix/MissedProofs.tex}
+        
+
+    \cleardoublepage
+    \cfoot{\textsc{Literature}}
+    \bibliography{Literatur/jLiteratur.bib}
+    % \bibliographystyle{plain}
+
+    \cleardoublepage
+    \chapterstar{Code}
+    \cfoot{\textsc{Code}}
+    
+        \noindent
+        The code used in this project is publicly available on GitHub. The repository can be found at 
+        \begin{center}
+            \url{
+                https://github.com/unb3rechenbar/BA24-CorDis.git
+            }
+        \end{center}
+        Please do not hesitate to contact me in case of any problems or questions.
+
+        
+    \cleardoublepage
+    \includepdf[pages=-]{../Verwaltung/Bachelorprüfung Zulassung Physik Ausgefüllt.pdf}
+
+    \pdfinfo{
+        /Title (\BAtitle)
+        /Author (\BAauthor)
+    }
+
+
+\end{document}

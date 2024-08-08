@@ -1,0 +1,47 @@
+\begin{proof}[of Lemma \ref{mlem:FourierTransformOfHeaviside}]
+    Define for $\alpha\in\R_{>0}$ the approximation
+    \[
+        H_{a,\alpha}(t):=\begin{cases}
+            \exp(-\alpha\cdot t) & \text{if } t < a, \\
+            0 & \text{if } t > a.
+        \end{cases}
+    \]
+    Then the Fourier transform of $H_{a,\alpha}$ as a function $\omega\mapsto\hat H_{a,\alpha}(\omega)$ is given by
+    \[
+        (\mcF H_{a,\alpha})(\omega) = \int_{\R}H_{a,\alpha}(t)\cdot\exp(\cmath\cdot\omega\cdot t)\;\uplambda(dt) = \int_{-\infty}^a\exp(-\alpha\cdot t)\cdot\exp(\cmath\cdot\omega\cdot t)\;\uplambda(dt).
+    \]
+    A substitution $\Phi(\tau) = -(\tau - a)$ transforms the integral domain $(-\infty,a)\mapsto (0,\infty)$ and therefore
+    \begin{align*}
+        \int_{-\infty}^a\exp(-\alpha\cdot t)\cdot\exp(\cmath\cdot\omega\cdot t)\;\uplambda(dt) &= \int_{0}^\infty\exp(\alpha\cdot(\tau - a))\cdot\exp(-\cmath\cdot\omega\cdot(\tau - a))\;\uplambda(d\tau) \\
+        &= \exp(-(\alpha - \cmath\cdot\omega)\cdot a)\cdot\int_{0}^\infty\exp((\alpha - \cmath\cdot\omega)\cdot\tau)\;\uplambda(d\tau)
+    \end{align*}
+    It can now be verified
+    % \footnote{See \href{https://www.wolframalpha.com/input?i2d=true&i=Integrate%5BPower%5Be%2C%5C%2840%29%5C%2840%29alph+-+i*w%5C%2841%29*t%5C%2841%29%5D%2C%7Bt%2C0%2C%E2%88%9E%7D%5D}{WolframAlpha}.} 
+    for $\alpha\neq 0$ that $\int_{[0,\infty)}\exp((\alpha - \cmath\cdot\omega)\cdot\tau)\;\uplambda(d\tau) = -1/(\alpha - \cmath\cdot\omega)$. Therefore we have 
+    \[
+        (\mcF H_{a,\alpha})(\omega) = \exp(-(\alpha - \cmath\cdot\omega)\cdot a)\cdot\frac{-1}{\alpha - \cmath\cdot\omega} \stackrel{\alpha\to 0^+}{\to} \exp(\cmath\cdot a\cdot\omega)\cdot\frac{1}{\cmath\cdot\omega}.
+    \]
+    This candidate does cover the case $\omega = 0$, of which we will make use soon. To test if $\omega\mapsto \exp(\cmath\cdot a\cdot\omega)/(\cmath\cdot\omega)$ already fulfills the Fourier transform of the Heaviside function we consider the inverse transform to
+    \begin{multline}
+        \frac{1}{2\pi}\cdot\int_{\R}\exp(-\cmath\cdot a\cdot\omega)\cdot\frac{1}{\cmath\cdot\omega}\cdot\exp(\cmath\cdot\omega\cdot t)\;\uplambda(d\omega) \\
+        = \frac{1}{2\pi\cmath}\cdot\nbra{
+            \int_{(-\infty,0)}\ldots\;\uplambda(d\omega) + \int_{(0,\infty)}\ldots\;\uplambda(d\omega)
+        }.\label{eq:FourierTransformOfHeavisideCandidate}\tag{C}
+    \end{multline}
+    The integration domains can be brought together by a substitution $\Phi(\tau) = -\tau$ in the first integral. This yields $\tau\mapsto -\exp(\cmath\cdot (t - a)\cdot\tau)/\tau$ and we find for the integral sum
+    \[
+        \bbra{\mcF^{-1}\mcF H_{a,\alpha}}(t) = \frac{1}{2\pi\cmath}\cdot\int_{0}^\infty\frac{\exp(-\cmath\cdot (t - a)\cdot\tau) - \exp(\cmath\cdot (t - a)\cdot\tau)}{\tau}\;\uplambda(d\tau).
+    \]
+    For this integral we use the identity $\sin(\omega\cdot t) = \bbra{e^{\cmath\omega t} - e^{-\cmath\omega t}}/(2\cdot\cmath)$ to find
+    \[
+        \bbra{\mcF^{-1}\mcF H_{a,\alpha}}(t) = -\frac{1}{\pi}\cdot\int_{0}^\infty\frac{\sin(\omega\cdot(t - a))}{\omega}\;\uplambda(d\omega) = -\frac{\text{sgn}(t - a)}{2} = \begin{cases}
+            1/2 & \text{if } t < a, \\
+            -1/2 & \text{if } t > a.
+        \end{cases}
+    \]
+    This means that $\bbra{\mcF^{-1}\mcF H_{a}}(t) = H_a(t) - 1/2$. Since $\mcF^{-1}(x\mapsto 2\pi\cdot\delta(x)) = 1$ we can correct the candidate \eqref{eq:FourierTransformOfHeavisideCandidate} by adding $x\mapsto \pi\cdot\delta(x)$ to find the Fourier transform of $H_a$ as
+    \[
+        \R\ni\omega\mapsto\hat H_a(\omega) = \exp(\cmath\cdot a\cdot \omega)\cdot\frac{1}{\cmath\cdot\omega} + \frac{1}{2}\cdot 2\pi\cdot\delta_0(\omega).
+    \]
+    This concludes the proof.
+\end{proof}

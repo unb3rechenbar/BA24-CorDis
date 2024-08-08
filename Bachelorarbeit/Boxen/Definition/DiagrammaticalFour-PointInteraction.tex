@@ -1,0 +1,32 @@
+\begin{mdef}{Diagrammatical Four-Point Interaction}{DiagrammaticalFourPointInteraction}
+    We define the \emph{diagrammatical four-point interaction} symbol as 
+    \[
+        \vcenter{
+            \hbox{
+                \begin{tikzpicture}
+                    \begin{feynman}[small]
+                        \vertex (a);
+                        \vertex [right=2cm of a] (b);
+                        \vertex [left=1.5cm of a] (c);
+                        \vertex [below left=1.5cm of a] (d);
+                        \vertex [above left=1.5cm of a] (e);
+    
+                        \diagram*{
+                            (a) -- [fermion, edge label=$p + q_1 + q_2$] (b),
+                            (c) -- [photon, edge label=$q_1$] (a),
+                            (d) -- [fermion] (a),
+                            (e) -- [photon] (a),
+                        };
+
+                        \path (a) -- (d) node[midway, below right] {$p$};
+                        \path (a) -- (e) node[midway, above right] {$q_2$};
+
+                        \draw[fill] (a)+(-0.1,-0.1) rectangle +(0.1,0.1); 
+                    \end{feynman}
+                \end{tikzpicture}
+            }
+        } 
+        := -V(p,-q_1)
+    \]
+    for given $p,q_1,q_2\in\R^d$, where the first argument describes the incoming mode and the second one of the density fluctuations. % \color{red} CORRECT? \color{black}
+\end{mdef}

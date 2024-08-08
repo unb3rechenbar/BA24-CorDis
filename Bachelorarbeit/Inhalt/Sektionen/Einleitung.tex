@@ -1,0 +1,85 @@
+
+
+% -> Vibrational excitation of athermal amorphous solids
+% -> Glasses at low temperature
+% -> Strong difference to crystalline solids (established by scattering experiments)
+% -> ERM is a candidate for simple idealized model to study parts of the glass vibrational dynamics
+
+
+% -> ERM was introduced in 1999 by Mézard, Parisi and Zee
+% -> the model was studied in low temperature domain by Martin-Mayor, Grigera and coworkers, Schirmacher and coworkers
+
+% -> model was successfully used in physical systems with disorder 
+
+% -> Diagrammatical expansion in field theoretic approaches led to self consistent results for the central Green's function
+% -> Allowing approximate calculation of vibrational density of states $g(\omega)$ and dynamic structure factor
+
+% > ------ PAPER: Properties of stable ensambles of euclidean random matrices ------ <
+% -> within homogeneous, isotropic setting and gaussian spring function the paper saw rayleigh damping of sound, even though the model is harmonic
+% -> reason is that plane waves are not (precise) eigenmodes of the underlying hessian matrix to the system's hamiltonian
+% -> the paper takes a numerical look at characteristic properties of its ERM model for not too small densitys n, which encode the amount of disorder in the system
+%
+% The Model matrix was 
+% \[
+%   M_{ij} = -f(r_i-r_j) + \delta_{ij}\cdot\sum_{k\neq i}f(r_i-r_k)
+% \]
+% 
+% The spring function was chosen to be a gaussian function in the dimensionless distance $r\in\R$:
+% \[
+%   f(r) = \exp(-\frac{r^2}{2\sigma^2}),\qquad \sigma = 1
+% \]
+
+
+% > ------ PAPER: On the high-density expansion for euclidean random matrices ------ <
+% -> Grigera and coworkers established a field-theoretical representation for the resolvent $G_N$ of the ERM model
+% -> Allows perturbative calculation of the self energy 
+% -> Divergent terms in the expansion are occuring due to ultraviolet behaviour of the bare propagator $G_0$
+% -> Those divergent terms could be summed up to 0 (later presented in one loop approximation)
+
+
+% > ------ MASTER THESIS: Self consistent field theory of euclidean random matrices ------ <
+
+
+% Studies:
+% -> high and low density \ref{paper:Grigera_2011}
+% -> analytical and numerical \ref{paper:Grigera_2011}
+
+
+% Applications: 
+% -> disordered d-wave superconductors \cite{paper:Grigera_2011}
+% -> disordered magnetic semiconductor (similar to spin glass model) \cite{paper:Grigera_2011}
+% -> instantaneous normal modes in liquids \cite{paper:Grigera_2011}
+% -> vibratios in glasses \cite{paper:Grigera_2011}
+% -> gelation transition in polymers \cite{paper:Grigera_2011}
+% -> vibrations in DNA \cite{paper:Grigera_2011}
+Generally speaking we describe a classical system of $N\in\N$ particles using the \emph{phase space} $\Gamma_1\times\Gamma_2\subset(\R^d)^N\times(\R^d)^N$ of \emph{positions} and \emph{moments}, and a hamiltonian function $\mcH:(\R^d)^N\times(\R^d)^N\to\R$. Its properties determine if the system describes a liquid, solid or gas. If the function can be independently split into a kinetic and potential part, i.e. $\mcH(p,r) = T(p) + U(r)$, integral factorization can already be done via 
+\[
+    \int_{\Gamma_1\times\Gamma_2}\exp(-\beta\cdot\mcH(p,r))\;\uplambda\bbra{d(p,r)} = \int_{\Gamma_1}\exp(-\beta\cdot T(p))\;\uplambda(dp)\cdot\int_{\Gamma_2}\exp(-\beta\cdot U(r))\;\uplambda(dr).
+\]
+The factor $\beta:=(k_B\cdot T)^{-1}$ can be interpreted as an inverse temperature of the system, with $k_B$ being the Boltzmann constant. This already means that the Boltzmann density $(p,r)\mapsto\exp(-\beta\cdot\mcH(p,r))$ is divided into a product of two densities $P$ and $Q$ on $\Gamma_1$ and $\Gamma_2$ respectively. Application of $\int_{\Gamma_1} 1\;P = 1$ 
+\[
+    \int_{\Gamma_1\times\Gamma_2}\exp(-\beta\cdot\mcH(p,r))\;\uplambda(d(p,r)) = 1\cdot \int_{\Gamma_2}\exp(-\beta\cdot U(r))\;\uplambda(dr)
+\] 
+In this state an expansion on the position arguments can be done, such that by the potential $U$ defined rigid equilibrium positions $r_0\in\text{critP}(U)$ are assumed, from which small deviations $\phi$ lead to yet another expansion of the potential energy \cite{ALEXANDER199865}. This approach is also used in the Euclidean Random Matrix (ERM) model.
+
+The ERM model was introduced in 1999 by Mézard, Parisi and Zee \cite{MEZARD1999689} and has since then been studied by Grigera \cite{paper:Grigera_2011} and others. It introduces an interaction matrix $\tilde U(f,R)$ which is given by 
+\[
+    \tilde U(f,R) = \delta_{ij}\cdot\sum_{(i,j)\in[N]^2}f(R_i - R_j) - f(R_i - R_j).
+\]
+This Laplacian form is motivated due to requirement of a conservation law $\sum_{j\in[N]}\tilde U(f,R)_{i,j} = 0$, otherwise simply the pairs $f(R_i - R_j)$ would populate the matrix' entries \cite{paper:Grigera_2011}. Its appearance can be motivated by graph theory, which we will discuss in the next sections. The application of the model can be seen in vibrational analysis of glasses or vibrations in DNA \cite{paper:Grigera_2011}. \\
+
+The pair interaction function $f$ is set with regard to the potential $U$, which in our model is a summation of pair potentials $u$ following $U(R) = 1/2\cdot\sum_{i,j}U(R_i - R_j)$. Hereby only rotational invariance (and therefore a scalar character in $f$) and Fourier transformability are required, otherwise the potential $u$ and respective $f$ can be chosen freely \cite{paper:Grigera_2011}. Its application can be seen in the Taylor series of the positional component to the hamiltonian function $\mcH$:
+\begin{multline*}
+    \int_{\Gamma_2}\exp(-\beta\cdot U(r))\;\uplambda(dr)\stackrel{r\mapsto r_0 + \phi}{\approx} \int_{\Gamma_2}\int_{\Gamma_2}\exp(-\beta\cdot U(r_0 + \phi))\;\uplambda(d\phi)\uplambda(dr_0) \\
+    \approx \int_{\Gamma_2}\int_{\Gamma_2}{\exp}\bbbra{-\beta\cdot \Bbra{
+        \ubra{U(r_0)}{\text{negl.}} + \ubra{dU(r_0)(\phi)}{=0} + \frac{1}{2}\ubra{\scpr{\text{H}U(r_0)\cdot\phi}{\phi}}{\to\text{ERM}}
+    }}\;\uplambda(d\phi)\;\uplambda(dr_0).
+\end{multline*}
+Hereby the ERM model is introduced by the second order term in the Taylor series of $U$ and the Hessian matrix $\text{H}U$ of $U$ at $r_0$. Its critical idea is the expansion of the positions to equilibrium states and small variations around them. This can be done in amorphous solids \cite{ALEXANDER199865}. \\
+
+The key observation is that up until now the model was discussed in the context of \emph{uniformly} distributed particle positions $r\mapsto 1/\abs{\Gamma_2}$, i.e. matrix elements \cite{paper:Grigera_2011,mth:vogel}. Although some considerations have been done by Martin-Mayor in \cite{10.1063/1.1349709}, we provide an enhanced view on particle correlations in ERM by introducing the static structure factor into the Feynman rules.
+This firstly introduces structural aspects into the mathematical formalism of ERM. \\
+
+It is then particularly interesting to see how the corrected model compares to the current state. We will do this by looking at a specific example of a $N$ particle system in a soft sphere potential. 
+
+% By the example of the velocity of sound the ERM expansion onto structural properties is discussed. 

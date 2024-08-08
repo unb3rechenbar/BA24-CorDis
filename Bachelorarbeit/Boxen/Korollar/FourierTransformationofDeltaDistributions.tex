@@ -1,0 +1,13 @@
+\begin{mcor}{Fourier Transformation of Delta Distributions}{FourierTransformationOfDeltaDistributions}
+    Let $y\in\R^d$ be a fixed point and $\mcS'(\R^d)\ni\delta_y:\varphi\mapsto\varphi(y)$ be the Dirac delta distribution at $y$. Then the Fourier transform of $\delta_y$ is given by
+    \[
+        (\mcF\delta_y)(\varphi) = [e_y](\varphi) := \int_{\R^d}\exp(\cmath\cdot y\cdot x)\cdot\varphi(x)\;\uplambda(dx).
+    \]
+\end{mcor}
+\begin{proof}
+    Since $\delta_y$ for $y\in\R^d$ is an element of $\mcS'(\R^d)$ we can evaluate for $\varphi\in\mcS(\R^d)$ the Fourier transform of $\delta_y$ as
+    \[
+        (\mcF\delta_y)(\varphi) = \delta_y(\mcF\varphi) = (\mcF\varphi)(y) = \int_{\R^d}\varphi(x)\cdot\exp(\cmath\cdot y\cdot x)\;\uplambdabar(dx),
+    \]
+    which is exactly our claimed result.
+\end{proof}

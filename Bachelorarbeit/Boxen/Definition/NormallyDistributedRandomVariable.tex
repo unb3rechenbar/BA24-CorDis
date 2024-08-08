@@ -1,0 +1,7 @@
+\begin{mdef}{Normally Distributed Random Variable}{NormallyDistributedRandomVariable}
+    % Sei $(\Omega, \mathcal{A}, \mbbP)$ ein Wahrscheinlichkeitsraum und $(\R^d,\mcB(\R^d))$ ein Messraum. Eine Zufallsvariable $X: \Omega \to \R^d$ heißt \textit{normalverteilt}, wenn es $\mu\in \R^d$ und $\Sigma\in\R^{d\times d}$ pd und symmetrisch gibt, sodaß $\mbbP_X\gg\uplambda$ mit Dichte $f_X(x)$ von der Form 
+    Let $(\Omega, \mathcal{A}, \mbbP)$ be a probability space and $(\R^d,\mcB(\R^d))$ a measurable space. A random variable $X: \Omega \to \R^d$ is called \emph{normally distributed} if there exist $\mu\in \R^d$ and $\Sigma\in\R^{d\times d}$ positive definite and symmetric such that $\mbbP_X= f_X\cdot\uplambda$ with density $f_X(x)$ of the form
+    \[
+        f_X(x) = \frac{1}{\sqrt{(2\pi)^d\det(\Sigma)}}\cdot\exp(-\frac{1}{2}\scpr{\Sigma^{-1}\cdot(x-\mu)}{x-\mu}).
+    \]
+\end{mdef}

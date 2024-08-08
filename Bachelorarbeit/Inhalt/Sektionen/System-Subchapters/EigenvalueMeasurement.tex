@@ -1,0 +1,324 @@
+The general interest now lies in exploring the eigenvalue measurement, i.e. the measurement of the eigenvalue density of $\tilde U(f,R_\omega)$ for $\omega\in\Omega$. To do so we first need to discuss general approaches and then stick to one particular method which will come in handy from a perturbative perspective. 
+
+Beginning with a general insight we should imagine fixed eigenvalues in the point spectrum of $\sigma_p\bbra{\tilde U(f,R_\omega)}\subset\C$ with finite cardinality $m:=\#\sigma_p\bbra{\tilde U(f,R_\omega)}$ that we can count bijectively via $\Lambda:[m]\to\sigma_p\bbra{\tilde U(f,R_\omega)}$. We now want to \emph{test for} those eigenvalues, i.e. we choose a testpoint $P\in\C$ or even set $\mcP\subseteq\C$ to compare with the set of eigenvalues $\sigma_p\bbra{\tilde U(f,R_\omega)}$. Testing positive should return us a $1$, testing negative a $0$. This can be done by the use of \emph{dirac} measures $i\mapsto\delta_{\Lambda_i}(\{P\})$ for every single eigenvalue $\Lambda_i$ of the considered matrix. It makes sense now do sum up all the results of $\delta_{\Lambda_i}(\{p\})$ to gain the total successes for the testpoint $P$ and normalizing by the total number of eigenvalues $m$ to get the \emph{probability of success} for the testpoint $P$. This measure is known in literature \cite{meckes2021eigenvaluesrandommatrices} as the \emph{empirical spectral measure}. In a last step the averaging over all possible euclidean random matrices given by $\Omega\ni\omega\mapsto U(f,R_\omega)$ for a fixed particle position random variable $R:\Omega\to V_{d,N}$ can now be done via integration, such that we get $g_{\tilde U(f,R)}$ as 
+\begin{align}
+    g_{\tilde U(f,R)}(P) = \frac{1}{p}\cdot\int_{\Omega}\ubra{\sum_{i\in[p]}\delta_{\Lambda(\omega)_i}(\{P\})}{=:I_P(\omega)}\;\mbbP(d\omega) = \frac{1}{p}\cdot\sum_{I_*\in\text{im}(I_P)}I_*\cdot\mbbP\bbra{\{I_P = I_*\}}. \label{eq:EmpiricalSpectralMeasure}
+\end{align}
+We have tacitly used a notation from measure theory declared by $\{I_P = I_*\} := \{\omega\in\Omega:I_P(\omega) = I_*\}$ and an implicitly defined function $\Lambda:\Omega\ni\omega\mapsto\bbra{[m]\to\sigma_p\bbra{\tilde U(f,R_\omega)}}$. Since we can already notice by just writing down the hard time we have to correctly handle this object, we try to use complex analysis to approximate our idea. The strategy can be neatly presented in a visualization, see figure \ref{fig:ApproximationOfEigenvalues}:
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[] (-3,0) -- (-1,0);
+        \draw[->] (1,0) -- (3,0) node[right]{$\Re(z)$};
+
+        \draw[] (0,0) circle (1);
+        \draw[dotted] (-1,0) -- (1,0);
+        \draw[->] (0,0) -- ({cos(30)},{sin(30)});
+
+        \node[right] at (1.3,1) {$\Lambda_i + v\cdot\epsilon$};
+        \draw[->, bend right] (1.3,1) to ({0.5*cos(38)},{0.5*sin(38)});
+
+        \draw[fill=black] (0,0) circle (0.05) node[below]{$\Lambda_i$};
+
+        \draw[->] (-3,-1.3) -- (-3,1.5) node[above]{$\Im(z)$};
+    \end{tikzpicture}
+    \caption{Approximation of eigenvalues $\Lambda_i$ by a complex number $z = \Lambda_i + v\cdot\epsilon$ for a direction $v\in B_\epsilon(0)\subset\C$. The easiest choice of direction is $v = \cmath$, since all $\Lambda_i\in\R_{\geq 0}$ for our positive semidefinite laplacian matrix. With $\epsilon>0$ we can get arbitrarily close to the eigenvalue $\Lambda_i$.}
+    \label{fig:ApproximationOfEigenvalues}
+\end{figure}
+To utilize this technically we make use of the resolvent in definition \ref{mdef:Resolvent} regarding $\tilde U(f,R_\omega)$, which for eigenvalues $i\mapsto\Lambda_i$ can be brought to a divergent pole.
+But first we want to motivate this idea from a physical perspective.
+
+The intuition for the resolvents appearance lies in the newtonian dynamics on which our system relies. If we, in a more general case, allow statistical processes such as $X:\R_{>0}\to (\Omega\to V_{d,N})$ with sufficient requirements\footnote{See L.\ref{mlem:LaplaceTransformOfDerivatives} and TD.\ref{msatdef:LaplaceTransformation}. Explicitly for the existence of the Laplace transform, several requirements need to be met by $t\mapsto \scpr{X_t(\omega)}{X_0(\omega)}$. Since in this thesis the actual \emph{time dependent process} is not of interest, i.e. only a discussion of a frozen system is done, we do not specify this further.}, then for two particles their interaction is given by the weights within the entrys of our Laplace matrix $\tilde U(f,X_t)$ for any time $t\in\R_{>0}$. Because of their symmetry we can write the force acting on particle $X_t(\omega)_i$ caused by particle $X_t(\omega)_j$ at time $t$ as
+\[
+    \Bbra{\dv{t}}^2X_t(\omega)_i = -\tilde U\bbra{f,X_t(\omega)}_{i,j}\cdot  X_t(\omega)_j.
+\]
+We can now transfer this statistical ordinary differential equation to the initial state of the impacted particles displacement $X_t(\omega)_i$ at different points in time as 
+\[
+    \Bbra{\dv{t}}^2\scpr{X_t(\omega)_i}{X_0(\omega)_i} = -\tilde U\bbra{f,X_t(\omega)}_{i,j}\cdot\scpr{X_t(\omega)_j}{X_0(\omega)_i}.
+\] 
+Application of the Laplace transformation from Theorem and Definition \ref{msatdef:LaplaceTransformation} under appropriate conditions yields
+\begin{multline*}
+    \int_{\R_{>0}}\Bbra{\dv{t}}^2\scpr{X_t(\omega)_i}{X_0(\omega)_i}\cdot\exp(-s\cdot t)\;\uplambda(dt) \\
+    = -\tilde U\bbra{f,X_t(\omega)}_{i,j}\cdot\int_{\R_{>0}}\scpr{X_t(\omega)_j}{X_0(\omega)_i}\cdot\exp(-s\cdot t)\;\uplambda(dt).
+\end{multline*}
+Let $F_{j,i,\omega}(t):=\scpr{X_t(\omega)_j}{X_0(\omega)_i}$ for now. For derivatives under Laplace transformations we can utilize Lemma \ref{mlem:LaplaceTransformOfDerivatives}, which is proven in the appendix.
+\input{../journal/Boxen/Lemma/LaplaceTransformationOfDerivatives.tex}
+With it we find $\int_{\R_{>0}}\dv{t}f(t)\cdot\exp(-s\cdot t)\;\uplambda(dt) = -f(0) + s\cdot (\mcL f)(s)$ that can be used for $t\mapsto F_{j,i,\omega}''(t)$ to yield
+\[
+    \int_{\R_{>0}}\Bbra{\dv{t}}^2F_{i,i,\omega}(t)\cdot\exp(-s\cdot t)\;\uplambda(dt) = -\dv{t}F_{i,i,\omega}(0) - s\cdot F_{i,i,\omega}(0) + s^2\cdot(\mcL F_{i,i,\omega})(s). 
+\] 
+This introduces two initial conditions, the initial displacement and initial velocity, that can be set using physical reasoning that we will discuss in a moment. If we first introduce artificially $\delta_{ij}:=\mbbEins_{\{i\}}(j)$ we can rearrange terms using the equality to $-\tilde U(f,X_t(\omega))\cdot (\mcL F_{j,i,\omega})(s)$ to isolate the initial conditions: 
+\[
+    \bbra{s^2\cdot\delta_{ij} + \tilde U(f,X_t(\omega))}\cdot (\mcL F_{j,i,\omega})(s) = F_{j,i,\omega}(0) + s\cdot\dv{t}F_{j,i,\omega}(0).
+\]
+To choose these initial values reasonably, we argue that particles only correlate with each other, i.e. defining $F_{j,i,\omega}(0) = \delta_{ij}$, and the correlation of ones particle velocity at $t\to 0$ with the starting position of another particle is zero, i.e. $\dv{t}F_{j,i,\omega}(0) = 0$. This means that the systems dynamics are \emph{caused by} the initial systems state with development of time $t$ and not hard-wired into the initial conditions at $t = 0$. Setting $s = \cmath\cdot\Lambda_i$ with $\Lambda_i>s_0>0$ we can reformulate to 
+\[
+    (\mcL F_{j,i,\omega})(s) = \frac{1}{s^2\cdot\delta_{ij} + \tilde U(f,X_t(\omega))_{i,j}} \stackrel{\epsilon\to 0}{=} \frac{1}{\tilde U(f,X_t(\omega))_{i,j} - \delta_{ij}\cdot \Lambda_i^2}.
+\]
+and interpret $(i,j)\mapsto F_{j,i,\omega}(s)$ as the resolvent $(\tilde U(f,X_t(\omega)) - \text{diag}(\Lambda_i^2))^{-1}$ of the Laplace matrix $\tilde U(f,X_t(\omega))$. An implicit discrete Fourier transformation of the resolvents components $F_{j,i,\omega}(s)$ can be done by the summation 
+\[
+    (p,s)\mapsto \sum_{(i,j)\in[d\cdot N]^2} \frac{1}{\tilde U(f,X_t(\omega))_{i,j} - \delta_{ij}\cdot \Lambda_i^2} \cdot \exp(\cmath\cdot\scpr{p}{r_{\tau(i)} - r_{\tau(j)}}).
+\]
+In his we have introduced a mapping $\tau$ which treats dimensionality issues and collects the matching particle positions for subtraction. It therefore needs a form $[N\cdot d]\to [N]^d$. We again do not discuss this further. Instead we summarize the result in the following postulate.
+% Effectively it is used to select the matching nodes to the $(i,j)$-th entry of the resolvent (which was connected to the laplacian matrix of a graph) out of the phase space vector $R_\omega\in V_{d,N}$. It is related to the isomorphism $\iota$ from D.\ref{mdef:ModellingSpace}.
+\input{../journal/Boxen/Postulat/EigenvalueDensityviatheResolvent.tex}
+The only missing connection to be made is the one between the resolvent and the empirical spectral measure. It is made using the resiudal theorem from complex analysis, meaning
+\[
+    g_{\tilde U(f,R)}(P) = \frac{1}{\cmath\cdot\pi}\cdot\frac{1}{N}\cdot\sum_{j=1}^N\frac{1}{\Lambda_j - \ubra{(\Lambda_j + \cmath\cdot\epsilon)}{=:z_j(\epsilon)}} = \frac{1}{\cmath\cdot\pi}\cdot\frac{1}{N}\cdot\sum_{j=1}^N\nsqbra{\frac{1}{\text{diag}(\Lambda) - \text{diag}(i\mapsto z_i(\epsilon))}}_{j,j}.
+\]
+The sum can now be expanded onto $[N]^2$ using $\delta_{ij}$ and its approximation on using an exponential limes $\lim_{\dabs{p}{}\to\infty}\exp(\cmath\cdot\scpr{p}{r_{\tau(i)} - r_{\tau(j)}})$ known as a \emph{large momentum limit}. But since this connection is not of particular use for the further development of the thesis, we only state
+\[
+    g(s) = -\frac{1}{\pi}\cdot\lim_{\dabs{p}{}\to\infty}
+    \bbbra{
+        \Im\Bbra{
+            \lim_{\varepsilon\to 0}G_N(p,s^2 + \cmath\cdot\varepsilon)
+        }
+    },
+\]
+The procedure can be seen in \cite{skript:NonEqPhy}. 
+
+To introduce the perturbative machinery we use a gaussian approach to the resolvent. Hereby we use the second moment of a gaussian probability measure that is connected to the resolvent. This is done in the following postulate.
+\input{../journal/Boxen/Postulat/ResolventRepresentationviaSecondGaussianMoment.tex}
+Notice how we have introduced this postulate using $-(z-\tilde U(f,R_\omega))$. We choose to do so to follow literature's convention \cite{mth:vogel}. The resolvent we have derived would lead to a completely analogous result. This postulate leads to a different form of $G_N$, i.e. the expectancy in $\omega\in\Omega$ of
+\[
+    \sum_{(i,j)\in[d\cdot N]^2}\exp(\cmath\cdot\scpr{p}{{R_\omega}_{\tau(i)} - (R_\omega)_{\tau(j)}})\cdot\frac{1}{I_{\tilde U(f,R_\omega)}(z)}\cdot\int_{\R^{d\cdot N}}\phi_i\cdot\phi_j\;(\mbbG_{\tilde U, z, R_\omega})(d\phi).
+\]
+In perturbation theory we now need to assign the role of an action functional to some component of said integral. As we have established in Postulate \ref{mpos:GaussianResolventRepresentation} the resolvent can be written as a second moment of a gaussian probability measure $\mbbG_{\tilde U, z, R_\omega}$, which introduces a gaussian density function $\mcG_{\tilde U(f,R_\omega)}$ of the form
+\begin{align}
+    \mcG_{R_z(\tilde U(f,R_\omega))}(\phi) = \frac{1}{\sqrt{(2\cdot\pi)^{d\cdot N}\cdot\det\bbra{R_z(\tilde U(f,R_\omega))}}}\cdot{\exp}\bbbra{
+        -\frac{1}{2}\cdot\ubra{
+            \scpr{\phi}{\bbra{z - \tilde U(f,R_\omega)}\cdot\phi}
+        }{
+            =: S_{z,R_{\omega}}(\phi).
+        }
+    }. \label{eq:GeneralGN}
+\end{align}
+Within the exponent we can identify the \emph{action function} $S_{z,R_{\omega}}:\R^{d\cdot N}\to\R$ that is the starting point going forward.
+\input{../journal/Boxen/Definition/DiscreteAction.tex}
+The tricky part now involves a well reasoned transition from a discrete \emph{function of vectors} $S_{z,R_{\omega}}$ to a \emph{functional of functions} $S_{z,R_{\omega}}:\mcF_{d,N}\to\R$. Note that we do not change notation for the action functional, since its physical interpretation remains the same.
+To create such a functional we expand the scalar product notation of $S_{z,R_{\omega}}:\R^{d\cdot N}\to\R$ to its summation form
+\begin{align}
+    S_{z,R_{\omega}}(\phi) = \sum_{(i,j)\in[d\cdot N]^2}\phi_i\cdot\bbra{z - \tilde U(f,R_\omega)}_{i,j}\cdot\phi_j.\label{eq:DiscreteActionOG}
+\end{align}
+We now introduce a trick constituted of two parts. First we extrapolate the variables $\phi_i$ to a general Schwartz function\footnote{This could be done by a summation of particuluarly defined gaussian functions $x\mapsto a(r_i)\cdot e^{(x - r_i)^2}$, whose amplitudes need to be adjusted recursively for $N\in\N$ points. This will in this thesis not be done explicitly. In the literature this is expressed as \emph{analytically contiued} \cite{paper:Grigera_2011,mth:vogel}.} $\Phi:\R^d\to\R$ which fits the restriction of $\Phi(x) = \phi_i$ for equilibrium position arguments $x = R_\omega(\tau^{-1}(i))$. This means that $\Phi$ yields not closer defined values at non equilibrium positions, which in the second step should be eliminated by a Dirac integration, since they do not appear in our original discrete action. Plugging this into the discrete action yields\footnote{Again a small warning: Since we make a simplification here, the components $\phi_i\in\R$ need to be drawn from positions $R_\omega(i)\in\R^d$. In a general case one would summarize over $N\cdot d$, but with $\tilde U(f,R_\omega)$ having diagonal blocks of $d\times d$ size, a factor of $d$ equal sums can occur. Therefore $\Phi$ should originally be a function $\Phi:\R\to\R$, but with this simplification we decide to use $\Phi:\R^d\to\R$ and no further specification of summation domain, weather $[d\cdot N]$ or $[N]$.}
+\[
+    \sum_{(i,j)}\phi_i\cdot\bbra{z - \tilde U(f,R_\omega)}_{i,j}\cdot\phi_j = \sum_{(i,j)}\Phi\bbra{
+        R_\omega(\tau^{-1}(i))
+    }\cdot \bbra{z - \tilde U(f,R_\omega)}_{i,j}\cdot\Phi\bbra{
+        R_\omega(\tau^{-1}(j))
+    }.
+\]
+The evaluation can now also be written using an evaluation functional $\delta_x(f) = f(x)$, so that we have
+\[
+    % \sum_{(i,j)\in[d\cdot N]^2}\phi_i\cdot\bbra{z - \tilde U(f,R_\omega)}_{i,j}\cdot\phi_j = 
+    \sum_{(i,j)}\delta_{R_{\omega}(i)}\Bbra{
+        x\mapsto \delta_{R_\omega(j)}\bbra{
+            y\mapsto \Phi(x)\cdot\bbra{z - \tilde U(f,R_\omega)}_{i,j}\cdot\Phi(y)
+        }
+    }
+\]
+Secondly we introduce a virtual integration that evaluates the function at the specific positions $R_\omega(i)$. This allows us to conclude equality to the original formulation:
+\[
+    % \sum_{(i,j)\in[d\cdot N]^2}\phi_i\cdot\bbra{z - \tilde U(f,R_\omega)}_{i,j}\cdot\phi_j = 
+    \eqref{eq:DiscreteActionOG} = \sum_{(i,j)}\int_{\R^d}\int_{\R^d}
+        \Phi(x)\cdot\bbra{z - \tilde U(f,R_\omega)}_{i,j}\cdot\Phi(y)
+    \;\delta_{R_\omega(i)}(dy)\;\delta_{R_\omega(j)}(dx)
+\]
+Interchanging the order of integration and summation can be done due to linearity. If we now consider the definition of $\tilde U(f,R_\omega)_{i,j} = \delta_{ij}\cdot\Sigma(f,i) - f_{i,j}$ from P.\ref{mpos:CouplingRepresentation} we can write 
+\begin{multline*}
+    \Phi(x)\cdot\bbra{
+        z - \delta_{ij}\cdot\Sigma(f,i) + f_{i,j}
+    }\cdot\Phi(y) \\
+    = \Phi(x)\cdot z\cdot \Phi(y) - \Phi(x)\cdot\delta_{ij}\cdot\Sigma(f,i)\cdot\Phi(y) + \Phi(x)\cdot f_{i,j}\cdot\Phi(y).
+\end{multline*}
+With this the integral can be rewritten into a sum of three according to
+\begin{multline*}
+    z\cdot\int_{\R^d}\Phi(x)^2\;\delta_{R_\omega(i)}(dx) - \int_{\R^d}\Phi(x)\cdot\Sigma(f,i)\cdot\delta_{ij}\cdot\Phi(x)\;\delta_{R_\omega(j)}(dx) \\
+    + \int_{(\R^d)^2}\Phi(x)\cdot f(x-y)\cdot\Phi(y)\;(\delta_{R_\omega(i)}\otimes\delta_{R_\omega(j)})(d(x,y)). 
+\end{multline*}
+Since we still need to perform the summation $\sum_{(i,j)\in[N]^2}$, it comes in handy to include this process in a new definition. For the first integral the $\int$ can be effortlessly interchanged with the third, as it is the case with the last. The second integral still is dependent on the index $i$, since $\Sigma(f,i) = \sum_{j\in[N]\setminus\{i\}}f_{i,j}$ includes an exclusion of self interaction. It can be rewritten by shifting the summation to $\underline\Sigma(f,x):=\sum_{r_*\in\text{im}(R_\omega)\setminus\{x\}}f(x - r_*)$. If $x$ now becomes an element of the image of $R_\omega$, its contribution to the sum is excluded, hence self interaction is still forbidden. With this the integrand becomes independent of the index $i$ and the normalized density measure $\rho_{R_\omega}:= \rho_*^{-1}\cdot\sum_{i\in[N]}\delta_{R_\omega(i)}$ can be introduced. 
+\input{../journal/Boxen/Definition/DensityMeasurement.tex}
+With this we have generalized the discrete action $\phi\mapsto S_{z,R_\omega}(\phi)$ to a functional action $\Phi\mapsto S_{z,R_\omega}[\Phi]$ and find with virtually unchanged notation
+\[
+    S_{z,R_{\omega}}[\Phi] = \int_{\R^d}\int_{\R^d}\Phi(x)\cdot\bbra{z - \tilde U(f,R_\omega)}\cdot\Phi(y)\;\rho_{R_\omega}(dx)\;\rho_{R_\omega}(dy) = \text{I} + \text{II} + \text{III},
+\]
+Implicitly it now follows with the introduced summation abbrevation $\underline\Sigma(f,x) = \sum_{r_*\in\text{im}(R_\omega)\setminus\{x\}}f(x - r_*)$ that
+\begin{align}
+    \text{I} &= \rho_*\cdot z\cdot\int_{V_{d,N}}\Phi(x)^2\;\rho_{R_\omega}(dx) \\
+    \text{II} &= -\rho_*\cdot\int_{V_{d,N}}\Phi(x)\cdot\underline\Sigma(f,x)\cdot\Phi(x)\;\rho_{R_\omega}(dx) \\
+    \text{III} &= \rho_*^2\cdot\int_{(V_{d,N})^2}\Phi(x_1)\cdot f(x-y)\cdot\Phi(x_2)\;\bbra{
+        \rho_{R_\omega}\otimes\rho_{R_\omega}
+    }(dx).
+\end{align}
+Note that from the form of the Gaussian density $\Phi\mapsto \mcG_{R_z(\tilde U(f,R_\omega))}[\Phi]$ (see equation \eqref{eq:GeneralGN}) we need to carry along a factor of $-1/2$ in front of the action functional. 
+Looking now at the form of the Green's function $G_N$ we can see the appearance of the action functional $S_{z,R_{\omega}}$ and the density measure $\rho_{R_\omega}$:
+\[
+    \int_{V_{d,N}}\Biggl[
+        \int_{(\R^d)^2}
+            e^{\cmath\cdot\scpr{p}{x - y}}\cdot
+            \obra{\bbbra{
+                \int_{\mcF_{d,N}}\frac{\Phi(x)\cdot\Phi(y)}{I_{\tilde U(f,r_*)(z)}}
+                \;\ubra{\mbbG_{\tilde U, z, r_*}}{\text{includes }S_{z,r_*}}(d\Phi)
+            }}{\text{extrapolated}}
+        \;\ubra{\bbra{\rho_{r_*}\otimes\rho_{r_*}}}{\text{density}}(d(x,y))
+    \Biggr]
+    \;\bbbra{\frac{\uplambda_R}{\abs{V_{d,N}}}}(dr_*),
+\]
+where within the gaussian \emph{functional} measure $\underline\mbbG_{\tilde U,z,r_*}$ our action $S_{z,r_*}$ is hidden. 
+
+Also notice, that we silently interchanged the well known integration on $\text{TF}(V_{d,N},r_*)$ or in the large volume limit simply $\R^d$ with a \emph{functional integral} of $\Phi\mapsto \Phi(x)\cdot\Phi(y)\cdot\exp(-1/2\cdot S_{z,r_*}(\Phi))$ with a much less defined domain $\mcF_{d,N}$ and measure $\mcD$. To the physicists this is well handled, since we \enquote{in the end only need to know values at $\Phi(r_*(i))$}, which themselves were well defined by $\phi_i$. But since it is everything else but simple to imagine a measure of functions in a not well defined domain, discussion is needed. But at this point we will not go into further detail, since the main goal is to \emph{use} the derived action functional. 
+
+We now want to orgainze the integrals of $S_{z,r_*}$ in a way that we have a free theory and a interaction theory at hand. This can be done by shifting the used measure $\rho_{r_*}$ to a free and a fluctuating part.
+\input{../journal/Boxen/Definition/ChangeofDensityMeasures.tex}
+Utilizing this change in measures we can sort the previously defined action functional summands according to the appearance of density fluctuations measures. For this we aim to formulate terms $\overline{\text{I}}$, $\overline{\text{II}}$ and $\overline{\text{III}}$ by applying the change and rearranging terms once more. For the first summand I this results in
+\[
+    \text{I} = -\frac{\rho_*}{2}\cdot\nbra{
+        \int_{(V_{d,N})^2}z\cdot\Phi(x)^2\;\bbra{\square_{R_\omega}}(dx) + \int_{(V_{d,N})}\Phi(x)^2\;\delta\rho_{R_\omega}(dx)
+    },
+\]
+and analogously for $\text{II}$ and $\text{III}$, whilst putting $F(x):=\rho_*\cdot\Phi(x_1)\cdot f(x_1 - x_2)\cdot\Phi(x_2)$ for readability:
+\begin{align*}
+    \text{II} =& \frac{\rho_*}{2}\cdot\bigg(
+        \int_{(V_{d,N})}\Phi(x)^2\cdot \underline\Sigma(f,x)\;\bbra{\square_{R_\omega}}(dx) + \int_{(V_{d,N})}\Phi(x)^2\cdot\underline\Sigma(f,x)\;\delta\rho_{R_\omega}(dx)
+    \bigg), \\
+    \text{III} =& -\frac{\rho_*^2}{2}\cdot\bigg(
+        \int_{(V_{d,N})^2}F(x)\;\bbra{(\square_{R_\omega})\otimes(\square_{R_\omega})}(dx) \\
+        &\hspace{2cm}+ 2\cdot \int_{(V_{d,N})^2}F(x)\;\bbra{(\square_{R_\omega})\otimes\delta\rho_{R_\omega}}(dx) \\
+        &\hspace{4cm}+ \int_{(V_{d,N})^2}F(x)\;\bbra{(\delta\rho_{R_\omega}\otimes\delta\rho_{R_\omega})}(dx)
+    \bigg).
+\end{align*}
+Now a simple sort of terms regarding the appearance of a density fluctuation (measure) yields three integral terms, which represent the \emph{interaction-free} part without any density fluctuations and the \emph{interactive} part with either one or two density fluctuations. 
+Its physical nature can be found in scattering events, where disorders in the medium result in density fluctuations. 
+
+During sorting the definition of \emph{vertices} $V_{f,\overline{\text{I}}}$, $V_{f,\overline{\text{II}}}$ and $V_{f,\overline{\text{III}}}$ comes handy, which later on in their fourier representation will dictate the form of the feynman diagrams. Their explicit definition can be read from matching integrands to integrals with equal density measures after sorting. Following this we can note the definitions for the action functional summands:
+\begin{align}
+    \overline{\text{I}}:=&\int_{(V_{d,N})^2}\Phi(x)\cdot V_{f,\overline{\text{I}}}(x,z)\cdot\Phi(y)\;(\square_{R_\omega})^2\bbra{d(x,y)}, \label{def:oI} \\
+    \overline{\text{II}}:=&\int_{(V_{d,N})^2}\Phi(x)\cdot V_{f,\overline{\text{II}}}(x)\cdot\Phi(y)\;\bbra{(\square_{R_\omega})\otimes\delta\rho_{R_\omega}}\bbra{d(x,y)},\label{def:oII} \\
+    \overline{\text{III}}:=&\int_{(V_{d,N})^2}\Phi(x)\cdot V_{f,\overline{\text{III}}}(x)\cdot\Phi(y)\;(\delta\rho_{R_\omega})^2\bbra{d(x,y)}. \label{def:oIII}
+\end{align}
+Concluding this derivation we have found the action functional summands $\overline{\text{I}}$, $\overline{\text{II}}$ and $\overline{\text{III}}$ as the \emph{interaction-free} and \emph{interactive} parts of the action functional, which will be used to define the \emph{moment generating function} $Z_{z,R_\omega}$.
+\input{../journal/Boxen/Korollar/TheActionFunctional.tex}
+On the other hand this field shift also impacts the definition of $G_N$ in equation \eqref{eq:GeneralGN}, as there appear two measures $\rho_{R_\omega}$ that need to be adjusted. Doing so yields three components of $G_N$ of the following forms, where $\iiint := \int_{V_{d,N}}\int_{(\R^d)^2}\int_{\mcF_{d,N}}$ is used:
+\begin{align*}
+    G_N^{(0)}(p,z) &=& &\iiint\exp(\cmath\cdot\scpr{p}{x - y})\cdot\frac{\Phi(x)\cdot\Phi(y)}{I_{\tilde U(f,r_*)}}\;\mbbG_{\tilde U,z,r_*}(d\Phi)\;(\square_{R_\omega})^2(d(x,y))\;\Bbra{\frac{\uplambda_R}{\abs{V_{d,N}}}}(dr_*), \\
+    G_N^{(1)}(p,z) &=& 2\cdot &\iiint\exp(\cmath\cdot\scpr{p}{x - y})\cdot\frac{\Phi(x)\cdot\Phi(y)}{I_{\tilde U(f,r_*)}}\;\mbbG_{\tilde U,z,r_*}(d\Phi)\;\bbra{(\square_{R_\omega})\otimes \delta\rho_{r_*}}(d(x,y))\;\Bbra{\frac{\uplambda_R}{\abs{V_{d,N}}}}(dr_*), \\
+    G_N^{(2)}(p,z) &=& &\iiint\ubra{\exp(\cmath\cdot\scpr{p}{x - y})\cdot\frac{\Phi(x)\cdot\Phi(y)}{I_{\tilde U(f,r_*)}}}{\text{resolvent Fouriercoefficients}}\;\ubra{\mbbG_{\tilde U,z,r_*}(d\Phi)\;(\delta\rho_{r_*})^2(d(x,y))\;\Bbra{\frac{\uplambda_R}{\abs{V_{d,N}}}}(dr_*)}{\text{measures}}.
+\end{align*} 
+Also the definitions $\mu_{\overline{\text{I}}}:=(\square_{R_\omega})^2$, $\mu_{\overline{\text{II}}}:=\bbra{(\square_{R_\omega})\otimes\delta\rho_{R_\omega}}$ and $\mu_{\overline{\text{III}}}:=(\delta\rho_{R_\omega})^2$ can now be introduced for the three density fluctuation measures. This will enhance readability later on.
+If we now write down the expected value according to the literature notation \cite{mth:vogel,paper:Grigera_2011}, we get for the first term
+\[
+    G_N^{(0)}(p,z) = \int_{V_{d,N}}\int_{(\R^d)^2}\frac{\exp(\cmath\cdot\scpr{p}{x-y})}{I_{\tilde U(f,r_*)}}\cdot\left\langle
+        \Phi(x)\cdot\Phi(y)
+    \right\rangle_{\mbbG_{\tilde U,z,r_*}}\;(\square_{R_\omega})^2(d(x,y))\;\Bbra{\frac{\uplambda_R}{\abs{V_{d,N}}}}(dr_*).
+\]
+The interesting part that needs to be remembered at all times during the development is the existence of \emph{two} independent measures. For the third term this will get obvious, as the density fluctuation measure $\delta\rho_{r_*}$ appears twice:
+\[
+    \int_{V_{d,N}}\int_{(\R^d)^2}
+        \text{eI}(r_*,p,x,y)\cdot \obra{
+            \langle
+                \Phi(x)\cdot\Phi(y)
+            \rangle_{\mbbG_{\tilde U,z,r_*}}
+        }{\text{(i)}}
+    \;\ubra{\bbra{\delta\rho_{r_*}\otimes\delta\rho_{r_*}}(d(x,y))}{\text{(ii)}}\;\Bbra{\frac{\uplambda_R}{\abs{V_{d,N}}}}(dr_*).
+\]
+As one can see we have to evaluate the expected value regarding $\mbbG_{\tilde U,z,r_*}$ and the product $\Phi(x)\cdot\Phi(y)$ in (i) and another expected value regarding $\delta\rho_{r_*}\otimes\delta\rho_{r_*}$ with respect to $\lambda_R/\abs{V_{d,N}}$ in (ii). This is the result of the systems hamiltonian, which itself is a function $(r_*,\phi)\mapsto \mcH(r_*,\phi)$ that was defined to be part of the density $\exp(-\beta\cdot\mcH(r_*,\phi))$ of $\mbbP$ in our probability space $(\Omega,\Sigma,\mbbP)$. This splitting of measures $\mbbP(r_*,\phi) = \Pr + \Pf$ a motive all along the derivation, starting with the initial definition of the hamiltonian and the description using equilliubrium positions and independent fluctuations. So, even though we manipulated and expanded the original integral $\int_\Omega 1\;\mbbP$ from the introduction and introduced the resolvent formalism, still the underlying physical system remains the same but formed in a more delightful way for perturbation theory. \\
+
+We now want to take a closer look at the exponential of our action functional and how it can be manipulated to start a perturbative expansion.
+
+\subsubchapter{Operator Generated MGF}
+As we can already see at this point the gaussian exponential of the action functional $S_{z,R_\omega}$ can be disassembled into ${\exp}\bbra{-S_{z,R_\omega}/2} = {\exp}\bbra{-S_{z,R_\omega}^{(0)}/2}\cdot {\exp}\bbra{-S_{z,R_\omega}^{(\textit{int})}/2}$ so that we can write
+\[
+    \int_{\mcF_{d,N}}\exp(-S_{z,R_\omega}[\Phi]/2)\mcD(d\Phi) = \int_{\mcF_{d,N}}\exp(-S_{z,R_\omega}^{(0)}[\Phi]/2)\cdot\exp(-S_{z,R_\omega}^{(\textit{int})}[\Phi]/2)\mcD(d\Phi).
+\]
+A cleverly designed way of introducing a \emph{field shift} will allow us to formulate the interactive part of this integand using the non-interactive part. For this we need to specify a crafted operator $\text{Ex}(\mcl_f)$ that fulfills the relation
+\[
+    \mcF_{d,N}\ni\Phi\mapsto {\exp}\bbra{\text{S}_{z,R_\omega}^{(\textit{int})}[\Phi]} = \text{Ex}(\mcl_f)\circ (\text{S}_{z,R_\omega}^{(0)}\Phi).
+\] 
+In this again the notation changed minorly, since now $\text{S}_{z,R_\omega}^{(0)}\Phi:\mcS(\R^d)\to\C$ is an external field extension of the action functional $S_{z,R_\omega}^{(0)}$. This becomes clearer by the following definition.
+\input{../journal/Boxen/Definition/ExternalFieldShifting.tex}
+A neat characteristic of this shifting is that we can recover the initial gaussian exponent as $(\text{S}_{z,R_\omega}\Phi)^{(0)}(0) = -S_{z,R_\omega}^{(0)}[\Phi]/2$, which will soon be of great use. Since we can further write $S_{z,R_\omega}^{(\textit{int})}[\Phi] = \overline{\text{II}} + \overline{\text{III}}$ we can handle the summands individually. For the first summand, namely $\overline{\text{II}}$, let $I_z:\Gamma^2\to\R$ be defined such that $\overline{\text{II}} = \int_{\Gamma^2}I_z\;\mu_{\overline{\text{II}}}$ holds. We now intend to represent $I_z$ in a form that uses a functional theoretical approach formally discussed in literature\footnote{See for example \cite{Hansen_McDonald_1979}. Other possible sources are several scripts from courses on functional analysis or mathematical physics, which are not explicitly mentioned in this thesis.} and briefly in the Appendix. Right now we only need  
+\[
+    \frac{\delta}{\delta J(\xi)}(\text{S}_{z,r_\omega}^{(0)}\Phi)[J] &= \int_{\R^d}\frac{\cmath}{2}\cdot\Phi(-x)\cdot\frac{\delta}{\delta J(\xi)}J(x)\;\uplambda(dx) + \int_{\R^d}\frac{\cmath}{2}\cdot\Phi(x)\cdot\frac{\delta}{\delta J(\xi)}J(-x)\;\uplambda(dx).
+\]
+Following T.\ref{msat:DistributionaleAbleitungReellerFunktionen} we can use $\frac{\delta}{\delta J(\xi)}J(x) = \delta(x - \xi)$ to obtain
+\begin{align}
+    \frac{\delta}{\delta J(\xi)}(\text{S}_{z,r_\omega}^{(0)}\Phi)[J] = \frac{\cmath}{2}\cdot\Phi(-\xi) + \frac{\cmath}{2}\cdot\Phi(-\xi) = \cmath\cdot\Phi(-\xi). \label{eq:WirkungsFunktionalAbleitung}
+\end{align}
+Now the application of this formula to the integrand $I_z$ yields
+\begin{align*}
+    I_z(x) &= \Phi(x_1)\cdot V_{f,\overline{\text{II}}}(x,z)\cdot\Phi(x_2) \\
+    &= \Bbbra{\ubra{\nsqbra{
+        (-1)\cdot\frac{\delta}{\delta J(-x_1)}(\cdot)\cdot V_{f,\overline{\text{II}}}(x)\cdot\frac{\delta}{\delta J(-x_2)}(\cdot)
+    }}{=:\mcO_{f,\overline{\text{II}}}(x)}
+    \text{S}_{z,R_\omega}\Phi}[J],
+\end{align*}
+    in which we have introduced the operator $\mcO_{f,\overline{\text{II}}}(x)$ acting on the functional $J\mapsto (\text{S}_{z,R_\omega}\Phi)[J]$ with the external field $J$. This allows us to rewrite the first term of interaction only using the free theory result:
+\[
+    \overline{\text{II}} = \ubra{\nsqbra{
+        \int_{\Gamma^2}\mcO_{f,\overline{\text{II}}}(x)\;\mu_{\overline{\text{II}}}(dx)
+    }}{=:\mcl_{f,\overline{\text{II}}}}S_{z,R_\omega}\Phi[J].
+\]
+As one can already imagine, the same procedure for $\overline{\text{III}}$ leads to a similar form of $\mcl_{f,\overline{\text{III}}}$, where only $V_{f,\overline{\text{III}}}$ appears instead of $V_{f,\overline{\text{II}}}$. Combination yields
+\[
+    \overline{\text{II}} + \overline{\text{III}} = \ubra{\nsqbra{\mcl_{f,\overline{\text{II}}} + \mcl_{f,\overline{\text{III}}}}}{=:\mcl_f}(\text{S}_{z,R_\omega}\;\Phi)[J].
+\]
+This now already looks promising for our operator $\text{Ex}(\mcl_f)$. Looping back to the beginning we obtain for the interactive exponential
+\[
+    \int_{\mcF_{d,N}}\exp(S_{z,R_\omega}[\Phi])\;\mcD(d\Phi) = \left.\int_{\mcF_{d,N}}{\exp}\bbra{(\text{S}_{z,R_\omega}^{(0)}\Phi)[J]}\cdot{\exp}\bbra{(\mcl_f\text{S}_{z,R_\omega}\Phi)[J]}\;\mcD(d\Phi)\right|_{J=0}.
+\]
+In a last step we need to change a small detail in the first definition of $\mcO_{f,\overline{\text{II}}}$. Because we have an exponential function, the derivative $\frac{\delta}{\delta J(-x_1)}$ by chain rule will result in the same factor ${\exp}\bbra{(\text{S}_{z,R_\omega}^{(0)}\Phi)[J]}$ that we provided initially, such that the second derivative $\frac{\delta^2}{\delta J(-x_2)}$ can be applied to the first derivatives result. In contrast, it was \emph{multiplied} with the exponential function in the first definition and would result in a wrong factor. Since multiplication of Functionals can also be interpreted as composition of operators, this might seem not to be a big deal, but its implications to the definition of $\text{Ex}$ are crucial. It implies a parallel definition of $\mcL_f:=\mcL_{f,\overline{\text{II}}} + \mcL_{f,\overline{\text{III}}}$ with $\mcL_{f,\overline{\text{II}}}:=\int_{\Gamma^2}\mcO^\circ_{f,\overline{\text{II}}}(x)\;\mu_{\overline{\text{II}}}(dx)$ and $\mcO^\circ_{f,\overline{\text{II}}}(x) := -V_{f,\overline{\text{II}}}(x)\cdot\frac{\delta}{\delta J(-x_1)}\circ\frac{\delta}{\delta J(-x_2)}$ (for $\mcL_{f,\overline{\text{III}}}$ analogously). With these definitions each derivative application yields a $\Phi$ and and the corresponding vertex function, as well as preserving the exponential factor. This allows us to write
+\[
+    \sum_{n=0}^\infty\frac{1}{n!}\cdot\bbra{(\mcl_f\text{S}_{z,R_\omega}\Phi)[J]}^n\cdot{\exp}\bbra{(\text{S}_{z,R_\omega}^{(0)}\Phi)[J]} = \sum_{n=0}^\infty\frac{1}{n!}\cdot\mcL_f^n\bbra{{\exp}\bbra{(\text{S}_{z,R_\omega}^{(0)}\Phi)}}[J]
+\]
+where $\text{Ex}(\mcL_f)$ finally is defined by the right hand side and the application to $J\mapsto \exp\bbra{(\text{S}_{z,R_\omega}^{(0)}\Phi)[J]}$.\footnote{We do not discuss convergence of this series, since it would require again a much more detailed discussion of the occuring objects in question.}
+\input{../journal/Boxen/Postulat/TheMomentGeneratingFunction.tex}
+This procedure can also be done in the Fourier domain, which is object to the next chapters investigation. 
+%% > =================================================================================================
+% > End of Derivation of the Action Functional from discrete form
+%% > =================================================================================================
+
+
+\subsubchapter{Representation of the Action using its Fourier Transform}
+Looking at the free theory summand of the action functional defined in equation \eqref{def:oI} the bare propagator can already be defined, which in the high density limit $\rho_*\to\infty$ already fully describes the resolvent $G_N$. As we will see below, it already has the form of our resolvent result from the \emph{dyson} fixed point equation in definition \ref{mdef:DysonFixpoint} for vanishing self energy $\Sigma = 0$ \cite{paper:Grigera_2011}. This is going to be discussed again after developing the Dyson formalism 
+% in \ref{subchap:DysonFPE}. 
+later on.
+But first we are going to derive its form by writing
+\[
+    \overline{\text{I}} = \int_{(V_{d,N})^2}\bbra{\mcF^{-1}(\mcF\Phi)}(x_1)\cdot V_{f,\overline{\text{I}}}(x,z)\cdot\bbra{\mcF^{-1}(\mcF\Phi)}(x_2)\;\uplambda(dx).
+\]
+Using the definition of $\mcF^{-1}$ from \ref{mdef:FourierTransformation} and writing $\hat\Phi := \mcF\Phi$ it follows
+\[
+    \overline{\text{I}} = \int_{(V_{d,N})^2}\int_{(\R^d)^2}\hat\Phi(p_1)\cdot e^{-\cmath\cdot\scpr{p_1}{x_1}}\cdot V_{f,\overline{\text{I}}}(x,z)\cdot\hat\Phi(p_2)\cdot e^{-\cmath\cdot\scpr{p_2}{x_2}}\;\uplambda(dx)\;\uplambdabar(dp).
+\]
+Looking at the Vertex function $V_{f,\overline{\text{I}}}(x,z) = \bbra{(z - \rho_*\cdot\hat f(0)\cdot\mbbEins_{\{x_1\}})(x_2) + \rho_*\cdot f(x_1 - x_2)}$ we can rearrange the integral while neglecting $\Phi(p_1)\cdot\Phi(p_2)$ for a second to get
+\[
+    \int_{\R^d}e^{-\cmath\cdot\scpr{x_2}{p_2}}\cdot\biggl[
+        \ubra{\int_{\R^d}e^{-\cmath\cdot\scpr{x_1}{p_1}}\cdot (z - \rho_*\cdot\hat f(0))\;\delta_{x_2}(dx_1)}{(z - \rho_*\cdot\hat f(0))\cdot\exp(-\cmath\cdot\scpr{x_2}{p_1})} + \int_{\R^d}e^{-\cmath\cdot\scpr{x_1}{p_1}}\cdot\rho_*\cdot f(x_1 - x_2)\;\uplambda(dx_1)
+    \biggr]\;\uplambdabar(dp).
+\]
+The second summand can be solved by multiplication with $\exp(-\cmath\cdot\scpr{x_2 - x_2}{p_1})$ to get
+\[
+    e^{-\cmath\cdot\scpr{x_2}{p_1}}\cdot\rho_*\cdot\int_{\R^d}f(x_1-x_2)\cdot e^{-\cmath\cdot\scpr{x_1 - x_2}{p_1}}\;\uplambda(dx_1) = e^{-\cmath\cdot\scpr{x_2}{p_1}}\cdot\rho_*\cdot\hat f(p_1).
+\]
+In the big picture we now can write the first term $\overline{\text{I}}$ as
+\[
+    \overline{\text{I}} = \int_{\R^d}\hat\Phi(p_1)\cdot\hat\Phi(p_1)\cdot\bbra{z - \rho_*\cdot\hat f(0) + \rho_*\cdot\hat f(p_1)}\cdot\int_{V_{d,N}}\exp(-\cmath\cdot\scpr{x_2}{p_1 + p_2})\;\uplambda(dx_2)\;\uplambdabar(dp).
+\]
+Because of the divergence of the integral $p_1 + p_2\mapsto \int_{V_{d,N}}\exp(-\cmath\cdot\scpr{x_2}{p_1 + p_2})\;\uplambda(dx_2)$ for all $p_1 + p_2\neq 0$ we can conclude the conservation of momentum in the system, which directly means $p_1 = -p_2$. Therefore we find
+\[
+    \overline{\text{I}} = \int_{\R^d}\hat\Phi(p)\cdot\bbra{z - \rho_*\cdot(\hat f(0) - \hat f(p))}\cdot\hat\Phi(-p)\;\uplambdabar(dp),
+\]
+in which the inverse bare propagator $G_0(p,z)$ can be found!
+\input{../journal/Boxen/Definition/FreePropagator.tex}
+Within the theory of high density this already represents the resolvent introduced in Postulate \ref{mpos:ResolventForEigenvalueDensity}. The same procedure on $\overline{\text{II}}$ and $\overline{\text{III}}$ following \cite{paper:Grigera_2011,mth:vogel} gives rise to the \emph{vertex functions} $V$ and $\mu_z$. We will not discuss the details of this derivation, since it follows the same idea and can be seen in literature \cite{paper:Grigera_2011}. The important correlarys from it are the definition of the two vertex functions in the Fourier domain.  
+
+\input{../journal/Boxen/Satz und Definition/VertexFunction.tex}
+The arguments of the vertex function describe the transfer of moments during a scattering event. It is visually much more clear in the diagrammatical representation given later on in the Feynman rules, see D.\ref{mdef:DiagrammaticalFourPointInteraction}. 
+
+\input{../journal/Boxen/Satz und Definition/ThreePointVertex.tex}
+Again we can assign physical meaning to the vertex' arguments: The first momentum describes the incoming mode, the second to the corresponding density fluctuation \cite{mth:vogel}. This can be again visually seen later on in the Feynman diagram's three point node defined in \ref{mdef:DiagrammaticalThreePointInteraction}. With those definitions we are able to express the summands of the Fourier action as in the following corollary \ref{mcor:PropagatorNotationOfS}. 
+\input{../journal/Boxen/Korollar/FourierimageOfS.tex}
+
+
+
+% \input{../journal/Tage/2024-05-08/DefinitionTfOperator.tex}

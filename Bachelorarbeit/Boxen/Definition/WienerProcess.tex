@@ -1,0 +1,9 @@
+\begin{mdef}{Wiener Process}{WienerProcess}
+    Let $W:[0,\infty)\to(\Omega\to S)$ be a stochastic process on $(\Omega,\mcA,\mbbP)$ with random variables $W_t:\Omega\to S$ for $t\in[0,\infty)$ and $(S,\mcS)$ a measurable space. Then $W$ is called a \emph{Wiener process} if the following properties hold:
+    \begin{enumerate}
+        \item $W_0 = 0$ almost surely.
+        \item For $0\leq t_1 < t_2$ the increment $W_{t_2} - W_{t_1}$ is normally distributed with mean $0$ and variance $t_2 - t_1$, i.e. $\mbbP_{W_{t_2} - W_{t_1}} = \mcN(0,t_2 - t_1)\cdot\uplambda$. 
+        \item The process has independent increments, i.e. for any $0\leq t_1 < t_2 < t_3 < t_4$ the increments $W_{t_2} - W_{t_1}$ and $W_{t_4} - W_{t_3}$ are independent.
+        \item The process has continuous paths, i.e. the map $t\mapsto W_t$ is continuous.
+    \end{enumerate}
+\end{mdef}

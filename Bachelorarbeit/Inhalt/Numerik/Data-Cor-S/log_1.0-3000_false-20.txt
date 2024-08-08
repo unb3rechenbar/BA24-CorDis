@@ -1,0 +1,14 @@
+ρ = 1.0
+Structure Factor Toggle = false
+Tmp Path = ./Data-Cor-S
+Iterations = 3000
+k_max = 20
+Exp G Toggle = false
+Heaviside Toggle = true
+ρ = 1.0
+Structure Factor Toggle = false
+Tmp Path = ./Data-Cor-S
+Iterations = 3000
+k_max = 20
+Exp G Toggle = false
+Heaviside Toggle = true

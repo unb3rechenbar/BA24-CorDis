@@ -1,0 +1,14 @@
+\begin{mlem}{Fourier Transform of Heaviside-Based Spring Function}{FourierTransformOfHeavisideSpring}
+    Let $H_a:\R\to\R$ for $a\in\R_{>0}$ be the Heaviside function defined as
+    \[
+        H_a(x) := \begin{cases}
+            1 & \text{if } x<a, \\
+            0 & \text{else}.
+        \end{cases} = \mbbEins_{[0,a)}(x).
+    \]
+    Then for $3$ dimensional arguments $\vr\in\R^3$ the Fourier transform of $F_a(\vr):=H_a\bbra{\dabs{\vr}{2}}$ is given by 
+    \[
+        \R^3\ni\vq\mapsto \hat F_a(\vq) = 4\pi\cdot\bbra{\sin(a\cdot\dabs{\vq}{2}) - a\cdot\dabs{\vq}{2}\cdot\cos(a\cdot\dabs{\vq}{2})}\cdot\dabs{\vq}{2}^{-3}.
+    \]
+    Furthermore it has a removable singularity at $\vq = 0$ with $(\mcF F_a)(\mathbf{0}) = 4\pi a^3/3$. From its radial symmetry the existence of $\hat F_{a,\abs{}}:\R\to\R$ with $\hat F_a = \hat F_{a,\abs{}}\circ\dabs{\cdot}{2}$ follows. 
+\end{mlem}

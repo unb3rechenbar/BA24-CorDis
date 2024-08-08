@@ -1,0 +1,7 @@
+\begin{msatdef}{Laplace Transformation}{LaplaceTransformation}
+    Let $f:\R_{\geq 0}\to\C$ be a function of \emph{exponential order}, i.e. $\exists C,s_0,T\in\R_{>0}$ with $\abs{f(t)}\leq C\cdot e^{s_0\cdot t}$ for $t\geq T$ and let $t\mapsto \abs{f(t)}$ be $\uplambda$-integrable on $[0,T]$, i.e. $\int_{[0,T]}\abs{f(t)}\;\uplambda(dt)<\infty$. Then there exists the Integral
+    \[
+        (\mcL f)(s) := \int_{\R_{\geq 0}}f(t)\cdot e^{-s\cdot t}\;\uplambda(dt)
+    \] 
+    for all $s\in \C$ with $\Re(s)>s_0$. We then call $(\mcL f)(s)$ the \emph{Laplace transformation} of $f$.
+\end{msatdef}

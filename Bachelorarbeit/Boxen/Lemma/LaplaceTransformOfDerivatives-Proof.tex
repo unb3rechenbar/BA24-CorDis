@@ -1,0 +1,31 @@
+\begin{proof}[of Lemma \ref{mlem:LaplaceTransformOfDerivatives}]
+    We start by induction. For $n=1$ using partial integration we have
+    \[
+        (\mcL f)(s) = \int_{\R_{>0}} f'(t)\cdot e^{-st}\;\uplambda(dt) = \nsqbra{
+            f\cdot e^{-s\cdot}
+        }_0^\infty - \int_{\R_{>0}}f(t)\cdot \dv{t}e^{-st}\;\uplambda(dt).
+    \]
+    Because of $\lim_{x\to\infty}f(x)\cdot e^{-sx} = 0$ and $f(0)\cdot e^0 = f(0)$, as well as $\dv{t}e^{-st} = -s\cdot e^{-st}$ we therefore get
+    \[
+        (\mcL f)(s) = -f(0) \cdot 1 + s\cdot\int_{\R_{>0}}f(t)\cdot e^{-st}\;\uplambda(dt) = -f(0) + s\cdot\mcL f(s).    
+    \] 
+    For the induction step we assume the statement to hold for $n\in\N$ and show it for $n+1$. By again partially integrating we find
+    \[
+        (\mcL f^{(n+1)})(s) = \int_{\R_{>0}}f^{(n+1)}(t)\cdot e^{-st}\;\uplambda(dt) = \nsqbra{
+            f^{(n)}\cdot e^{-s\cdot}
+        }
+        _0^\infty - \int_{\R_{>0}}f^{(n)}(t)\cdot \dv{t}e^{-st}\;\uplambda(dt).
+    \]
+    As discussed above we see $[f^{(n)}\cdot e^{-s\cdot}]_0^\infty = -f^{(n)}(0)$, which gives
+    \[
+        (\mcL f^{(n+1)})(s) = -f^{(n)}(0) + s\cdot\mcL f^{(n)}(s).
+    \]
+    By the induction hypothesis we can insert the expression for $\mcL f^{(n)}(s)$ and obtain
+    \begin{align*}
+        (\mcL f^{(n+1)})(s) &= -f^{(n)}(0) + s\cdot\nbra{
+            s^n\cdot(\mcL f)(s) - \sum_{k=0}^{n-1}s^{n-1-k}\cdot f^{(k)}(0)
+        } \\
+        &= s^{n+1}\cdot(\mcL f)(s) - \sum_{k=0}^{n}s^{n-k}\cdot f^{(k)}(0).
+    \end{align*}
+    This concludes the proof.
+\end{proof}

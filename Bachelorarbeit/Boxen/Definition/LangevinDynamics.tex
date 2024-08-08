@@ -1,0 +1,7 @@
+\begin{mdef}{Langevin Dynamics}{LangevinDynamics}
+    Let $r:t\mapsto u(t)\in(\Omega\to V_{d,N})$ be a twice continuously differentiable parametrization of location distributions and $U:\Gamma\to\R$ a potential function on $\Gamma$. Define $i\mapsto u_{\omega,i}:=r(\cdot)(\omega)_i$, then the momentum of the particle system with masses $i\mapsto m_i\in\R_{\neq 0}$ is described by $i\mapsto F(t,u_{\omega,i}(t),(u_{\omega,i})'(t),(u_{\omega,i})''(t))$ of the form 
+    \[
+        \frac{1}{m_i}\cdot\Bbra{-\nabla U(u_{\omega,i}(t)) - \zeta_0\cdot (u_{\omega,i})'(t) + \sqrt{2\zeta_0\cdot k_B\cdot T}\cdot w_i(t)},
+    \]
+    which states the so called \emph{Langevin dynamics} where $\zeta_0$ is a friction coefficient, $k_B$ the Boltzmann constant, $T$ the temperature and $w_i(t)$ a white noise process. Every vectorfunction $i\mapsto u_{\omega,i}:\R\to\Gamma$ which solves $F$ is called a solution to the Langevin dynamics.
+\end{mdef}

@@ -1,0 +1,10 @@
+ρ = 0.9
+Structure Factor Toggle = true
+Tmp Path = ./Data
+Iterations = 2500
+k_max = 20
+Exp G Toggle = true
+Heaviside Toggle = true
+After iteration 0, the error is 5.7921e-7.
+Converged after 2 iterations, the error is 2.8e-12.
+  2.363779 seconds (3.23 M allocations: 215.218 MiB, 2.79% gc time, 99.83% compilation time)

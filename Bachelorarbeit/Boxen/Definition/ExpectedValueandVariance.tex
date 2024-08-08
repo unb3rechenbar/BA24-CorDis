@@ -1,0 +1,9 @@
+\begin{mdef}{Expected Value and Variance}{ErwartungswertVarianz}
+    % Sei $(\Omega,\mcA,\mbbP)$ ein Wahrscheinlichkeitsraum. Als Erwartungswert $\mbbE$ bezüglich $\mbbP$ bezeichnen wir die Abbildung
+    Let $(\Omega,\mcA,\mbbP)$ be a probability space, $(S,\mcS)$ a measurable space and $X:\Omega\to S$ a random variable. The expected value $\mbbE(X)$ is then defined as
+    \[
+        S\ni\mbbE[X] := \int_{\Omega} X(\omega)\;\mbbP(d\omega) = \int_{S}1\;\mbbP_X.
+    \]
+    % Die Varianz $\text{Var}$ bezüglich $\mbbP$ ist weiter definiert als $\text{Var}(X) := \mbbE\left[\left(X-\mbbE[X]\right)^2\right] = \mbbE\left[X^2\right] - \mbbE[X]^2$.
+    The variance then is defined as the expected value of $\omega\mapsto \bbra{X(\omega) - \mbbE(X)}^2$.
+\end{mdef}

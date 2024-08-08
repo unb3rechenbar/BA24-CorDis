@@ -1,0 +1,20 @@
+ρ = 4.5
+Structure Factor Toggle = true
+Tmp Path = ./Data
+Iterations = 1500
+After iteration 0, the error is 4.022095e-5.
+Converged after 3 iterations, the error is 3.4e-11.
+  4.279257 seconds (3.06 M allocations: 200.668 MiB, 2.63% gc time, 99.95% compilation time)
+2563.011440 seconds (5.14 G allocations: 2.464 TiB, 5.34% gc time, 0.12% compilation time)
+Setup completed, performing Dyson Iteration
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+     0     5.304649e+01              NaN
+     1     1.547404e+00     7.835148e+01
+     2     1.963946e-01     1.103483e+00
+     3     9.133678e-04     2.427193e-01
+2137.959339 seconds (251.87 M allocations: 69.269 GiB, 0.16% gc time, 0.31% compilation time)
+Creating CSV
+FT samples created
+Structure Factor samples created
+All tasks completed

@@ -1,0 +1,23 @@
+\begin{mlem}{Vanishing third derivative of $Z_{z,R_\omega}^{(0)}$}{VanishingThirdDerivative}
+    For $p\in(\R^d)^3$ the composed directional derivatives of $Z_{z,R_\omega}^{(0)}[J]$ vanish, i.e. $\frac{\delta}{\delta \hat J(p_1)}\frac{\delta}{\delta \hat J(p_2)}\frac{\delta}{\delta \hat J(p_3)}Z_{z,R_\omega}^{(0)}[J] = 0$.
+\end{mlem}
+\begin{proof}
+    Let $Z_{z,R_\omega}^{(0)}[J]$ be defined as in \ref{mcor:GeneratingFunctionBasis}, $\Delta_p:=\frac{\delta}{\delta \hat J(p_1)}\frac{\delta}{\delta \hat J(p_2)}\frac{\delta}{\delta \hat J(p_3)}$ and $\frac{\delta}{\delta \hat J(\xi)}Z_{z,R_\omega}^{(0)}[J] = G_0(\xi,z)\cdot \hat J(-\xi)\cdot Z_{z,R_\omega}^{(0)}[J]$, then we can directly calculate the first directional derivative as
+    \[
+        \Delta_pZ_{z,R_\omega}^{(0)}[J] = \frac{\delta}{\delta \hat J(p_1)}\frac{\delta}{\delta \hat J(p_2)} N_z^{(0)}\cdot \bbra{
+            G_0(p_3,z)\cdot \hat J(-p_3)
+        }\cdot Z_{z,R_\omega}^{(0)}[J].
+    \]
+    Following the product rule and using the invariance of $N_z^{(0)}$ in respect to $J$ we obtain
+    \begin{multline*}
+        \Delta_pZ_{z,R_\omega}^{(0)}[J] = N_z^{(0)}\cdot\frac{\delta}{\delta \hat J(p_1)}\bigl(
+            G_0(p_3,z)\cdot \delta(-p_1-p_2)\cdot Z_{z,R_\omega}^{(0)}[J] \\
+            + G_0(p_3,z)\cdot \hat J(-p_3)\cdot G_0(p_2,z)\cdot \hat J(-p_2)\cdot Z_{z,R_\omega}^{(0)}[J]
+        \bigr).
+    \end{multline*}
+    The last directional derivative gives us for the first summand
+    \[
+        G_0(p_3,z)\cdot \delta(-p_1-p_2)\cdot G_0(p_1,z)\cdot \hat J(-p_1)\cdot Z_{z,R_\omega}^{(0)}[J],
+    \]
+    which vanishes for $J = 0$. The second summand again uses the product to yield three individual terms, which again all vanish for $J = 0$. 
+\end{proof}

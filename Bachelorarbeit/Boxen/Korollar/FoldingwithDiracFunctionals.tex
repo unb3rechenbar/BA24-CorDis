@@ -1,0 +1,10 @@
+\begin{mcor}{Identity Property of $\delta$ to Convolution}{IdentityPropertyOfDeltaToConvolution}
+    Let $y\in\R^d$ be a fixed point and $\mcS'(\R^d)\ni\delta_y:\varphi\mapsto\varphi(y)$ be the Dirac delta distribution at $y$. Then for any $\varphi\in\mcS(\R^d)$ we have
+    \[
+        \delta_0\ast\varphi = \varphi.
+    \]
+    For $\delta_y$ we further find $\delta_y\ast\varphi = \varphi(\cdot -y)$.
+\end{mcor}
+\begin{proof}
+    This follows directly from Definition \ref{mdef:GeneralizedSchwarzConvolutions} as we have for $x\in\R^d$ the equality $(\delta_y\ast\varphi)(x) := \delta_y(\varphi(x - \cdot)) = \varphi(x - y)$ and for $y = 0$ we straightforwardly get $(\delta_0\ast\varphi)(x) = \varphi(x)$.
+\end{proof}

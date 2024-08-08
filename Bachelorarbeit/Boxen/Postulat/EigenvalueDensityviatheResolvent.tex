@@ -1,0 +1,10 @@
+\begin{mpos}{Eigenvalue Density via the Resolvent}{ResolventForEigenvalueDensity}
+    % Sei $M\in\K^{3N\cdot 3N}$, dann ist $\sigma(M) = \{\lambda\in\C: \det(M - \lambda\cdot\id) = 0\}$ das Spektrum von $M$ und $\rho(M) = \C\setminus\sigma(M)$. Die Resolventenabbildung liefert $R_z(M)$ für $z\in\rho(M)$, sodaß die Eigenwertdichte mithilfe des Objektes
+    Let $M\in\R^{d\cdot N\cdot d\cdot N}$ and $\rho(M)$ the resolvent set of $M$. Then for $z\in\rho(M)$ we measure the eigenvalue density via the expectency of the discretely Fourier transformed resolvent
+    \[
+        G_N(p,z) := \int_{\Omega}
+            \sum_{(i,j)}R_z(M)_{i,j}\cdot e^{\cmath\cdot\scpr{p}{R_{\tau(i)} - R_{\tau(j)}}}
+        \;\mbbP(d\omega),
+    \]
+    where $\tau$ is a mapping of technical nature.
+\end{mpos}

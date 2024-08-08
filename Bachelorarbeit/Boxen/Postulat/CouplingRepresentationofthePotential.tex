@@ -1,0 +1,17 @@
+\begin{mpos}{Coupling Representation}{CouplingRepresentation}
+    %Sei $U\in C^3(\Gamma^N)$ eine Potentialfunktion. Dann nehmen wir die Existenz einer Paarwechselwirkungsfunktion $f:\R^3\to\R$ an, sodass die Hessematrix $HU(r_*)$ in $r_*\in V_N$ durch $f$ ausgedrückt werden kann. Dies passiert durch die Form $\scpr{HU(r_*)\cdot\phi}{\phi} \approx \phi^T\tilde U(f,r)\cdot\phi$. Dabei hat $\tilde U(f,r)$ die Form
+    Let $U\in C^3\bbra{(\R^d)^N}$ describe the pair potential function. For\footnote{As in $d_{i,j}(r) := r_i - r_j$ stating the difference vector of $r_i$ and $r_j$ following equation \eqref{eq:SecondDerivativePairInteraction}.} $(i,j)\mapsto f_{i,j} = U''\circ g_{i,j}$ it holds\footnote{Technically speaking for multiplication we need to use an isomorphism $(\R^d)^N\to\R^{d\cdot N}$ to make the matrix multiplication work. For this we propose a projection $\pi$ of the form $\bbra{(.,.,.,.),...}\mapsto (.,.,.,.,...)$. Then we would have $\scpr{\text{H}U(r_*)\cdot\phi}{\phi} = \langle\tilde U(f,r)\cdot\pi(\phi),\pi(\phi)\rangle$.} $\scpr{\text{H}U(r)\cdot\phi}{\phi} = \langle\tilde U(f,r)\cdot\phi,\phi\rangle$ for $r\in V_{d,N}$ and $\phi\in\text{TF}(\Gamma,r)$ with $\tilde U(f,r)$ having the general form
+    % Then we assume $\exists f\in\textit{Spr}\,(\R^d)$ such that for $r\in V_{d,N}$ and $\phi\in\text{TF}(\Gamma,r)$ it holds $\scpr{\text{H}U(r)\cdot\phi}{\phi} = \langle\tilde U(f,r)\cdot\phi,\phi\rangle$ with $\tilde U(f,r)$ having the form
+    \[
+        \tilde U(f,r_*) := \begin{pmatrix}
+            \Sigma(f,1)\cdot I_d & -\tilde f_{1,2}\cdot I_d & \cdots & -\tilde f_{1,N}\cdot I_d\\ 
+            -\tilde f_{2,1}\cdot I_d & \Sigma(f,2)\cdot I_d & \cdots & -\tilde f_{2,N}\cdot I_d\\
+            \vdots & \vdots & \ddots & \vdots\\
+            -\tilde f_{N,1}\cdot I_d & -\tilde f_{N,2}\cdot I_d & \cdots & \Sigma(f,N)\cdot I_d
+        \end{pmatrix}\in\R^{d\cdot N\times d\cdot N}
+    \]
+    We denoted $f_{i,j} := f(r_i-r_j)$ for $i,j\in[N]^2$ and $\Sigma(f,i) := \sum_{j\in[N]\setminus\{i\}}f_{i,j}$.
+\end{mpos}
+% \begin{proof}
+%     Wir zeigen $\tilde U(f,r) \in (\R^{3\times 3})^{N\times N}$. Hierzu beachte die Hessematrix $HU(r) := \fdef{d^2U(r)(e_i)(e_j)}{(i,j)\in[N]^2}$ für $i,j\in\{1,\ldots,3N\}$ und Basisvektoren $e_i\in \Gamma^N$. Diese haben stets die kanonische Form $e_i = (0_{\R^3},\lcdots,\mbbEins_{\sigma(i)},\ldots,0_{\R^3})$ für eine Abzählung $\sigma:\{1,\ldots,3N\}\to $
+% \end{proof}

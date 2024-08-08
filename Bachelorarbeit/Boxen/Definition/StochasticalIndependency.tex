@@ -1,0 +1,12 @@
+\begin{mdef}{Stochastical Independency}{StochasticalIndependency}
+    Let $(\Omega,\mcA,\mbbP)$ be a probability space and $X:I\mapsto (\Omega\to S_i)$ for a index set $I$ and a family of measurable spaces $(S_i,\mcS_i)$. Then we call $X$ a \emph{stochastically independent} family of random variables if for any finite subset $I_0\subset I$ the condition
+    \[
+        \mbbP\Bbbra{
+            \bigcap_{j\in I_0}\{X_j\in B_j\}
+        } = \prod_{j\in I_0}\mbbP\Bbbra{X_j\in B_j}.
+    \]
+    for all $B_j\in\mcS_i$ holds. For $I = \{1,2\}$ this simplifies to the condition
+    \[
+        \mbbP\bbra{\{X_1\in B_1\}\cap\{X_2\in B_2\}} = \mbbP\bbra{\{X_1\in B_1\}}\cdot\mbbP\bbra{\{X_2\in B_2\}}.
+    \]
+\end{mdef}

@@ -1,0 +1,7 @@
+\begin{mpos}{Resolvent Representation via second Moment}{GaussianResolventRepresentation}
+    For $\Omega\ni\omega\mapsto\tilde U(f,R_\omega)_{i,j}$ normally distributed with expectency $\mu_{i,j} = 0$ and correlation matrix $R_z(\tilde U(f,R_\omega))$ as the resolvent of $\tilde U(f,R_\omega)$, there exists a gaussian density $\mcG_{R_z(\tilde U(f,R_\omega))}:\R^{3\cdot N}\to\R$ according to Definition \ref{mdef:NormallyDistributedRandomVariable} such that
+    \[
+        \bbra{z - \tilde U(f,R_\omega)}^{-1}_{i,j} = \frac{1}{I_{\tilde U(f,R_\omega)}(z)}\cdot\int_{\R^{d\cdot N}}\phi_i\cdot\phi_j\;(\mbbG_{\tilde U,z,R_\omega})(d\phi).
+    \]
+    Within we introduced a gaussian measure $\mbbG_{\tilde U,z,R_\omega}$ representing $\mcG_{R_z(\tilde U(f,R_\omega))}\cdot\uplambda$ and $I_{\tilde U(f,R_\omega)}(z):=\int_{\R^{3\cdot N}}1\;(\mcG_{R_z(\tilde U(f,R_\omega))}\cdot\uplambda)\in\R$ for normalisation.
+\end{mpos}

@@ -1,0 +1,14 @@
+In this thesis we have been able to build a foundation of ERM for preparation of the position probability correction. Using first order perturbation theory, the corresponding Feynman rules have been derived and the self consistent Born approximation has been calculated explicitly. \\
+
+Following the thesis's main goal, the static structure factor $S_*$ has been introduced as $S_*(\vq) = 1 + \rho_*\cdot\bbra{\mcF g_0 - 1}(\vq)$ and brought to relation with the expected value of the density fluctuations via $\overline{\hat\drho_{R_\omega}(\vq)\cdot \hat\drho_{R_\omega}(-\vq)} = S_*(\vq)/\rho_*$. Accordingly, the Feynman rules have been corrected to include the static structure factor in the one loop order. The corrected self energy $\Sigma_{S_*}^{(1)}$ used in the Dyson fixed point equation has been derived to 
+\[
+    \Sigma_{S_*}^{(1)} = \frac{1}{\rho_*}\cdot\int_{\R^d}S_*(\vq)\cdot G(p-\vq,z)\cdot V(\vq,p)^2\;\uplambdabar(d\vq).
+\]
+
+Numerical analysis of the stated analytical model have been performed on a Heaviside spring function $f_a^{(\text{num})}(r) = \mbbEins_{\R_{<a}}(r)$ in a three dimensional space with the pair potential $u(r) = (r - a)^2/2$. For the calculation of the static structure factor we have used the hypernetted chain approximation, the initial guess for the dyson equation was set to the bare propagator $G_0(\vq) = (z - \rho_*\cdot(\hat F_a(0) - \hat F_a(\vq)))^{-1}$. By setting $z = 0$ we have been able to calculate the Dispersion relation under consideration of $S_*$. The values of $S_*$ have been entirely positive for all tested densities. For small wave vector norms we conclude a decrease in compressibility due to the steep decline of $S_*$. The speed of sound however is shown to be nearly unchanged for all densities. Also a general difference between the dispersion relation amplitudes of the corrected and uncorrected model has been obeserved to decrease with increasing density. \\
+
+Numerical analysis of gaussian $g_{\mathit{exp}}$ as the radial distribution showed similar results. It has been shown that small densities overall tend to numerical instability in both models. \\
+
+A brief outlook on handling corrolators of $\hat\drho$ functions has been given based on Crooks and Chandler in \cite{PhysRevE.56.4217}. This could be a promising approach to further investigate higher loop orders and to further enhance research on the ERM model under consideration of correlated disorder. \\
+
+Overall we have seen that implementation of the equilibrium structure factor $S_*$ in the ERM model has no significant impact on the dispersion relation. If a non-equilibrium theory however brings significant changes to the dispersion relation is subject to further research. 

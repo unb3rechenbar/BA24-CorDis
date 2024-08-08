@@ -1,0 +1,35 @@
+\begin{mlem}{Expectancy of Two Restrictions}{Expectencyoftworestrictions}
+    Let $x_1,x_2\in\Gamma$ be two fixed points in the modelling space. Then for $C(N,2,h):=\frac{N!}{(N-2)!}\cdot\frac{1}{h^{d\cdot N}\cdot N!\cdot 2!}$ and $M(N,2):=\Gamma^{N-2}\times\text{TF}(\Gamma^{N-2},r)$ we have
+    \[
+        \langle
+            \delta(x_1 - r_1)\cdot\delta(x_2 - r_2)
+        \rangle_{\Pr\cdot\uplambda} 
+        = C(N,2,h)\cdot\int_{M(N,2)}
+            \exp(-\beta\cdot H\bbra{(x_1,x_2,r),\cdot})
+        \;\uplambda(dr),
+    \]
+    where $r\mapsto \exp(-\beta\cdot H(r,\cdot)) = \Pr(r)$.
+    Furthermore it holds from definition \ref{mdef:nParticleDensity} that
+    \[
+        \rho_N^{(2)}(x_1,x_2) = \Biggl\langle
+            \sum_{(i,j)\in[N]^2_{\neq}}\delta(x_1 - r_i)\cdot\delta(x_2 - r_j)
+        \Biggr\rangle_{P_2\cdot\uplambda}.
+    \]
+\end{mlem}
+%% \begin{proof}
+%%     The first statement follows from the definition of the expectation value and the $P_2$-density:
+%%     \begin{align*}
+%%         \langle
+%%             \delta(x_1 - &\,r_1)\cdot\delta(x_1 - r_1)
+%%         \rangle_{P_2\cdot\uplambda} \\
+%%         &= C(N,2,h)\cdot\int_{M(N,2)}
+%%             \delta(x_1 - r_1)\cdot\delta(x_1 - r_1)\cdot\exp(-\beta\cdot H\bbra{(r_1,r_2),\phi})
+%%         \;\uplambda(d(r,\phi)) \\
+%%         &= C(N,2,h)\cdot\int_{M(N,2)}
+%%             \exp(-\beta\cdot H\bbra{(x_1,x_2,r),\phi})
+%%         \;\uplambda(d(r,\phi)).
+%%     \end{align*}
+%%     The second statement 
+%% 
+%%     \color{red} SHOW SECOND STATEMENT \color{black}
+%% \end{proof}

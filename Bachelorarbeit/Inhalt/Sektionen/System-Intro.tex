@@ -1,0 +1,87 @@
+Interacting particles in a physical system can be neatly described by diagrams and graphs, in which nodes represent particles and edges the interactions between them. This can be visualized on the two dimensional plane, which incidentally offers a very familiar and intuitive playground, often resulting in stunning images:
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        % ten particle nodes at random positions
+        \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (a) at (0,0);
+        \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (b) at (1,0.5);
+        \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (c) at (3,1);
+        \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (d) at (-3,4);
+        \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (e) at (-2,-1);
+        \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (f) at (-1,4);
+        \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (g) at (0,1);
+        \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (h) at (-1.5,2);
+        \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (i) at (-2.5,1);
+        \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (j) at (2,2);
+
+        % draw dotted box around the nodes
+        \draw[dotted,line cap=round] (-4,-2) -- (4,-2) -- (4,5) -- (-4,5) -- (-4,-2);
+        \node at (3.3,-2) [above] {$\Gamma\subset\R^2$};
+
+        % draw edges between every node
+        % a -> *
+            \draw[black!50] (a) -- (b);
+            \draw[black!50] (a) -- (c);
+            \draw[black!50] (a) -- (d);
+            \draw[black!50] (a) -- (e);
+            \draw[black!50] (a) -- (f);
+            \draw[black!50] (a) -- (g);
+            \draw[black!50] (a) -- (h);
+            \draw[black!50] (a) -- (i);
+            \draw[black!50] (a) -- (j);
+        % b -> *
+            \draw[black!50] (b) -- (c);
+            \draw[black!50] (b) -- (d);
+            \draw[black!50] (b) -- (e);
+            \draw[black!50] (b) -- (f);
+            \draw[black!50] (b) -- (g);
+            \draw[black!50] (b) -- (h);
+            \draw[black!50] (b) -- (i);
+            \draw[black!50] (b) -- (j);
+
+        % c -> *
+            \draw[black!50] (c) -- (d);
+            \draw[black!50] (c) -- (e);
+            \draw[black!50] (c) -- (f);
+            \draw[black!50] (c) -- (g);
+            \draw[black!50] (c) -- (h);
+            \draw[black!50] (c) -- (i);
+            \draw[black!50] (c) -- (j);
+        
+        % d -> *
+            \draw[black!50] (d) -- (e);
+            \draw[black!50] (d) -- (f);
+            \draw[black!50] (d) -- (g);
+            \draw[black!50] (d) -- (h);
+            \draw[black!50] (d) -- (i);
+            \draw[black!50] (d) -- (j);
+
+        % e -> *
+            \draw[black!50] (e) -- (f);
+            \draw[black!50] (e) -- (g);
+            \draw[black!50] (e) -- (h);
+            \draw[black!50] (e) -- (i);
+            \draw[black!50] (e) -- (j);
+
+        % f -> *
+            \draw[black!50] (f) -- (g);
+            \draw[black!50] (f) -- (h);
+            \draw[black!50] (f) -- (i);
+            \draw[black!50] (f) -- (j);
+
+        % g -> *
+            \draw[black!50] (g) -- (h);
+            \draw[black!50] (g) -- (i);
+            \draw[black!50] (g) -- (j);
+
+        % h -> *
+            \draw[black!50] (h) -- (i);
+            \draw[black!50] (h) -- (j);
+
+        % i -> *
+            \draw[black!50] (i) -- (j);
+    \end{tikzpicture}
+    \caption{Graph representation of a physical system with $N=10$ particles in $\R^2$.}
+    \label{fig:GraphRepresentation}
+\end{figure}
+To be able to describe this almost always abstract world, we need to introduce a few mathematical utilities and principles. 

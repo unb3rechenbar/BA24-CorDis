@@ -1,0 +1,60 @@
+ρ = 15.0
+Structure Factor Toggle = true
+Tmp Path = ./Data
+Iterations = 1500
+k_max = 30
+After iteration 0, the error is 0.00013793255.
+Converged after 4 iterations, the error is 3.2e-12.
+  2.606279 seconds (3.07 M allocations: 200.746 MiB, 2.29% gc time, 99.91% compilation time)
+156.426956 seconds (5.14 G allocations: 2.464 TiB, 56.24% gc time, 48.44% compilation time)
+Setup completed, performing Dyson Iteration
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+     1     1.592020e+01              NaN
+     2     7.071730e-01     1.092015e+00
+     3     6.612574e-01     9.513140e-01
+     4     2.969009e-01     1.899393e-01
+     5     3.824796e-01     3.152829e-01
+     6     3.103843e-01     2.076366e-01
+     7     1.129305e-01     2.817127e-02
+     8     7.804918e-02     1.356401e-02
+     9     4.654067e-02     4.883775e-03
+    10     5.171882e-02     6.056821e-03
+    11     4.057303e-02     3.620195e-03
+    12     4.710199e-02     4.912625e-03
+    13     3.656017e-04     3.313533e-07
+  7.834588 seconds (8.76 M allocations: 683.178 MiB, 4.70% gc time, 87.67% compilation time)
+Creating CSV
+FT samples created
+Structure Factor samples created
+All tasks completed
+ρ = 15.0
+Structure Factor Toggle = true
+Tmp Path = ./Data
+Iterations = 1500
+k_max = 30
+After iteration 0, the error is 0.00013793255.
+Converged after 4 iterations, the error is 3.2e-12.
+  2.515569 seconds (3.07 M allocations: 200.746 MiB, 2.38% gc time, 99.91% compilation time)
+155.846189 seconds (5.14 G allocations: 2.464 TiB, 56.30% gc time, 41.76% compilation time)
+Setup completed, performing Dyson Iteration
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+     1     1.592020e+01              NaN
+     2     7.071730e-01     1.092015e+00
+     3     6.612574e-01     9.513140e-01
+     4     2.969009e-01     1.899393e-01
+     5     3.824796e-01     3.152829e-01
+     6     3.103843e-01     2.076366e-01
+     7     1.129305e-01     2.817127e-02
+     8     7.804918e-02     1.356401e-02
+     9     4.654067e-02     4.883775e-03
+    10     5.171882e-02     6.056821e-03
+    11     4.057303e-02     3.620195e-03
+    12     4.710199e-02     4.912625e-03
+    13     3.656017e-04     3.313533e-07
+  7.985293 seconds (8.76 M allocations: 683.178 MiB, 4.81% gc time, 87.63% compilation time)
+Creating CSV
+FT samples created
+Structure Factor samples created
+All tasks completed

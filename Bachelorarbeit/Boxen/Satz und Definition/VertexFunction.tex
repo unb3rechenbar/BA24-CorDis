@@ -1,0 +1,14 @@
+\begin{msatdef}{The Vertex Function}{VertexFunction}
+    The vertex function is given by $V(q,p):= \rho_*\cdot\bbra{\hat f(q) - \hat f(q - p)}$. It has the symmetries $V(q,p) = V(-q,-p)$ and $V(q,p) = -V(p-q,p)$.
+\end{msatdef}
+\begin{proof}
+    Let $p,q\in\R^d$. Then from definition and the rotational symmetry $\hat f(-q) = \hat f(q)$ stated in D.\ref{mdef:PairInteractionFunction} we get
+    \[
+        V(-q,-p) = \rho_*\cdot\bbra{\hat f(-q) - \hat f(-q + p)} = \rho_*\cdot\bbra{\hat f(q) - \hat f(q - p)} = V(q,p).
+    \]
+    For the second symmetry we calculate
+    \[
+        -V(p-q,p) = -\rho_*\cdot\bbra{\hat f(p-q) - \hat f(p)} = \rho_*\cdot\bbra{\hat f(q) - \hat f(q - p)} = V(q,p).
+    \]
+    This concludes the proof.
+\end{proof}

@@ -1,0 +1,9 @@
+\begin{mcor}{MGF for Density Fluctuations}{MGFForDensityFluctuations}
+    Let $R:\Omega\to V_{d,N}$ be a random variable on $(\Omega,\mcA,\mbbP)$ and $\omega\mapsto\drho_{R(\omega)}(\{x\})$ a density measurement on $x\in\Gamma$. Then we have
+    \[
+        \mbbE\Bbbra{
+            \prod_{i\in[N]}\drho_{R(\cdot)}(\{x_i\})
+        } = \Bbbra{\bigcomp_{i\in[N]}\frac{\delta}{\delta \mu(x_i)}}\int_{V_{d,N}}K_\mu(y)\;\uplambda_R(dy)\bigg|_{\mu = 0}.
+    \]
+    With $\bigcomp$ we denote the composition of functional derivatives and define the MGF $\mcZ_R(\mu):=\int_{V_{d,N}}K_\mu(y)\;\uplambda_R(dy)$.
+\end{mcor}

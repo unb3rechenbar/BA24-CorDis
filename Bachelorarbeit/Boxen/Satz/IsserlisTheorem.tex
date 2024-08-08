@@ -1,0 +1,13 @@
+\begin{msat}{Isserlis'/Wick's Theorem}{IsserlisTheorem}
+    Let $X:[N]\to(\Omega\to\R^d)$ be a random variable vector on $(\Omega,\mcA,\mbbP)$ with $\mbbE(X_i) = 0$ for all $i\in[N]$. Let furthermore be $\mbbP\gg\uplambda^d$ with normal distribution $f_{\Sigma}$, then it holds that 
+    \[
+        \mbbE\Bbbra{
+            \prod_{i\in[N]}X_i
+        } = \sum_{p\in P_N^2}\prod_{(i,j)\in p}\mbbE(X_i\cdot X_j),
+    \]
+    in which $P_N:=\{M\subset\mcP([N]):\#M = 2\;\&\;\bigcup M = [N]\}$ is the set of all pair partitions to $[N]$.
+\end{msat}
+\begin{proof}
+    The proof uses the concept of generating functions and can be found in \cite{skript:GaussCalc}.
+    % Define $t\mapsto \exp(t\cdot X)$ ... 
+\end{proof}

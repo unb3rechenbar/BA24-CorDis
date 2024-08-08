@@ -1,0 +1,1162 @@
+Using the approximations and techniques discussed in the previous sections we were able to make several observations. To begin with, the \emph{radial distribution function} for our system, which is given by a quadratic pair potential function $r\mapsto 0.5\cdot(r - 1)^2$ resulting from the chosen spring function, has the predicted course and does converge to $1$, as one can see in Figure \ref{fig:RadialDistributionFunctionMultDens}.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis x line=bottom,
+            axis y line=left,
+            xlabel={$\dabs{\vr}{2}$},
+            ylabel={$g_0(\vr)$},
+            grid=both,
+            grid style={line width=.1pt, draw=gray!10},
+            major grid style={line width=.2pt,draw=gray!50},
+            xmax=4,
+            ymax=1.1,
+            minor tick num=4,
+            width=0.8\textwidth,
+            height=0.4\textwidth,
+            legend pos=east,
+            legend style={
+                at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                anchor=west,    % Ankerpunkt auf der rechten Seite
+                column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+            }
+        ]
+        % \addplot[color=YvesKlein] table[col sep=comma, x=r, y=gr] {Inhalt/Numerik/TestOZ/1.5-100-nS-Ur.csv};
+
+        \addplot[color=green] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data/0.1-1024.csv};
+        \addlegendentry{$\rho_* = 0.1$}
+
+        \addplot[color = red] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data/1.0-1024.csv};
+        \addlegendentry{$\rho_* = 1.0$}
+
+        \addplot[color=teal] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data/1.3-1024.csv};
+        \addlegendentry{$\rho_* = 1.3$}
+
+        \addplot[color=violet] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data/2.0-1024.csv};
+        \addlegendentry{$\rho_* = 2.0$}
+
+        \addplot[color=orange] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-with-S/5.0-1024-S.csv};
+        \addlegendentry{$\rho_* = 5.0$}
+
+        \addplot[] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-with-S/8.0-1024-20-S.csv};
+        \addlegendentry{$\rho_* = 8.0$}
+
+        \addplot[color=red] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-with-S/10.0-1024-20-S.csv};
+        \addlegendentry{$\rho_* = 10.0$}
+        
+        % \addplot[color=red] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-with-S/15.0-1024-30-S.csv};
+        % \addlegendentry{$\rho_* = 15.0$}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The radial distribution function $\vr\mapsto g_0(\vr) = g_\abs(0,\dabs{\vr}{2})$ on a general scale.}
+    \label{fig:RadialDistributionFunctionMultDens}
+\end{figure}
+One can also directly observe a small shift and increase in the maximum of the radial distribution function $g_0$ as the density $\rho_*$ increases. This can be seen when zooming in on the maximum of the function, as shown in Figure \ref{fig:RadialDistributionFunctionMultDensZoomed}. Notice that we do not see a region of $g_0$ being nearly zero for small radii, as it was the case in our example in figure \ref{fig:RadialDensityFunction}. This clearly is expected, since we use a different potential function here. A similar form to the previous example would be gained by using the Lennard-Jones potential.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis x line=bottom,
+            axis y line=left,
+            xlabel={$\dabs{\mathbf{q}}{2}$},
+            ylabel={$G_0(\dabs{\mathbf{q}}{2})$},
+            grid=both,
+            grid style={line width=.1pt, draw=gray!10},
+            major grid style={line width=.2pt,draw=gray!50},
+            minor tick num=4,
+            xmin=1.5,
+            xmax=2.5,
+            ymin=0.98,
+            ymax=1.01,
+            width=0.8\textwidth,
+            height=0.4\textwidth,
+            legend pos=east,
+            legend style={
+                at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                anchor=west,    % Ankerpunkt auf der rechten Seite
+                column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+            }
+        ]
+        % \addplot[color=YvesKlein] table[col sep=comma, x=r, y=gr] {Inhalt/Numerik/TestOZ/1.5-100-nS-Ur.csv};
+
+        \addplot[color=green] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data/0.1-1024.csv};
+        \addlegendentry{$\rho_* = 0.1$}
+
+        \addplot[color = red] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data/1.0-1024.csv};
+        \addlegendentry{$\rho_* = 1.0$}
+
+        \addplot[color=teal] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data/1.3-1024.csv};
+        \addlegendentry{$\rho_* = 1.3$}
+
+        \addplot[color=violet] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data/2.0-1024.csv};
+        \addlegendentry{$\rho_* = 2.0$}
+
+        \addplot[color=orange] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-with-S/5.0-1024-S.csv};
+        \addlegendentry{$\rho_* = 5.0$}
+
+        \addplot[] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-with-S/8.0-1024-20-S.csv};
+        \addlegendentry{$\rho_* = 8.0$}
+
+        \addplot[color=red] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-with-S/10.0-1024-20-S.csv};
+        \addlegendentry{$\rho_* = 10.0$}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The radial distribution function $\vr\mapsto g_0(\vr) = g_\abs(0,\dabs{\vr}{2})$ on a small scale around its maximum.}
+    \label{fig:RadialDistributionFunctionMultDensZoomed}
+\end{figure}
+To proceed, the static structure factor $S_*$ can now be drawn using the calculated distribution function from solving the Ornstein-Zernike equation. By doing so, one quickly realizes that with increasing density $\rho_*$ the result becomes less and less physically meaningful, since its values start to become heavily negative. This behaviour can be seen in figure \ref{fig:StructureFactorSmallDens} for densitys $\rho_*\leq 1.0$. 
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$S_*(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmin=0.,
+                xmax=14,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[color=green] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/0.1-1024-S.csv};
+            \addlegendentry{$\rho_* = 0.1$}
+            
+            \addplot[color=black] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/0.7-1024-S.csv};
+            \addlegendentry{$\rho_* = 0.7$}
+
+            \addplot[color=YvesKlein] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/0.8-1024-S.csv};
+            \addlegendentry{$\rho_* = 0.8$}
+
+            \addplot[color=orange] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/0.9-1024-S.csv};
+            \addlegendentry{$\rho_* = 0.9$}
+
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/1.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 1.0$}
+
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor $S_*$ for small densitys.}
+        \label{fig:StructureFactorSmallDensS1}
+    \end{subfigure}
+    \
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$S_*(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmax=20,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[color=green] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/2.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 2.0$}
+    
+            \addplot[color=black] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/3.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 3.0$}
+    
+            \addplot[color=YvesKlein] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/4.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 4.0$}
+    
+            \addplot[color=orange] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/5.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 5.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/6.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 6.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/7.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 7.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/8.0-1024-20-S.csv};
+            \addlegendentry{$\rho_* = 8.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/9.0-1024-20-S.csv};
+            \addlegendentry{$\rho_* = 9.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/10.0-1024-20-S.csv};
+            \addlegendentry{$\rho_* = 10.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-with-S/15.0-1024-30-S.csv};
+            \addlegendentry{$\rho_* = 15.0$}
+    
+    
+            % \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/1.0-1024-S.csv};
+            % \addlegendentry{$\rho_* = 1.0$}
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor $S_*$ for higher densities.}
+        \label{fig:StructureFactorHighDensS2}
+    \end{subfigure}
+    \caption{Detailed view of the structure factor $S_*$ for small densitys $\rho_*$ and outlook onto higher density behaviour.}
+    \label{fig:StructureFactorSmallDens}
+\end{figure}
+From these graphs we should conclude that only a small window of densitys provide results with acceptable physical meaning, since negative values for the structure factor imply a negative compressibility. This can be directly seen from the \emph{compressibility relation} given by
+\[
+    S_*(0) = 1 + \rho_*\cdot\int_{\R^3}\bbra{g_0(\vr) - 1}\cdot\exp(\cmath\cdot \vr\cdot 0)\;\uplambda(d\vr) = \rho_*\cdot k_B\cdot T\cdot\kappa_T^{-1},
+\]
+where $\kappa_T$ is the isothermal compressibility \cite{Hansen_McDonald_1979}. This needs to be held in mind when interpreting the results of the following dispersion relation. \\
+
+Calculating the corresponding solutions $\rho_*\mapsto G_{\mathit{fix},\rho_*}$ to the Dyson fixed point equation using as an initial guess the function $G_{0,\rho_*}(q) = (0 - \rho_*\cdot(\hat F_a(0) - \hat F_a(q)))^{-1}$ for norms $q= \dabs{\vq}{2}$, the dispersion relation given by the negative inverse $D_{\rho_*}(q) = -G_{\mathit{fix},\rho_*}(q)^{-1}$ shows strange behaviour. As one can see in figure \ref{fig:DispersionRelationSmallDens}, the dispersion relation $D_{\rho_*}$ for small densitys $\rho_*$ is not purely positive and shows even an inverting character, since the maximum between $0.0$ and $4.0$ at $\rho_* = 0.1$ becomes a minimum for following density dispersions. But the first inevitable observation is the introduction of numerical instabilities, especially in the calculations for $S_*(q) = 1.0$ for small densities. This creates spikes in figure \ref{fig:DispersionRelationSmallDensS1} without any physicall meaning and make the data hard to interpret, since a general course is hardly observable. 
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmin=0.,
+                xmax=14,
+                ymin=-7,
+                ymax=7,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            % \addplot[color=green] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/0.1-1024.csv};
+            % \addlegendentry{$\rho_* = 0.1$}
+    % 
+            % \addplot[color=YvesKlein] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/0.8-1024.csv};
+            % \addlegendentry{$\rho_* = 0.8$}
+    % 
+            \addplot[color=orange] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/0.9-1024.csv};
+            \addlegendentry{$\rho_* = 0.9$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/1.0-2048-14-Heaviside.csv};
+            \addlegendentry{$\rho_* = 1.0$}
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor is set to $S_*(q) = 1.0$ for all densitys.}
+        \label{fig:DispersionRelationSmallDensS1}
+    \end{subfigure}
+    \
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmin=0.,
+                xmax=14,
+                ymin=-7,
+                ymax=7,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[color=green] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/0.1-1024-S.csv};
+            \addlegendentry{$\rho_* = 0.1$}
+    
+            \addplot[color=YvesKlein] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/0.8-1024-S.csv};
+            \addlegendentry{$\rho_* = 0.8$}
+    
+            \addplot[color=orange] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/0.9-1024-S.csv};
+            \addlegendentry{$\rho_* = 0.9$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/1.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 1.0$}
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor is set to $S_*(q) = 1.0 + \rho_*\cdot(\mcF g_0 - 1.0)(q)$ for all densitys.}
+    \end{subfigure}
+    \caption{The dispersion relation $D_{\rho_*}$ for small densitys $\rho_*$.}
+    \label{fig:DispersionRelationSmallDens}
+\end{figure}
+This behaviour in small densitys is particularly unfortunate, since it covers the small physical window initialized by the structure factor in figure \ref{fig:StructureFactorSmallDensS1}. Not having physically meaningful counterexamples for $S_*(q) = 1.0$ and $\rho_*\leq 1.0$ is a major drawback in the interpretation of the results to $S_*(q) = 1 + \rho_*\cdot(\mcF (g_0 - 1))(q)$. \\
+
+Nevertheless the dispersion relation $\dabs{\vq}{2}\mapsto D_{\rho_*}(\dabs{\vq}{2})$ for small densitys with the corrected static structure factor involved show a more stable behaviour. After the first window of wave vectors $q$ with norm values smaller than $4.0$ the dispersion relation becomes purely positive and shows an oscillating behaviour. Notice that the oscillations appear much more harmonic for low densitys. We will come back to this shortly. \\
+
+Analysing the switch from positive to negative values for small wave vector norms is not well observable due to numerical instabilitys in this particular region, as one can see in figures \ref{fig:DispersionRelationSmallDensS1} and \ref{fig:FixedPointNumericalInstability}. Especially convergence of the Dyson equation is not achieved, even after more than $2500$ iterations the maximum norm of the solution $G_{\mathit{fix},\rho_*}$ is not below $10^{1}$ to $10^{3}$.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis x line=bottom,
+            axis y line=left,
+            xlabel={$\dabs{\mathbf{q}}{2}$},
+            ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+            grid=both,
+            grid style={line width=.1pt, draw=gray!10},
+            major grid style={line width=.2pt,draw=gray!50},
+            minor tick num=4,
+            xmin=0.,
+            xmax=14,
+            ymin=-7,
+            ymax=7,
+            width=0.8\textwidth,
+            height=0.4\textwidth,
+            legend pos=east,
+            legend style={
+                at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                anchor=west,    % Ankerpunkt auf der rechten Seite
+                column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+            }
+        ]
+
+        \addplot[color=green] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/0.7-1024-S.csv};
+        \addlegendentry{$\rho_* = 0.7$}
+
+        % \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/0.% 4-1024-S.csv};
+        % \addlegendentry{$\rho_* = 0.4$}
+
+        \addplot[color=YvesKlein] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/0.2-1024-S.csv};
+        \addlegendentry{$\rho_* = 0.2$}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Numerical instability for the fixed point of the Dyson equation at $\rho_* = 0.4$.}
+    \label{fig:FixedPointNumericalInstability}
+\end{figure}
+
+On the other hand, increasing the density $\rho_*$ in a range starting from $2.0$ to $15.0$ the dispersion relation becomes purely positive and convergence to a fixed point is achieved much more stable. This can be seen in figure \ref{fig:DispersionRelationLargeDens}.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmax=20,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/1.6-1024.csv};
+            \addlegendentry{$\rho_* = 1.6$}
+    
+            \addplot[color=green] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/2.0-1024.csv};
+            \addlegendentry{$\rho_* = 2.0$}
+    
+            \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/3.0-2048-20-Heaviside.csv};
+            \addlegendentry{$\rho_* = 3.0$}
+    
+            \addplot[color=orange] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/5.0-2048-20-Heaviside.csv};
+            \addlegendentry{$\rho_* = 5.0$}
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor is set to $S_*(q) = 1.0$ for all densitys.}
+    \end{subfigure}
+    \
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmax=20,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/1.6-1024-S.csv};
+            \addlegendentry{$\rho_* = 1.6$}
+    
+            \addplot[color=green] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/2.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 2.0$}
+    
+            \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/3.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 3.0$}
+    
+            \addplot[color=orange] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/5.0-1024-S.csv};
+            \addlegendentry{$\rho_* = 5.0$}
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor is set to $S_*(q) = 1.0 + \rho_*\cdot(\mcF g_0 - 1.0)(q)$ for all densitys.}
+    \end{subfigure}
+    \caption{The dispersion relation $D_{\rho_*}(\dabs{\vq}{2})$ with $S_*$ for higher densities.}
+    \label{fig:DispersionRelationLargeDens}
+\end{figure}
+
+Combining small and large regions of densitys and plotting their minimal and maximal value, one can see the models region of stability. This is shown in figure \ref{fig:DispersionRelationMinMax}. It is here clearly observable that the models stability for small densitys is not given. Only for minimal values of $0$ the Dispersion relation is purely positive for wave vector norms bigger that $0$.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+    
+            \addplot[color=red] table[col sep=comma, x=density, y=max] {Inhalt/Numerik/Data-with-S/MaxMin-S.csv};
+            \addlegendentry{Maxima}
+    
+            \addplot[color=blue] table[col sep=comma, x=density, y=min] {Inhalt/Numerik/Data-with-S/MaxMin-S.csv};
+            \addlegendentry{Minima}
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The global course.}
+    \end{subfigure}
+    \
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                ymin=-150,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+    
+            \addplot[color=red] table[col sep=comma, x=density, y=max] {Inhalt/Numerik/Data-with-S/MaxMin-S.csv};
+            \addlegendentry{Maxima}
+    
+            \addplot[color=blue] table[col sep=comma, x=density, y=min] {Inhalt/Numerik/Data-with-S/MaxMin-S.csv};
+            \addlegendentry{Minima}
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The zoomed region.}
+    \end{subfigure}
+    \caption{Comparison of the maxima and minima of the dispersion relation $D_{\rho_*}(\dabs{\vq}{2})$ for different densities $\rho_*$ and the structure factor $S_*(q) = 1 + \rho_*\cdot(\mcF (g_0 - 1))(q)$.}
+    \label{fig:DispersionRelationMinMax}
+\end{figure}
+
+When looking at even higher densitys, the amplitude of the dispersion relation $D_{\rho_*}$ increases monotonicly with an increasing density $\rho_*$, as one can see in figure \ref{fig:DispersionRelationHugeDens}. One directly notices the increase of amplitude for the dispersion relation corrected by the static structure factor.  
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmax=20,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/8.0-2048-20-Heaviside.csv};
+            \addlegendentry{$\rho_* = 8.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/10.0-2048-20-Heaviside.csv};
+            \addlegendentry{$\rho_* = 10.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data/15.0-2048-20-Heaviside.csv};
+            \addlegendentry{$\rho_* = 15.0$}
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor is set to $S_*(q) = 1.0$ for all densitys.}
+    \end{subfigure}
+    \
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmax=20,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/8.0-1024-20-S.csv};
+            \addlegendentry{$\rho_* = 8.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/10.0-1024-20-S.csv};
+            \addlegendentry{$\rho_* = 10.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/15.0-1024-30-S.csv};
+            \addlegendentry{$\rho_* = 15.0$}
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor is set to $S_*(q) = 1.0 + \rho_*\cdot(\mcF g_0 - 1.0)(q)$ for all densitys.}
+    \end{subfigure}
+    \caption{The dispersion relation $D_{\rho_*}(\dabs{\vq}{2})$ with $S_*$ for higher densities.}
+    \label{fig:DispersionRelationHugeDens}
+\end{figure}
+
+Evaluating the velocity of sound $c_{\rho_*} = \sum_{q\in G_q}\sqrt{D_{\rho_*}(q)}/q$ for different densitys $\rho_*$ yields the graph shown in figure \ref{fig:SoundVelocity}. One can see the continuation of amplitude increase for the dispersion relation $D_{\rho_*}$ with the structure factor included. Since there is a direct monotonous relation to the velocity of sound, the speeds of sound for various densitys $\rho_*$ also increase. 
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis x line=bottom,
+            axis y line=left,
+            xlabel={$\rho_*$},
+            ylabel={$c_{\rho_*}$},
+            grid=both,
+            grid style={line width=.1pt, draw=gray!10},
+            major grid style={line width=.2pt,draw=gray!50},
+            minor tick num=4,
+            xmax=14,
+            width=0.8\textwidth,
+            height=0.4\textwidth,
+            legend pos=east,
+            legend style={
+                at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                anchor=west,    % Ankerpunkt auf der rechten Seite
+                column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+            }
+        ]
+
+        \addplot[color=red] table[col sep=comma, x=density, y=velocityOfSound] {Inhalt/Numerik/Data/VelocityOfSound-nS.csv};
+        \addlegendentry{uncorrected} 
+
+        \addplot[color=YvesKlein] table[col sep=comma, x=density, y=velocityOfSound] {Inhalt/Numerik/Data-with-S/VelocityOfSound-S.csv};
+        \addlegendentry{corrected}
+
+        % \addplot [
+        %     red,
+        %     domain=0:14,
+        % ]
+        % gnuplot {set datafile separator ","; f(x) = a * sqrt(x) + b; fit f(x) 'Inhalt/Numerik/Data-with-S/VelocityOfSound-S.csv' using 1:2 via a,b; f(x)};
+
+        % \addplot [
+        %     black,
+        %     domain=0:14,
+        % ]
+        % {31.514 * sqrt(x) - 23.1451};
+        % \addlegendentry{Fitted Curve};
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The velocity of sound $c_{\rho_*}$ for different densitys $\rho_*$ in comparison with $S_*(q) = 1.0$ and $S_*(q) = 1.0 + \rho_*\cdot(\mcF (g_0 - 1))(q)$.}
+    \label{fig:SoundVelocity}
+\end{figure}
+
+The second approach we want to discuss is the usage of an exponential function given by the system's potential $U(r) = 0.5\cdot(x-a)^2$ for the radial distribution function. This is subject to the next subsection.
+
+
+
+
+\subsubsection*{Exponential Ansatz}
+
+When using $g_{\mathit{exp}}:\vr\mapsto \exp(-u_a(\vr)) = \exp(-(\dabs{\vr}{2} - a)^2/2)$ for the radial distribution function, the static structure factor $S_*$ is calculated via
+\[
+    S_*(\vq) = 1 + \rho_*\cdot\int_{\R^3}\bbra{g_{\mathit{exp}}(\vr) - 1}\cdot\exp(\cmath\cdot \vr\cdot \vq)\;\uplambda(d\vr).
+\]
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis x line=bottom,
+            axis y line=left,
+            xlabel={$\dabs{\mathbf{q}}{2}$},
+            ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+            grid=both,
+            grid style={line width=.1pt, draw=gray!10},
+            major grid style={line width=.2pt,draw=gray!50},
+            minor tick num=4,
+            xmin=0.,
+            xmax=14,
+            ymin=-7,
+            ymax=7,
+            width=0.8\textwidth,
+            height=0.4\textwidth,
+            legend pos=east,
+            legend style={
+                at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                anchor=west,    % Ankerpunkt auf der rechten Seite
+                column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+            }
+        ]
+        % \addplot[color=green] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/0.1-1024-20-S-exp-Heaviside.csv};
+        % \addlegendentry{$\rho_* = 0.1$}
+
+        \addplot[color=YvesKlein] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/0.2-1024-20-S-exp-Heaviside.csv};
+        \addlegendentry{$\rho_* = 0.2$}
+
+        % \addplot[color=orange] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/0.3-1024-20-S-exp-Heaviside.csv};
+        % \addlegendentry{$\rho_* = 0.3$}
+
+        % \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/0.4-1024-20-S-exp-Heaviside.csv};
+        % \addlegendentry{$\rho_* = 0.4$}
+
+        \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/0.5-1024-20-S-exp-Heaviside.csv};
+        \addlegendentry{$\rho_* = 0.5$}
+
+        % \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/0.6-1024-20-S-exp-Heaviside.csv};
+        % \addlegendentry{$\rho_* = 0.6$}
+
+        % \addplot[color=brown] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/0.7-1024-20-S-exp-Heaviside.csv};
+        % \addlegendentry{$\rho_* = 0.7$}
+
+        % \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/0.8-1024-20-S-exp-Heaviside.csv};
+        % \addlegendentry{$\rho_* = 0.8$}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The dispersion relation $D_{\rho_*}$ for small densitys $\rho_*$.}
+    % \label{fig:DispersionRelationSmallDens}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmin=0.,
+                xmax=14,
+                ymax=25,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/1.6-512-20-exp-Heaviside.csv};
+            \addlegendentry{$\rho_* = 1.6$}
+    
+            \addplot[color=green] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/2.0-512-20-exp-Heaviside.csv};
+            \addlegendentry{$\rho_* = 2.0$}
+    % 
+            \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/3.0-512-20-exp-Heaviside.csv};
+            \addlegendentry{$\rho_* = 3.0$}
+    % 
+            \addplot[color=orange] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/5.0-512-20-exp-Heaviside.csv};
+            \addlegendentry{$\rho_* = 5.0$}
+    
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor is set to $S_*(q) = 1.0$ for all densitys.}
+    \end{subfigure}
+    \
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmin=0.,
+                xmax=14,
+                ymax=80,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/1.6-512-20-S-exp-Heaviside.csv};
+            \addlegendentry{$\rho_* = 1.6$}
+    
+            \addplot[color=green] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/2.0-512-20-S-exp-Heaviside.csv};
+            \addlegendentry{$\rho_* = 2.0$}
+
+            \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/3.0-512-20-S-exp-Heaviside.csv};
+            \addlegendentry{$\rho_* = 3.0$}
+
+            \addplot[color=orange] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/5.0-512-20-S-exp-Heaviside.csv};
+            \addlegendentry{$\rho_* = 5.0$}
+        
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor is set to $S_*(q) = 1.0 + \rho_*\cdot(\mcF g_{\mathit{exp}} - 1.0)(q)$ for all densitys.}
+    \end{subfigure}
+    \caption{The dispersion relation $D_{\rho_*}$ for small densitys $\rho_*$.}
+    % \label{fig:DispersionRelationSmallDens}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis x line=bottom,
+            axis y line=left,
+            xlabel={$\dabs{\mathbf{q}}{2}$},
+            ylabel={$D_{\rho_*}(\dabs{\mathbf{q}}{2})$},
+            grid=both,
+            grid style={line width=.1pt, draw=gray!10},
+            major grid style={line width=.2pt,draw=gray!50},
+            minor tick num=4,
+            xmin=0.,
+            xmax=14,
+            width=0.8\textwidth,
+            height=0.4\textwidth,
+            legend pos=east,
+            legend style={
+                at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                anchor=west,    % Ankerpunkt auf der rechten Seite
+                column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+            }
+        ]
+        % \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/1.6-512-20-S-exp-Heaviside.csv};
+        % \addlegendentry{$\rho_* = 1.6$}
+
+        % \addplot[color=green] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/2.0-512-20-S-exp-Heaviside.csv};
+        % \addlegendentry{$\rho_* = 2.0$}
+% % 
+        % \addplot[color=black] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/3.0-512-20-S-exp-Heaviside.csv};
+        % \addlegendentry{$\rho_* = 3.0$}
+% % 
+        % \addplot[color=orange] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/5.0-512-20-S-exp-Heaviside.csv};
+        % \addlegendentry{$\rho_* = 5.0$}
+
+        \addplot[color=orange] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/10.0-512-20-S-exp-Heaviside.csv};
+        \addlegendentry{$\rho_* = 10.0$}
+
+        \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/15.0-512-20-S-exp-Heaviside.csv};
+        \addlegendentry{$\rho_* = 15.0$}
+
+        \addplot[color=orange] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/10.0-512-20-exp-Heaviside.csv};
+        \addlegendentry{$\rho_* = 10.0$}
+
+        \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-exp/15.0-512-20-exp-Heaviside.csv};
+        \addlegendentry{$\rho_* = 15.0$}
+
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The dispersion relation $D_{\rho_*}$ for small densitys $\rho_*$ with the exponential ansatz and $S_*(q) = 1.0 + \rho_*\cdot(\mcF g_{\mathit{exp}} - 1.0)(q)$.}
+    % \label{fig:DispersionRelationSmallDens}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis x line=bottom,
+            axis y line=left,
+            xlabel={$\rho_*$},
+            ylabel={$c_{\rho_*}$},
+            grid=both,
+            grid style={line width=.1pt, draw=gray!10},
+            major grid style={line width=.2pt,draw=gray!50},
+            minor tick num=4,
+            xmax=15,
+            width=0.8\textwidth,
+            height=0.4\textwidth,
+            legend pos=east,
+            legend style={
+                at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                anchor=west,    % Ankerpunkt auf der rechten Seite
+                column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+            }
+        ]
+
+        \addplot[color=red] table[col sep=comma, x=density, y=velocityOfSound] {Inhalt/Numerik/Data-exp/VelocityOfSound-nS.csv};
+        \addlegendentry{uncorrected} 
+
+        \addplot[color=YvesKlein] table[col sep=comma, x=density, y=velocityOfSound] {Inhalt/Numerik/Data-exp/VelocityOfSound-S.csv};
+        \addlegendentry{corrected}
+
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+
+\subsubsection*{A note to a Code Mistake}
+During the final review of the numerical analysis section of this thesis, a mistake in the code was discovered. The mistake was made in the calculation of the static structure factor $S_*(q)$ and within the definition of its Fourier transformation. In the Code version that was used to produce the data for this thesis, unfortunately the square of the density $\rho_*$ was multiplied with the integrand, instead of the Jacobian determinant factor of $r^2$. This lead to the wrong implementation:
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+cFT_integrand = (q,r) -> 2 * sinc(q * r)
+cFT = q -> sum([\color{red}ρ^2\color{black} * 2 * pi * gm * x * Δr for (x,gm) in zip(cFT_integrand.(q, solution.r),[x - 1 for x in solution.gr])])
+    \end{lstlisting}
+\end{mdframed}
+Correcting this mistake, the code should look like this:
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+cFT = q -> begin
+	if exp_g_toggle
+		sum(r^2 * 2 * pi * (exp(-1 * Uf(r, params)) - 1) * x * Δr for (x,r) in zip(cFT_integrand.(q, solution.r),solution.r))
+	else 
+		sum([r^2 * 2 * pi * gm * x * Δr for (x,gm,r) in zip(cFT_integrand.(q, solution.r),[x - 1 for x in solution.gr],solution.r)]) # use cFT_integrand on all r values from solution.r, then discretely integr.
+	end
+end
+    \end{lstlisting}
+\end{mdframed}
+Notice that this mistake also affects the calculation of the exponential ansatz for the radial distribution function. 
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis x line=bottom,
+            axis y line=left,
+            xlabel={$\dabs{\vr}{2}$},
+            ylabel={$g_0(\vr)$},
+            grid=both,
+            grid style={line width=.1pt, draw=gray!10},
+            major grid style={line width=.2pt,draw=gray!50},
+            xmax=4,
+            ymax=1.1,
+            minor tick num=4,
+            width=0.8\textwidth,
+            height=0.4\textwidth,
+            legend pos=east,
+            legend style={
+                at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                anchor=west,    % Ankerpunkt auf der rechten Seite
+                column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+            }
+        ]
+        % \addplot[color=YvesKlein] table[col sep=comma, x=r, y=gr] {Inhalt/Numerik/TestOZ/1.5-100-nS-Ur.csv};
+
+        \addplot[color=green] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/0.1-512-20-S-Heaviside.csv};
+        \addlegendentry{$\rho_* = 0.1$}
+
+        \addplot[color = red] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-Cor-S/1.0-512-20-S-Heaviside.csv};
+        \addlegendentry{$\rho_* = 1.0$}
+
+        \addplot[color=violet] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-Cor-S/2.0-512-20-S-Heaviside.csv};
+        \addlegendentry{$\rho_* = 2.0$}
+
+        \addplot[color=orange] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-Cor-S/5.0-512-20-S-Heaviside.csv};
+        \addlegendentry{$\rho_* = 5.0$}
+
+        \addplot[] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-Cor-S/8.0-512-20-S-Heaviside.csv};
+        \addlegendentry{$\rho_* = 8.0$}
+
+        \addplot[color=red] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-Cor-S/10.0-512-20-S-Heaviside.csv};
+        \addlegendentry{$\rho_* = 10.0$}
+        
+        % \addplot[color=red] table[col sep=comma, x=k, y=gr] {Inhalt/Numerik/Data-with-S/15.0-1024-30-S.csv};
+        % \addlegendentry{$\rho_* = 15.0$}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The radial distribution function $\vr\mapsto g_0(\vr) = g_\abs(0,\dabs{\vr}{2})$ on a general scale.}
+    \label{fig:RadialDistributionFunctionMultDens}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$S_*(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmin=0.,
+                xmax=10,
+                ymax=1.1,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[color=green] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/0.1-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 0.1$}
+            
+            \addplot[color=black] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/0.7-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 0.7$}
+
+            \addplot[color=YvesKlein] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/0.8-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 0.8$}
+
+            \addplot[color=orange] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/0.9-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 0.9$}
+
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/1.0-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 1.0$}
+
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor $S_*$ for small densitys.}
+        \label{fig:StructureFactorSmallDensS1}
+    \end{subfigure}
+    \
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis x line=bottom,
+                axis y line=left,
+                xlabel={$\dabs{\mathbf{q}}{2}$},
+                ylabel={$S_*(\dabs{\mathbf{q}}{2})$},
+                grid=both,
+                grid style={line width=.1pt, draw=gray!10},
+                major grid style={line width=.2pt,draw=gray!50},
+                minor tick num=4,
+                xmax=10,
+                ymax=1.1,
+                width=0.8\textwidth,
+                height=0.4\textwidth,
+                legend pos=east,
+                legend style={
+                    at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                    anchor=west,    % Ankerpunkt auf der rechten Seite
+                    column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+                }
+            ]
+            \addplot[color=green] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/2.0-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 2.0$}
+    
+            \addplot[color=black] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/3.0-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 3.0$}
+    
+            \addplot[color=YvesKlein] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/4.0-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 4.0$}
+    
+            \addplot[color=orange] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/5.0-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 5.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/6.0-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 6.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/7.0-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 7.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/8.0-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 8.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/9.0-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 9.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/10.0-512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 10.0$}
+    
+            \addplot[color=red] table[col sep=comma, x=k, y=S_k] {Inhalt/Numerik/Data-Cor-S/15.0--512-20-S-Heaviside.csv};
+            \addlegendentry{$\rho_* = 15.0$}
+    
+    
+            % \addplot[color=red] table[col sep=comma, x=k, y=D_k] {Inhalt/Numerik/Data-with-S/1.0-1024-S.csv};
+            % \addlegendentry{$\rho_* = 1.0$}
+    
+            \end{axis}
+        \end{tikzpicture}
+        \caption{The structure factor $S_*$ for higher densities.}
+        \label{fig:StructureFactorHighDensS2}
+    \end{subfigure}
+    \caption{Detailed view of the structure factor $S_*$ for small densitys $\rho_*$ and outlook onto higher density behaviour.}
+    \label{fig:StructureFactorSmallDens}
+\end{figure}
+
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis x line=bottom,
+            axis y line=left,
+            xlabel={$\rho_*$},
+            ylabel={$c_{\rho_*}$},
+            grid=both,
+            grid style={line width=.1pt, draw=gray!10},
+            major grid style={line width=.2pt,draw=gray!50},
+            minor tick num=4,
+            xmax=14,
+            width=0.8\textwidth,
+            height=0.4\textwidth,
+            legend pos=east,
+            legend style={
+                at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                anchor=west,    % Ankerpunkt auf der rechten Seite
+                column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+            }
+        ]
+
+        \addplot[color=red] table[col sep=comma, x=density, y=velocityOfSound] {Inhalt/Numerik/Data/VelocityOfSound-nS.csv};
+        \addlegendentry{uncorrected} 
+
+        \addplot[color=YvesKlein] table[col sep=comma, x=density, y=velocityOfSound] {Inhalt/Numerik/Data-Cor-S/VelocityOfSound-S.csv};
+        \addlegendentry{corrected}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The velocity of sound $c_{\rho_*}$ for different densitys $\rho_*$ in comparison with $S_*(q) = 1.0$ and $S_*(q) = 1.0 + \rho_*\cdot(\mcF (g_0 - 1))(q)$.}
+    \label{fig:SoundVelocity}
+\end{figure}
+
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis x line=bottom,
+            axis y line=left,
+            xlabel={$\rho_*$},
+            ylabel={$c_{\rho_*}$},
+            grid=both,
+            grid style={line width=.1pt, draw=gray!10},
+            major grid style={line width=.2pt,draw=gray!50},
+            minor tick num=4,
+            xmax=15,
+            width=0.8\textwidth,
+            height=0.4\textwidth,
+            legend pos=east,
+            legend style={
+                at={(1.1,0.5)}, % Position innerhalb der Achse (rechts Mitte)
+                anchor=west,    % Ankerpunkt auf der rechten Seite
+                column sep=1ex, % Abstand zwischen den Legenden-Einträgen
+            }
+        ]
+
+        \addplot[color=red] table[col sep=comma, x=density, y=velocityOfSound] {Inhalt/Numerik/Data-exp/VelocityOfSound-nS.csv};
+        \addlegendentry{uncorrected} 
+
+        \addplot[color=YvesKlein] table[col sep=comma, x=density, y=velocityOfSound] {Inhalt/Numerik/Data-Cor-S/VelocityOfSound-S.csv};
+        \addlegendentry{corrected}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The velocity of sound $c_{\rho_*}$ for different densitys $\rho_*$ in comparison with $S_*(q) = 1.0$ and $S_*(q) = 1.0 + \rho_*\cdot(\mcF g_{\mathit{exp}} - 1.0)(q)$. Using the exponential ansatz for the radial distribution function.}
+\end{figure}
+
+
+% Quellen brauchen wir erstmal nicht. Mir fällt keine Arbeit ein, mit der wir vergleichen müssen. Es wäre gut, wenn du eine in sich abgeschlossene Diskussion schreibst zum Thema, wie ändert die korrelierte Unordnung die Schallgeschwindigkeit. Ändert sich der Effekt für große und kleine Dichten nur quantitativ.
+
+% Nachrag:  Für die Gaußglocke =(f(x)) solltest du mit Grigerm ciliberti 2003, dem PRL  von Matthias und mir und dem gemeinsamen Paper mit Philipp vergleichen.
+
+% Ist okay, wenn das irgendwann negativ wird. Löse mal die Gaussglocke und vergleiche mit ciliberti2003. Aber es sieht eigentlich gut aua. Du musst jetzt halt diskutieren,  wann deine Lösungen unphysikalosch werden. Beipielsweise, maximum der Dispersionrelatio über ser Dichte plotten.  Da ist vielleicht auch wieder die Masterarbeit eine  Orientierung
+
+ 

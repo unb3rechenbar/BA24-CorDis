@@ -1,0 +1,22 @@
+ρ = 37.0
+Structure Factor Toggle = false
+Tmp Path = ./Cor-S-SOS-Comp
+Iterations = 3000
+k_max = 20
+Exp G Toggle = false
+Heaviside Toggle = true
+After iteration 0, the error is 0.00011239146.
+Converged after 4 iterations, the error is 9.5e-12.
+  2.758477 seconds (3.03 M allocations: 199.424 MiB, 3.91% gc time, 99.94% compilation time)
+512  7.260976 seconds (1.18 G allocations: 20.841 GiB, 25.65% gc time, 2570.32% compilation time)
+Setup completed, performing Dyson Iteration
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+     1     7.695138e+00              NaN
+     2     2.079265e-02     1.155001e-03
+     3     7.731801e-04     1.636787e-06
+  7.800956 seconds (8.42 M allocations: 566.548 MiB, 6.03% gc time, 98.09% compilation time)
+Creating CSV
+FT samples created
+Structure Factor samples created
+All tasks completed

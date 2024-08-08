@@ -1,0 +1,7 @@
+\begin{mdef}{$n$ Particle Density}{nParticleDensity}
+    For our space of positions $\Gamma\relcom\R^d$ from definition \ref{mdef:ModellingSpace} we define the probability of finding $n$ particles in a subvolume $U\subseteq\Gamma$ by its density
+    \[
+        \Gamma^n\ni x\mapsto \rho_N^{(n)}(x) := C(N,n,h)\cdot \int_{V_{d,N-n}\times\text{TF}(V_{d,N-n},x)}\exp\bbra{-\beta\cdot H(x,\phi)}\;\mcD(d(x,\phi)).
+    \]
+    Within we use the abbrevation $C(N,2,h):=\frac{N!}{(N-2)!}\cdot\frac{1}{h^{d\cdot N}\cdot N!\cdot 2!}$ for the normalization constant.\footnote{The prefactor $C(N,n,h)$ is of combinatorial and physical nature, as it for example encodes interchangeability of particles by $1/N!$ and hereby suppressing paradoxes like the Gibbs paradox. Other factors like $h$ assure continuity of the density and represent the planck constant in quantum mechanics. For further information see \cite{Hansen_McDonald_1979}.}
+\end{mdef}

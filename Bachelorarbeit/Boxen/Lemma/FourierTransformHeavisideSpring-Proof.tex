@@ -1,0 +1,63 @@
+\begin{proof}
+    The Fourier Transform $\mcF F_a$ of $F_a$ in three dimensions is given by
+    \[
+        (\mcF F_a)(\vq) = \int_{\R^3} F_a(\vr)\cdot e^{\cmath\cdot\scpr{\vr}{\vq}}\;\uplambda(d\vr),
+    \]
+    while radial symmetry of $F_a = H_a\circ\dabs{\cdot}{2}$ suggests a spherical transformation. Using $(\rho,\vartheta,\varphi)\mapsto \rho\cdot (\sin(\vartheta)\cdot\cos(\varphi),\sin(\vartheta)\cdot\sin(\varphi),\cos(\vartheta))$ with the Jacobian absolute determinant $(\rho,\vartheta)\mapsto \rho^2\cdot\sin(\vartheta)$ we get
+    \[
+        \int_{(-\pi,\pi)}\int_{\R_{>0}}\int_{[0,\pi)}
+            H_a(\rho)\cdot\exp(\cmath\cdot\rho\cdot\dabs{\vq}{2}\cdot\cos(\vartheta))\cdot\rho^2\cdot\sin(\vartheta)
+        \;\uplambda^3(d(\vartheta,\rho,\varphi)).
+    \]
+    Again we can use the differentiation technique to evaluate the inner integral to
+    \[
+        \int_{[0,\pi)}\frac{\cmath}{\rho\dabs{\vq}{2}}\cdot\frac{d}{d\vartheta}\,\exp(-\cmath\rho\cdot\dabs{\vq}{2}\cdot\cos(\vartheta))\;\uplambda(d\vartheta) = \frac{\cmath\cdot\Bbra{\exp(-\cmath\rho\cdot\dabs{\vq}{2}) - \exp(\cmath\rho\cdot\dabs{\vq}{2})}}{\rho\cdot\dabs{\vq}{2}}.
+    \]
+    The outer integral on $(-\pi,\pi)$ yields a factor of $2\pi$ due to independence of $\varphi$, which leaves us one last integral to solve:
+    \[
+        (\mcF F_a)(\vq) = 2\pi\cmath\cdot\dabs{\vq}{2}^{-1}\cdot\int_{\R_{>0}} H_a(\rho)\cdot\bbra{\exp(-\cmath\cdot\rho\cdot\dabs{\vq}{2}) - \exp(\cmath\cdot\rho\cdot\dabs{\vq}{2})}\cdot\rho\;\uplambda(d\rho).
+    \]
+    The boundary condition of $H_a = \mbbEins_{[0,a)}$ suggests a smaller integration domain $[0,a)$ for the integral, so that for $g(\rho):=\exp(-\cmath\cdot\rho\cdot\dabs{\vq}{2}) - \exp(\cmath\cdot\rho\cdot\dabs{\vq}{2})$ we can compute the integral using integration by parts to
+    \[
+        \int_{[0,a]}g(\rho)\cdot\rho\;\uplambda(d\rho) = [G(\rho)\cdot\rho]_0^a - \int_{[0,a]}G(\rho)\;\uplambda(d\rho)
+    \]
+    Here we used the notation $G$ for the first anti-derivative of $g$. Evaluating $G(\rho):=\int_{[0,\rho]}g\;\uplambda$, as well as $\int_{(0,a)}G\;\uplambda$ we find the result
+    \begin{align*}
+        (\mcF F_a)(\vq) &= \frac{2\pi\cmath}{\dabs{\vq}{2}}\cdot\frac{2\cdot\bbra{a\cdot\cos(a\cdot\dabs{\vq}{2})\cdot\dabs{\vq}{2}-\sin(a\cdot \dabs{\vq}{2})}}{\dabs{\vq}{2}^2}\cdot\cmath \\
+        &= 4\pi\cdot\frac{\sin(a\cdot\dabs{\vq}{2}) - a\cdot\dabs{\vq}{2}\cdot\cos(a\cdot\dabs{\vq}{2})}{\dabs{\vq}{2}^3}.
+    \end{align*}
+    We now need to investigate $\lim_{r\to 0}(\mcF F_a)(B_r(0))$. 
+    \begin{multline*}
+        \bbbra{
+            \frac{4\pi}{\dabs{\vq}{2}^3}
+        }\cdot\bbbra{
+            \sum_{n = 0}^\infty\frac{(-1)^n}{(2n + 1)!}\cdot(a\cdot\dabs{\vq}{2})^{2n + 1} - a\cdot\dabs{\vq}{2}\cdot\sum_{n = 0}^\infty\frac{(-1)^n}{(2n)!}\cdot(a\cdot\dabs{\vq}{2})^{2n}
+        } \\
+        = 4\pi\cdot\bbbra{
+            \sum_{n = 0}^\infty\frac{(-1)^n\cdot a^{2n+1}}{(2n + 1)!}\dabs{\vq}{2}^{2n-2} - a\cdot\dabs{\vq}{2}\cdot\sum_{n = 0}^\infty\frac{(-1)^n\cdot a^{2n}}{(2n)!}\cdot\dabs{\vq}{2}^{2n-3}
+        } \\
+        = 4\pi\cdot\bbbra{
+            \sum_{n=0}^\infty\frac{(-1)^n\cdot a^{2n+1}}{(2n+1)!}\cdot\dabs{\vq}{2}^{2n-2} - \frac{(-1)^n\cdot a^{2n+1}}{(2n)!}\cdot\dabs{\vq}{2}^{2n-2}
+        }
+    \end{multline*}
+    Lets take a closer look at the sum (equal to the \emph{Laurent series} at $z_0 = 0$) and its critical summand at $n = 0$, where most factors vanish to one:
+    \[
+        a^2\cdot\dabs{\vq}{2}^{-2} - a^2\cdot\dabs{\vq}{2}^{-2} = 0.
+    \]
+    This means the singularity at $\vq = 0$ vanishes. Furthermore it can be removed with a constant factor $a^3/3$ arising from the next summand at $n=1$:
+    \begin{multline*}
+        \bbbra{
+            \frac{-1\cdot a^3}{3!}-\frac{-1\cdot a^3}{2!}
+        } + \sum_{n=2}^\infty\frac{(-1)^n\cdot a^{2n+1}}{(2n+1)!}\cdot\dabs{\vq}{2}^{2n-2} - \frac{(-1)^n\cdot a^{2n+1}}{(2n)!}\cdot\dabs{\vq}{2}^{2n-2} \\
+        = \bbbra{\frac{1\cdot a^3}{3}} + \sum_{n=2}^\infty\frac{(-1)^n\cdot a^{2n+1}}{(2n+1)!}\cdot\dabs{\vq}{2}^{2n-2} - \frac{(-1)^n\cdot a^{2n+1}}{(2n)!}\cdot\dabs{\vq}{2}^{2n-2}.
+    \end{multline*}
+    Notice that for $\vq = 0$ now the leftover sum vanishes to $0$ and the remainder $a^3/3$ arises. With the full definition of $\mcF F_a$ we therefore found
+    \[
+        (\mcF F_a)(\vq) = \begin{cases}
+            4\pi\cdot\bbra{\sin(a\cdot\dabs{\vq}{2}) - a\cdot\dabs{\vq}{2}\cdot\cos(a\cdot\dabs{\vq}{2})}\cdot\dabs{\vq}{2}^{-3} & \vq\neq 0, \\
+            4\pi\cdot a^3/3 & \vq = 0.
+        \end{cases}
+    \] 
+    % For this let $a:\N\to\R_{>0}$ with $a\searrow 0$. We prove that $b:n\mapsto \max_{x\in\overline{B_{r_n}(0)}}(\mcF F_a)(x)$ then has a limit in $\R_{>0}$.  
+    This concludes the proof.
+\end{proof}

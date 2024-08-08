@@ -1,0 +1,9 @@
+\begin{msat}{Taylor's Theorem}{TaylorTheorem}
+    Let $f\in C^{p+1}(\R)$ for $p\in\N_0$ and $x,h\in\Def(f)$ such that%
+    \footnote{We denote an \emph{interval} in $\R^d$ as $[a,b]:=\{a + t\cdot b:t\in[0,1]\}$.} 
+    $[x,x+h]\subset\Def(f)$. Then there exists $\theta\in(0,1)$ such that
+    \[
+        f(x + h) = \sum_{k=0}^p\frac{1}{k}\cdot D_h^k f(x) + \frac{1}{(p+1)!}\cdot D_h^{p+1}f(x + \theta\cdot h).
+    \]
+    The last summand will be namend $R_{p+1}(f,x,h)$ in this context.
+\end{msat}

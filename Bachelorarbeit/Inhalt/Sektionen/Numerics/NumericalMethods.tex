@@ -1,0 +1,230 @@
+For the implementation we decide to use the programming language \href{https://julialang.org/}{Julia} for its high performance, flexibility and the ability to write code that is close to mathematical notation. Our implementation therefore requires the following packages:
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+using Distributed
+using OrnsteinZernike, GLMakie, FFTW, Statistics, ProgressMeter, QuadGK, NLsolve, ForwardDiff, LinearAlgebra, LoopVectorization, Base.Threads, CSV, DataFrames
+    \end{lstlisting}
+\end{mdframed}
+
+To get the basics out of the way, for $d = 3$ and $kBT = 1$ we define on the parameter tuple $p = (1.0, 2.0, 1.0)$ the spring function $f$ and the potential $U_{\textit{neu}}$ as 
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+@everywhere function HeavisideSpring(r,p)
+    if r < p[3]
+        return 1
+    else
+        return 0
+    end
+end
+    
+@everywhere function U_HeavisideSpring(r, p)
+    if r < p[3]
+        return 0.5 * (r - p[1])^p[2]
+    else
+        return 0
+    end
+end
+    \end{lstlisting}
+\end{mdframed}
+The @everywhere macro is used in Julia for distributed computing.
+
+\subsubsection*{Numerical HNC Approximation}
+
+The implementation of the hypernetted chain fixed point equation from \eqref{eq:FixedPointEquationHCA} turns out to be tricky, since our fixpoint essentially needs to be a function of $r\in\R$. It is also needed to evaluate a folding with $r'\mapsto g_{\textit{tot}}(r - r')-1$. For a fixed $a\in\R$ the implementation can be done via
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+g_hca = r -> exp(-β * U_num(r))
+c_hca = (g, r) -> g(r) - 1 - log(g(r)) - β * U_num(r)
+int_hca = (g, r) -> hcubature(
+    rs -> c_hca(g, rs) * (g_hca(r - rs) - 1),
+    [vol_min for dim in 1:length(r)],
+    [vol_max for dim in 1:length(r)],
+    rtol=1e-5
+)[1]
+Φ_hca = g -> r -> c_hca(g, r) + int_hca(g, r)
+    \end{lstlisting}
+\end{mdframed}
+and a following iteration over $g$, which in our testing turned out to converge very slowly. Instead we will use the work of Ilian Pihlajamaa on his GitHub repository \href{https://github.com/IlianPihlajamaa/OrnsteinZernike.jl}{IlianPihlajamaa/OrnsteinZernike.jl} for a more efficient implementation and straightforward implementation.\footnote{Again, I want to express my gratitude to Ilian Pihlajamaa for his amazing work on this package.}
+
+
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+# -> Define system potential (model)
+potential = CustomPotential(Uf, params)
+
+# -> Create System struct
+system = SimpleLiquid(d, ρ, kBT, potential)
+
+# -> Define solving closure
+closure = HypernettedChain()
+
+# -> generate solution from system parameters
+solution = @time solve(system, closure)
+    \end{lstlisting}
+\end{mdframed}
+This yields a solution object with \texttt{solution.r} as the radii that $g$ has been evaluated on and \texttt{solution.gr} as the corresponding values of $g$. For the first we also use the Symbol $G_r$ to denote the grid points of $r$.
+
+
+
+\subsubsection*{Numerical Structure Factor}
+Now we are ready to discretize the integral $\int_{\R_{>0}}$ on $[0,R]$ for $R>0$ given by $R = \max(G_r)$ with respect to $\rho$ as
+\[
+    \int_{[0,R]}\eqref{eq:IntegrandSstarPolar}\; d\rho \approx \sum_{\rho\in G_r}4\pi\cdot\bbra{g(\rho) - 1}\cdot\rho^2\cdot\sinc(\rho\cdot q)
+    \cdot\Delta\rho.
+\]
+By default we work with a grid resolution of $1024$ points. To test and enhance convergence this is altered but not explicitly mentioned in the following. The discretized integral can now be implemented via
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+cFT_integrand = (q,r) -> 2 * sinc(q * r)
+cFT = q -> begin
+	if exp_g_toggle
+		sum(r^2 * 2 * pi * (exp(-1 * Uf(r, params)) - 1) * x * Δr for (x,r) in zip(cFT_integrand.(q, solution.r),solution.r))
+	else 
+		sum([r^2 * 2 * pi * gm * x * Δr for (x,gm,r) in zip(cFT_integrand.(q, solution.r),[x - 1 for x in solution.gr],solution.r)]) # use cFT_integrand on all r values from solution.r, then discretely integr.
+	end
+end
+    \end{lstlisting}
+\end{mdframed}
+Hereby exp\_g\_toggle is a boolean that switches between the Heaviside and the exponential spring function later on.
+To finally calculate the static structure factor, which now also has radial symmetry $\R\ni\vq\mapsto S_*(q)$, we simply take the real part of $q\mapsto \text{cFT}(q)$ with the following code
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+S_k = q -> 1 + ρ * real(cFT(q))
+    \end{lstlisting}
+\end{mdframed}
+
+
+\subsubsection*{Numerical Dyson Fixed Point Equation}
+For the numerical structure factor we need to calculate the fourier transformed spring function $\hat F_a$ from L.\ref{mlem:FourierTransformOfHeavisideSpring}. Plotting in one dimension gives us the graph shown in Figure \ref{fig:FourierTransformSpringFunction}. Notice that $\hat F_1$ has its maximum at $\omega = 0$ and decays to $0$ for $\omega\to\infty$. 
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \clip (-0.5,-0.5) rectangle (10.5,3);
+
+        \draw[->] (0.1,0) -- (10,0) node[right] {$\omega$};
+        \draw[->] (0.1,0) -- (0.1,2.5) node[above] {$\hat F_1(\omega)$};
+
+        \draw[] (0,4.18) -- (0.1,4.18) node[left] {$\frac{4\pi}{3}$};
+
+        \draw[YvesKlein, samples=1000, domain=0.1:10] plot (\x, {2 * 3.141592 * (sin(\x r) - \x * cos(\x r))/(\x^3)});
+        % \draw[YvesKlein, samples=20, domain=0:0.15] plot (\x, {2 * 3.141592 * (4/3 - 2*\x^2/15 + \x^4/105)});
+    \end{tikzpicture}
+    \caption{Graphical representation of the Fourier transform $\hat F_1$ of the Heaviside spring function $F_1:=H_a\circ\dabs{\cdot}{2}$ in three dimensions. The argument domain is $\omega\in[0,10]$.}
+    \label{fig:FourierTransformSpringFunction}
+\end{figure}
+\noindent Since around $\omega = 0$ the function has a removable singularity, for numerical stability it \emph{can} be helpful to use an approximation of $\hat F_a$ using its Taylor expansion for small $\omega$ as
+\[
+    \hat F_a(\dabs{\vq}{2}) = \frac{4 \pi a^{3}}{3} - \frac{2 \pi a^{5} \dabs{\vq}{2}^{2}}{15} + \frac{\pi a^{7} \dabs{\vq}{2}^{4}}{210} + \mcO\bbra{\dabs{\vq}{2}^6}.
+\]
+However it does not guarantee better results, as our numerical tests have shown. Nevertheless its implementation in Julia reads
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+@everywhere function FHeavisideSpring_1d(ω)
+    local p = params
+
+    if ω == 0.0
+        return 4 * pi * p[3]^3/3
+    # elseif ω < 0.01
+        # return ((4*pi)/(3))-((2*ω^(2)*pi)/(15))+((ω^(4)*pi)/(210))-((ω^(6)*pi)/(11340))+((ω^(8)*pi)/(997920))-((ω^(10)*pi)/(129729600));
+    else
+        return 4 * pi * (sin(p[3] * ω) - p[3] * ω * cos(p[3] * ω)) * ω^(-3)
+    end
+end
+    \end{lstlisting}
+\end{mdframed}
+The integral found for the Dyson fixed point equation in \eqref{eq:FixedPointEquationDysonTransformed} now needs to be discretized and implemented. Herefor we choose a grid $Q = \{q_1,\ldots,q_{n_q}\}$ with $q_1 = \epsilon$ and $q_{n_q} = q_{\text{max}} - \Delta q$, with equal spacing to begin with. The maximum value $q_{\text{max}}$ is set to $30$, but also altered later on due to numerical instabilities in some regions. For the domain of angles we choose $\{\vartheta_1,\ldots,\vartheta_{n_\vartheta}\}$ with $\vartheta_1 = 0$ and $\vartheta_{n_\vartheta} = \pi - \Delta\vartheta$ with equal spacing $\Delta\vartheta = \pi/n_\vartheta$. This lets us approximate the integrand as
+\[
+    I:p\mapsto S_{\abs{*}}\Bbra{\sqrt{p^2 + q_i^2 - 2\cdot p\cdot q_j\cdot\cos(\vartheta_k)}}\cdot V_{\abs{}}\Bbra{\sqrt{q_i,p^2 + q_i^2 - 2\cdot p\cdot q_i\cdot\cos(\vartheta_i)}}^2\cdot q_i^2\cdot\sin(\vartheta_i).
+\] 
+The integration now includes the widths $\Delta q$ and $\Delta\vartheta$. All together, we have
+\[
+    \int_{\R_{>0}}\int_{[0,\pi)}\eqref{eq:FixedPointEquationDysonTransformed}\; d\vartheta d\rho \approx \sum_{q\in Q}\sum_{\vartheta\in\Theta} I_{q,\vartheta}(p)\cdot\Delta q\cdot\Delta\vartheta.
+\]
+Notice now that $(p,q)\mapsto I_{q,\vartheta}(p)$ on gridpoints $Q$ will yield a matrix of sums over angles, which can be used to represent the integration. Defining $\text{IntM}(i,j):=I_{q_i,\cdot}(q_j)$ we can write the integral as
+\[
+    \int_{\R_{>0}}\int_{[0,\pi)}\eqref{eq:FixedPointEquationDysonTransformed}\; d\vartheta d\rho \approx\text{IntM}\cdot G_v,
+\] 
+Where $G_v := \fdef{G(q_i,z)}{i\in[n_q]}$ is the discrete propagator vector. The implementation of this idea reads:
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+BarePropagator = (ω,z) -> 1 / (z - ρ * (Ff(0) - Ff(ω)))
+Vertex = (x,y) -> (Ff(x) - Ff(y))
+
+Integrand = Gv -> (p, q, θ) -> begin
+    norm_val = NormPminusSph_safe(p, q, θ)
+    if norm_val <= 0
+        throw(ArgumentError("Norm value is negative at p = $p, r = $q, θ = $θ"))
+    end
+    if structure_factor_toggle
+    	return S_safe(norm_val) * Vertex(q,norm_val)^2 * q^2 * sin(θ) * (2 * pi)^(-2)
+	else 
+		return 1 * Vertex(q,norm_val)^2 * q^2 * sin(θ) * (2 * pi)^(-2)
+	end
+end
+
+# -> Build Integration matrix
+IntegrationMatrix = zeros(length(Q), length(Q))
+
+# -> Fill Integration matrix
+@time @showprogress @threads for i in 1:length(Q)
+	p = Q[i]
+	for j in 1:length(Q)
+		q = Q[j]
+		if j == 1
+			IntegrationMatrix[j,i] = sum(Integrand(Gv)(p,q,θ) * Δθ for θ in θRange)
+		else 
+			IntegrationMatrix[j,i] = sum(Integrand(Gv)(p,q,θ) * Δθ for θ in θRange) * (Q[j] - Q[j-1])
+		end
+	end
+end
+    \end{lstlisting}
+\end{mdframed}
+Hereby the norm function $N(p,\rho,\vartheta)$ is implemented accordingly, while avoiding division by zero:
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+NormPminusSph_safe = (p,r,θ) -> begin
+	norm_val = (p^2 + r^2 - 2 * p * r * cos(θ))^0.5
+	if norm_val <= 0
+		norm_val = eps()
+	end
+	return norm_val
+end
+    \end{lstlisting}
+\end{mdframed}
+The iteration now is done over the propagator definition, where 
+\[
+    G_v(i)\mapsto \frac{1}{
+        z - \rho\cdot\bbra{\hat F_1(0) - \hat F_1(q)} - \rho^{-1}\cdot(\text{IntM}\cdot G_v)_i
+    }
+\]
+states the value of $G$ at a gridpoint $q_i$. 
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+MDiscreteOneLoopSelfEnergy = Gv -> (IntegrationMatrix * Gv)
+
+# -> Define Iterator function
+MIterator = Gv -> [(z - ρ * (Ff(0) - Ff(p)) - ρ * MDiscreteOneLoopSelfEnergy(Gv)[i])^(-1) for (i,p) in enumerate(Q)]
+    \end{lstlisting}
+\end{mdframed}
+The iteration is done using the package \href{https://github.com/JuliaNLSolvers/NLsolve.jl}{\texttt{NLsolve}} in Julia, such that the following code can be used:
+\begin{mdframed}[backgroundcolor=black!4, topline=false, bottomline=false, rightline=false, leftline=false]
+    \begin{lstlisting}[language=Julia,basicstyle=\small]
+z = 0.0
+initial_Gv = Gv(0.0)
+
+result = @time fixedpoint(x -> MIterator(x), initial_Gv, show_trace = true, ftol=1e-2, iterations = iterations_count)
+    \end{lstlisting}
+\end{mdframed}
+
+For small densities $\rho_*$ an other approximation can be done, by changing the radial distribution function from its definition to an exponential ansatz defined by $g_{\mathit{exp}}:\vr\mapsto \exp(-u_a(\vr)) = \exp(-(\dabs{\vr}{2} - a)^2/2)$, which essentially is stated by our potential $u_a(r)$ that resulted in the chapters introduction from the spring function $f_a^{(\textit{num})}$. \\
+
+Another ansatz is a gaussian spring function $f^{(\textit{gauß})}:r\mapsto \exp(-r^2/2)$. For its implementation the Fourier transformed spring function in three dimensions is needed. Since the integral at hand yields
+\begin{align*}
+    \bbra{\mcF (f^{(\textit{gauß})}\circ\dabs{\cdot}{2})}(\vq) &= 2\pi\cdot\int_{\R_>0}\int_{[0,\pi)}\exp(\frac{-\rho^2}{2})\cdot\rho^2\cdot\sin(\vartheta)\cdot\exp(\cmath\cdot\rho\cdot \dabs{\vq}{2}\cdot\cos(\vartheta))\;\uplambda(d\vartheta)\;\uplambda(d\rho) \\
+    &= 4\pi\cdot\int_{\R_{>0}}\exp(\frac{-\rho^2}{2})\cdot\rho^2\cdot\sinc(\rho\cdot \dabs{\vq}{2})\;\uplambda(d\rho), \numberthis\label{eq:FourierGaussian}
+\end{align*}
+only the generated potential function is left to be evaluated. For it there are two integrations needed:\footnote{The result can be verified by using a symbolic computation software like \href{https://www.wolframalpha.com/}{Wolfram Alpha}. One can use the input \texttt{Integrate[Integrate[exp(-x\textasciicircum 2/2),$\{$x,0,y$\}$],$\{$y,0,t$\}$]}. As we do not discuss this model in this thesis, we will not give further proof.}
+\[
+    U^{(\textit{gauß})}(r) = \int_{(0,r)}\int_{(0,\rho)}\exp(-\frac{\xi^2}{2})\;\uplambda(d\xi)\;\uplambda(d\rho) = \sqrt{\frac{\pi}{2}}\cdot r\cdot\text{erf}\nbra{\frac{r}{\sqrt{2}}} + \exp(-\frac{r^2}{2}) - 1.
+\]
+Hereby $\text{erf}(x):= \frac{2}{\sqrt{\pi}}\int_{0}^{x}\exp(-t^2)\;dt$ is the error function. Although the principal implementation is straightforward, we encountered numerical errors while evaluation within our time constraints, such that this model cannot be discussed in this thesis. \\

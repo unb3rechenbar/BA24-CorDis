@@ -1,0 +1,30 @@
+\begin{mdef}{Diagrammatical Three-Point Interaction}{DiagrammaticalThreePointInteraction}
+    We define the \emph{diagrammatical three-point interaction} symbol as 
+    \[
+        \vcenter{
+            \hbox{
+                \begin{tikzpicture}
+                    \begin{feynman}[small]
+                        \vertex (a);
+                        \vertex [right=of a] (b);
+                        \vertex [above left=of a] (c);
+                        \vertex [below left=of a] (d);
+    
+                        \diagram*{
+                            (a) -- [fermion, edge label=$p + q$] (b),
+                            (a) -- [photon] (c),
+                            (d) -- [fermion] (a),
+                        };
+
+                        \path (a) -- (c) node[midway, above right] {$q$};
+                        \path (a) -- (d) node[midway, below right] {$p$};
+
+                        \draw[fill] (a) circle (0.1);
+                    \end{feynman}
+                \end{tikzpicture}
+            }
+        } 
+        := \mu(p,-q)
+    \]
+    for given $p,q\in\R^d$, where the first argument describes the incoming mode and the second one the occuring density fluctuation.
+\end{mdef}

@@ -1,0 +1,11 @@
+\begin{mdef}{Spectrum of Operators}{SpectrumOfOperators}
+    Let $X$ be a Banach space and $T:X\to X$ a linear operator. We define the following subsets of $\C$:
+    \begin{enumerate}[label=(\alph*)]
+        \item The \emph{resolvent set} $\rho(T):=\{\lambda\in\C:\overline{\text{Im}(T - \lambda\cdot\id)} = X,\;(T-\lambda\cdot\id)\text{ injective},\;(T - \lambda\cdot\id)^{-1}\text{ continuous}\}$.
+        \item The \emph{spectrum} $\sigma(T):=\C\setminus\rho(T)$.
+        \item The \emph{point spectrum} $\sigma_p(T):=\{\lambda\in\C:(T-\lambda\cdot\id)^{-1}\text{ not injective}\}$.
+        \item The \emph{continuous spectrum} $\sigma_c(T):=\{\lambda\in\C:(T-\lambda\cdot\id)\text{ injective},\;\overline{\text{Im}(T - \lambda\cdot\id)} = X,\;(T - \lambda\cdot\id)^{-1}\text{ not continuous}\}$.
+        \item The \emph{residual spectrum} $\sigma_r(T):=\{\lambda\in\C:(T-\lambda\cdot\id)\text{ injective},\;\overline{\text{Im}(T - \lambda\cdot\id)}\neq X\}$.
+    \end{enumerate}
+    The set $\sigma_p(T)$ contains all eigenvalues of $T$.
+\end{mdef}

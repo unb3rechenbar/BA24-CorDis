@@ -1,0 +1,63 @@
+To conclude the investigation led by the last few sections, we combine the gained intuition and formalisms within the \emph{Dyson Fixed Point Equation}. As we have seen, 
+diagrams produced by the perturbative ansatz lead to a large amount of integrals that should be ordered to be interpreted more easily. This can be done by gathering all diagrams with the same loop count and build their sum:
+\[
+    G = L^{0} + \sum_{i\in[3]}L^{(1)}_i + \sum_{i\in[18]} L^{(2)}_i + \ldots
+\]
+Within this representation we have discussed the first two summands. 
+As in the derivation of the one loop diagrams already shown, each sum can be disassembled into a product of the \emph{bare propagator} $G_0$ and a \emph{self energy} term corresponding to the loop count. Following the last chapter and \cite{paper:Grigera_2011,mth:vogel} we therefore have
+\[
+    G = G_0 + G_0^2\cdot \Sigma^{(1)} + G_0^3\cdot (\Sigma^{(2)})^2 + \ldots = G_0 + \sum_{i=1}^\infty G_0^{i+1}\cdot (\Sigma^{(i)})^i.
+\]
+Pulling out one bare propagator $G_0$ from the sum we can rewrite the equation as
+\[
+    G = G_0 + G_0\cdot\sum_{i=1}^\infty (G_0\cdot\Sigma^{(i)})^i = G_0\cdot\sum_{i=0}^\infty (G_0\cdot\Sigma^{(i)})^i.
+\]
+With $\Sigma^{(i)} = \Sigma^{(j)}$ for $i \neq j$ being now called simply $\Sigma$ we would now be able to write for $G_0\cdot \Sigma\in[0,1)$ the geometric series
+\[
+    \sum_{i=0}^\infty (G_0\cdot\Sigma)^i = \frac{1}{1 - G_0\cdot\Sigma}.
+\]
+From which the dyson equation can be derived as
+\[
+    G = \frac{G_0}{1 - \Sigma\cdot G_0} \iff G = G_0 + G_0\cdot\Sigma\cdot G.
+\]
+But this step needs a bit of clarification, as it involves a physical meaning. Looking at the Feynman diagrams occuring in the summation, they all share a similar starting and ending configuration, which can be seen in the first two loop orders by example:
+\[
+    \begin{tikzpicture}
+        \begin{feynman}
+            \vertex (a);
+            \vertex [right=1cm of a] (b) ;
+            \vertex [right=of b] (c);
+            \vertex [right=1cm of c] (d);
+
+            \diagram*{
+                (a) -- [fermion] (b),
+                (b) -- [fermion] (c),
+                (b) -- [photon, half left, looseness=1.5] (c),
+                (c) -- [fermion] (d),
+            };
+        \end{feynman}
+    \end{tikzpicture}
+    \qquad{\Large ;}\qquad
+    \begin{tikzpicture}
+        \begin{feynman}
+            \vertex (a);
+            \vertex [right=1cm of a] (b) ;
+            \vertex [right=0.7cm of b] (c);
+            \vertex [right=0.7cm of c] (d);
+            \vertex [right=0.7cm of d] (e);
+            \vertex [right=1cm of e] (f);
+
+            \diagram*{
+                (a) -- [fermion] (b),
+                (b) -- [fermion] (c),
+                (b) -- [photon, half left, looseness=1.5] (d),
+                (c) -- [photon, half left, looseness=1.5] (e),
+                (c) -- [fermion] (d),
+                (d) -- [fermion] (e),
+                (e) -- [fermion] (f),
+            };
+        \end{feynman}
+    \end{tikzpicture}
+\]
+Notice that every diagram has equal incoming and outgoing wave vectors $p$ and different internal scattering events inbetween. Since we sum up all diagrams we, in physical terms, consider all possible scattering events that can occur within a certain loop order, which means effectively an equality of all $\Sigma^{(i)}$ externally. With this we can state the fixed point equation. 
+\input{../journal/Boxen/Definition/DysonFixpointEquation.tex}

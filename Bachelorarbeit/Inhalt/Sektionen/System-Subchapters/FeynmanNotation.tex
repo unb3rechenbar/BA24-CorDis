@@ -1,0 +1,90 @@
+% To now make sense of occuring terms during seperation of the $n\in\N$-point correlator or to more specifically help the human to visually notice certain patterns and characteristics, a good practice of notation is given by the \emph{Feynman diagrammatics}, which represents occuring integrals in form of \emph{graphs}. 
+While we have calculated the exact integrals occuring in the series expansion, for the human eye it is more appealing to visualize what is happening. This is where the \emph{Feynman diagrammatics} come into play. They represent occuring integrals in form of \emph{graphs}. They also allow an argumentation that not \emph{all} diagrams are needed to represent the MGF, but only the \emph{connected} ones \cite[Sec. 4.3]{Hansen_McDonald_1979}. This can be seen by the following consideration.
+
+\subsubchapter{Connected Diagrams}
+\input{../journal/Tage/2024-05-17/ConnectedDiagrams.tex}
+
+\subsubchapter{Diagrammatical Notation}
+The next step is to define the \emph{symbols} used to represent different integral components. While technically this can be done by arbitrarily chosen drawings, it turns out that the systematic approach of \emph{Feynman rules} is more useful and also includes a physical interpretation. As a starting point we define the \emph{propagator}. It represents the free particle propagating from one point to another.  
+\input{../journal/Boxen/Definition/DiagrammaticalPropagator.tex}
+Since in scattering events a density fluctuation is created, we also need to define the \emph{density fluctuation} as a symbol.
+\input{../journal/Boxen/Definition/DiagrammaticalDensityFluctuation.tex}
+Considering scattering events, the first explicitly occuring one is notationally described by the three-point vertex $\mu_z$. Its symbol should include an incoming particle, as well as an outgoing density fluctuation and a scattered particle.
+\input{../journal/Boxen/Definition/DiagrammaticalThree-PointInteraction.tex}
+Lastly the four-point interaction includes two particles and two density fluctuations.
+\input{../journal/Boxen/Definition/DiagrammaticalFour-PointInteraction.tex}
+All definitions now correspond to literatures conventions, see \cite{paper:Grigera_2011,mth:vogel}.
+Having these notations defined we can take a second look at integral \ref{eq:OneLoopCalcIntegral-1} to obtain the following diagrammatical representation:
+\begin{equation}
+    \begin{tikzpicture}
+        \begin{feynman}
+            \vertex (a);
+            \vertex [right=1cm of a] (b) ;
+            \vertex [right=of b] (c);
+            \vertex [right=1cm of c] (d);
+
+            \diagram*{
+                (a) -- [fermion] (b),
+                (b) -- [fermion] (c),
+                (b) -- [photon, half left, looseness=1.5] (c),
+                (c) -- [fermion] (d),
+            };
+        \end{feynman}
+    \end{tikzpicture}
+    = \frac{1}{\rho_*}\cdot G_0(\tilde p,z)^2\cdot\int_{\R^d}G_0(q - \tilde p,z)\cdot \mu_z(\tilde p, -q)^2\;\uplambdabar(dq).\label{eq:OneLoopCalcIntegralDiag-1}
+\end{equation}
+It is now much easier to think about other integrals that can occure in one loop order, since a visual representation is given. Another way of having one loop is to neglect one of the propagators in the diagram above, namely the first. This yields the following diagram, from which the integral form can be derived using the stated Feynman rules.
+\begin{equation}
+    \begin{tikzpicture}
+        \begin{feynman}
+            \vertex (b);
+            \vertex [right=of b] (c);
+            \vertex [right=1cm of c] (d);
+
+            \diagram*{
+                (b) -- [fermion] (c),
+                (b) -- [photon, half left, looseness=1.5] (c),
+                (c) -- [fermion] (d),
+            };
+        \end{feynman}
+    \end{tikzpicture}
+    = -\frac{2}{\rho_*}\cdot G_0(\tilde p,z)\cdot\int_{\R^d}G_0(\tilde p-q,z)\cdot \mu_z(\tilde p, -q)\;\uplambdabar(dq),\label{eq:OneLoopCalcIntegralDiag-2}
+\end{equation}
+The last possibility without loosing connectiveness is to neglect the second propagator. This yields the following diagram.
+\begin{equation}
+    \begin{tikzpicture}
+        \begin{feynman}
+            \vertex (b);
+            \vertex [right=of b] (c);
+
+            \diagram*{
+                (b) -- [fermion] (c),
+                (b) -- [photon, half left, looseness=1.5] (c),
+            };
+        \end{feynman}
+    \end{tikzpicture}
+    = \frac{1}{\rho_*}\cdot\int_{\R^d}G_0(\tilde p-q,z)\;\uplambdabar(dq).\label{eq:OneLoopCalcIntegralDiag-3}
+\end{equation}
+These diagrams exactly match the literature's results \cite{paper:Grigera_2011} and state our final theoretical standpoint for starting the position probability correction. In addition, performing a summation closes the loop and gives the first order self energy: Calling $L_i^{(1)}$ the $i$-th diagram in one loop order, we have
+\begin{multline}
+    \sum_{i\in[3]}L^{(1)}_i=\frac{G_0(p,z)}{\rho_*}\cdot\int_{\R^d}G_0(p-q,z)\cdot\mu_z(p,-q)^2\;\uplambdabar(dq) \\
+    - 2\cdot\frac{G_0(p,z)^2}{\rho_*}\cdot\int_{\R^d}G_0(p-q,z)\cdot\mu_z(p,-q)\;\uplambdabar(dq) \\
+    + \frac{1}{\rho_*}\cdot\int_{\R^d}G_0(p-q,z)\;\uplambdabar(dq).\label{eq:OneLoopCalcIntegralDiag-Sum}
+\end{multline}
+Combining all three integrands into one we further find
+\begin{align*}
+    \sum_{i\in[3]}L^{(1)}_i &= \frac{1}{\rho_*}\cdot\int_{\R^d}G_0(p-q,z)\cdot\bbra{
+        G_0(p,z)^2\cdot\mu(p,-q)^2 - 2\cdot G_0(p,z)\cdot\mu(p,-q) + 1
+    }\;\uplambdabar(dq) \\
+    &= \frac{1}{\rho_*}\cdot\int_{\R^d}G_0(p-q,z)\cdot\bbra{
+        G_0(p,z)\cdot\mu(p,-q) - 1
+    }^2\;\uplambdabar(dq).
+\end{align*}
+With theorem and definitions \ref{msatdef:VertexFunction} and \ref{msatdef:ThreePointVertex} we can rewrite the content of the brackets using the vertex function:
+\begin{align}
+    G_0\cdot\mu = G_0\cdot G_0^{-1} + G_0\cdot V = 1 + G_0\cdot V \iff G_0\cdot \mu - 1 = G_0\cdot V.\label{eq:OneLoopCalcIntegralDiag-Vertex}
+\end{align}
+This results in the dyson representation and self energy term
+\[
+    \sum_{i\in[3]}L^{(1)}_i = G_0(p,z)^2\cdot\frac{1}{\rho_*}\cdot\int_{\R^d}G_0(p-q,z)\cdot V(q,p)^2\;\dbar q =: G_0(p,z)^2\cdot\Sigma^{(1)}(p,z).
+\]

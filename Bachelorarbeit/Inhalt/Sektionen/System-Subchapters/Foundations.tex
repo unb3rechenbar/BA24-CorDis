@@ -1,0 +1,77 @@
+Having established this basic mathematical framework, we can now move on to describing the \emph{physics} of our system. The ERM model stated in \cite{paper:Grigera_2011,mth:vogel,paper:2405.06537v1,PhysRevLett.130.236101} and other is used to describe a classical physical system of $N\in\N$ interacting particles in a $d$-dimensional space. A visualization was done in the chapter's introduction, see figure \ref{fig:GraphRepresentation}. This space where the particles individually are \emph{located} is from now on referred to as $\Gamma\subset\R^d$ with some technical assumptions on its structure. A summary of all particles positions is encoded in the \emph{phase space} $V_{d,N}$ which is given by the cartesian product of $N$ copies of $\Gamma$. 
+\input{../journal/Boxen/Definition/ModellingSpace.tex}
+Our general idea now is to assume an at least three times (see T.\ref{msat:TaylorTheorem}) continuously differentiable potential function $U:V_{d,N}\to \R$ describing the system state, i.e. the potential energy of $N\in\N$ particles numbered $i\in[N]$ placed at positions $r_i\in\Gamma$. For later purposes of approximation we would now like to only consider positional arguments which fulfill $U$-critical conditions, i.e. physically speaking \emph{equilibrium} states of the system. These also do exist for $U$ since we made according assumptions on $\Gamma\relcom\R^d$.
+\input{../journal/Boxen/Definition/CriticalDistributionofPositions.tex}
+From this mathematical definition we can already deduce physical properties, since being in a critical state physically means that \emph{movement} is (even instably) \emph{restricted}. One could now wonder what happens if we dislocate the particles from their equilibrium positions everso slightly. Intuitively, if we have an instable equilibrium, i.e. mathematically a saddle point, we would expect the particles to move to lower states of potential energy, i.e. minima of $U$. But even in stable equilibria, our physical intuition expects a \emph{restoring force} to act on the particles, which would bring them back to their equilibrium positions. Mathematically we can analyse this behaviour by looking at the first orders of the \emph{Taylor series} of $U$. But if we want our positions to be and remain within a restricted volume $\Gamma\subseteq\R^d$, we need to first artificially restrict allowed variations of $r_*\in\text{critP}(U)$ to \emph{Taylor fluctuations}, i.e. elements of $\text{TF}(\Gamma,r_*)$.
+\input{../journal/Boxen/Definition/Taylorfluctuations.tex}
+Since for Taylor approximation from theorem \ref{msat:TaylorTheorem} we assume our displacement to be small for the remaining summand $R_{p+1}(f,r_*,h)$ to be equally small, we always find allowed $\phi\in\text{TF}(\Gamma,r_*)$ for any $r_*\in\text{critP}(U)$ because of the openness of $\Gamma$. If we perform a large volume limit on $V_{d,N}$, we will be able to neglect the restriction to $\text{TF}(\Gamma,r_*)$ and consider all of $\R^d$ as our displacement space. Another approach is a global shift of the modelling space's origin to $r_*$, by which the Taylor fluctuations can be drawn from a constant set $\text{TF}_{\Gamma,0} =: \text{TF}_{\Gamma,N}$, which can be pictured as shown in figure \ref{fig:ERMmapping}.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[fill=black] (0,0) circle (0.05);
+        \draw[] (-3,1.5) -- (3,1.5) -- (3,-1.5) -- (-3,-1.5) -- (-3,1.5);
+
+        \draw[fill=black] (-2,1) circle (0.05);
+        \draw[->] (0,0) -- (-2,1);
+
+        \draw[dotted] ({-3-2},{1.5+1}) -- ({3-2},{1.5+1}) -- ({3-2},{-1.5+1}) -- ({-3-2},{-1.5+1}) -- ({-3-2},{1.5+1});
+
+        
+        \draw[fill=black] (1,0) circle (0.05);
+        \draw[->] (0,0) -- (1,0);
+
+        \draw[dotted] ({-3+1},{1.5+0}) -- ({3+1},{1.5+0}) -- ({3+1},{-1.5+0}) -- ({-3+1},{-1.5+0}) -- ({-3+1},{1.5+0});
+
+        
+        \draw[fill=black] (-1,-0.5) circle (0.05);
+        \draw[->] (0,0) -- (-1,-0.5);
+        
+        \draw[dotted] ({-3-1},{1.5-0.5}) -- ({3-1},{1.5-0.5}) -- ({3-1},{-1.5-0.5}) -- ({-3-1},{-1.5-0.5}) -- ({-3-1},{1.5-0.5});
+    \end{tikzpicture}
+    \caption{Mapping of $\text{critP}(U)$ to $\Gamma_2$ in the ERM model.}
+    \label{fig:ERMmapping}
+\end{figure}
+Within the ERM model we are not interested in the particles moments, such that the hamiltonian of the system is fully given by the potential energy $U$.
+\input{../journal/Boxen/Definition/Hamiltonian.tex}
+The Potential $U$ (now equivalent to its hamiltonian $H$) can now be approximated at $r_*\in \text{critP}(U)$ to second order with displacement $\phi\in\text{TF}(V_{d,N},r_*)$ by 
+\[
+    H^{(2)}(r_*,\phi) = U(r_*) + \ubra{\dv{t}U(r_*+t\cdot\phi)\big|_{t=0}}{=0} + \frac{1}{2}\cdot\scpr{\text{H}U(r_*)\cdot\phi}{\phi},
+\]
+where $\text{H}U(r_*)$ denotes the hessian of $U$ at $r_*$. This now as initially stated gives an integral of the form
+\[
+    \int_{V_{d,N}}\int_{\text{TF}(V_{d,N},r_*)}\exp\bbra{-\beta\cdot U(r_*)}\cdot\exp(-\beta\cdot\frac{1}{2}\cdot\scpr{\text{H}U(r_*)\cdot\phi}{\phi})\;\uplambda(d\phi)\;\uplambda(dr_*).
+\]
+Within the following pages representing the current standpoint of research one assumed $\exp(-\beta\cdot U(r_*))$ to be constantly given by the a priori density $1/\abs{V_{d,N}}$ with $\abs{V_{d,N}}:=\uplambda(V_{d,N})$ and therefore of no greater interest. With $\text{TF}(V_{d,N},r_*)$ also assumed to be \emph{independent}\footnote{The error made by this assumption is not to be discussed in this thesis.} of $r_*$ (see above), such that it is set to a fixed set $\text{TF}_{\Gamma,N}\subset(\R^d)^N$. This shifted the startpoint from $\int 1\;\mbbP$ effectively approximating to
+\begin{multline*}
+    \int_{V_{d,N}}\int_{\text{TF}(V_{d,N},r_*)}\exp(-\beta\cdot\frac{1}{2}\cdot\scpr{\text{H}U(r)\cdot\phi}{\phi})\;\uplambda(d\phi)\;\Bbra{\frac{1}{\abs{V_{d,N}}}\cdot\uplambda}(dr) \\
+    \approx \int_{V_{d,N}\times\text{TF}_{\Gamma,N}}\ubra{\frac{1}{\abs{V_{d,N}}}\cdot\exp(-\frac{\beta}{2}\cdot\scpr{\text{H}U(r)\cdot\phi}{\phi})}{=\,\exp(-\beta\cdot H_*(r,\phi))}\;\uplambda(d(r_*,\phi)),
+\end{multline*}
+defining an a priori Hamiltonian $H_*$, in which the distribution of the shifting vector $\phi$ is now much more prominent. With growing progress in this thesis investigation it will become clear that the original exponential term is indeed of interest, which will lead to a corrected hamiltonian $H$. But first we need to discuss current integrand at hand. A regard to notation: In referenced literature these two integrals are noted using two different symbols. For averaging over the critical position domain it is established to use an overline \enquote{\,$\overline{\phantom{aaa}}$\,}, while for the translational domain of $\phi$ the symbol \enquote{$\langle \ldots\rangle$} is used, see for example \cite{paper:Grigera_2011,mth:vogel}. \\
+
+We now need to motivate the use and definition of ERM for our system. This can be done by assuming \emph{pair interactions} between the particles. This is a common assumption in physics, since it is often the case that particle potentials can be written as a sum of pair potentials. Therefore with $r\in V_{d,N}$ we have the representation
+\[
+    U(r) = \frac{1}{2}\cdot\sum_{i,j\in[N]}U(r_i-r_j).
+\]
+Performing two differentiations on $U$ with respect to $r$ we get for $[N]^2\ni(i,j)\mapsto d_{i,j}:r\mapsto r_i-r_j$ the form $\bbra{\dv{r}}^2 (U\circ d_{i,j}) = U''(d_{i,j})\cdot d'_{i,j}^2 + U'(d_{i,j})\cdot d''_{i,j}$. For $d'_{i,j}(r) = e_i + e_j$ and $d''_{i,j}(r) = 0$ we find using $d'_{i,j}(r)^\top\cdot g'_{i,j}(r) = 2$ the second derivative as
+\begin{align}
+    U''(r) = \frac{1}{2}\cdot\sum_{(i,j)\in[N]^2}\bbbra{\dv{r}}^2(U\circ d_{i,j}) = \frac{1}{2}\cdot 2\cdot\sum_{i,j\in[N]}U''(r_i-r_j).\label{eq:SecondDerivativePairInteraction}
+\end{align}
+This physically represents exactly the idea of a feathered potential, since for an energy $E(x) = k\cdot x^2/2$ we have $E''(x) = k$. Therefore we can treat $U''$ as a spring function that yields a $k$ dependent on the distance of two particles. If we now neglect the directions, i.e. making $U''$ a radial function, we can implement a pair interaction function $f:\R^d\to\R$ that is a radial function an constitutes the hessian of $U$ with the following properties.
+\input{../journal/Boxen/Definition/PairInteractionFunction.tex}
+Physically speaking, by introducing a radial symmetry with $f = f_{\abs{}}\circ\dabs{\cdot}{2}$, we want the particles to interact equally with each other without any preference of direction. The second condition of $f$ being a Schwartz function is a technical condition to ensure fourier transformability. Comparing results to $H^{(2)}$ now gives us 
+\[
+    H(r_0,\phi) \approx \frac{1}{2}\cdot\sum_{i,j\in[N]}U(r_i - r_j) + \frac{1}{4}\cdot\sum_{i,j\in[N]}f_{\abs{}}(\dabs{r_i-r_j}{2})\cdot\phi_i\cdot\phi_j,
+\]
+with $r_0\in\text{critP}(U)$ and $\phi\in\text{TF}(V_{d,N},r_0)$. This is also a good moment to discuss units in our model. It would be natural to assume $r$ having the units of lenght, i.e. $\si{\metre}$, as well as $\phi$ which is directly added to $r$. But since a mathematical theory of units and dimensional analysis is way beyond the scope\footnote{See for example the \href{https://en.wikipedia.org/wiki/Buckingham\_\%CF\%80\_theorem}{\textit{Buckingham $\pi$ theorem}}, the paper \href{https://arxiv.org/pdf/2108.08703}{\textit{Dimensioned Algebra: the mathematics of physical quantities}} by Carlos Zapata-Carratala or others.} of this thesis, we will assume all occuring physical quantities to be dimensionless, which can be achieved by multiplication with a normalized inverse quantity. In practice this means $r = r\cdot\sigma_{\si{\metre}}^{-1}$ as well as $\phi = \phi\cdot\sigma_{\si{\metre}}^{-1}$ and therefore $[r] = 1 = [\phi] = [U] = [G]$ \cite{mth:vogel}. 
+
+Having introduced the pair interaction function $f$ we can now take a look at our aimed approximation of the hessian of $U$ at $r_*\in\text{critP}(U)$. The core of the repulsive ERM theory given in \cite{paper:Grigera_2011,mth:vogel} is a \emph{laplacian} matrix $L\in\R^{N\times N}$, which is strongly related to graph theory. Without going too much into detail, using D.\ref{mdef:LaplacianMatrix} the decomposition $L = B\cdot B^\top = D - W$ with $B$ being the incidence matrix (see D.\ref{mdef:IncidenceMatrix}), $D$ the degree matrix (see D.\ref{mdef:DegreeAndDegreeMatrix}) and $W$ the weighted adjacency matrix (see D.\ref{mdef:WeightMatrix}) of a graph (see D.\ref{mdef:Graph}) can be stated \cite{bookchapter:GraphsAndLaplacians}. The first matrix $B$ encodes the \emph{bonds} between the particles as their signed square roots $\pm\sqrt{L_{i,j}}$, respectively for \emph{incoming} and \emph{outgoing} edges. This matrix will be holding the pair interaction function as $\pm\sqrt{f}$ in its entries. 
+From it we can deduce $\scpr{L\cdot x}{x} = \scpr{B^\top x}{B^\top x} = \dabs{B^\top\cdot x}{2}^2 \geq 0$ with $B$ symmetric for all $x\in\R^{d\cdot N}$, which is the property of positive semi-definiteness. The second property\footnote{Sometimes one writes $\sum_{i\sim j}$ for nodes $(v_1,\ldots,v_N)$. This means summing only over all \emph{adjacent} nodes. Because in our system every particle interacts with every other particle, we can write $\sum_{j\in[N]}$ instead.} $i\mapsto \sum_{j\in[d\cdot N]}L_{i,j} = 0$, i.e. the rows of $L$ summing up to zero, translates into $1_{\R^{d\cdot N}} = (1,\ldots,1)$ being an eigenvector to the eigenvalue $0$. % \color{red} USE? \color{black}.
+
+This directly corresponds to the phyical picture: The nodes of the graph are the particles, the edges are the interactions between them and the weights define the strength of the interaction. 
+
+The euclidean part in ERM comes from the constraint of our target space $V_{d,N}$ having euclidean structure, which is straightforwardly given by the relation $V_{d,N} \subseteq \R^{d\cdot N}$ and the induced euclidean norm\footnote{The norm can indeed be freely chosen since we have an equivalence theorem for all $p$ norms build by $\dabs{x}{p}:=\Bbra{\sum_{i\in[d]}\abs{x_i}^p}^{1/p}$ for $p\in\N$ and $x\in\R^d$.} $\dabs{\cdot}{2} := \sqrt{\scpr{\cdot}{\cdot}}$ that is already part of Definition \ref{mdef:PairInteractionFunction}. This intuitively corresponds to our physical understanding of three dimensional space. With this we can now introduce the heart of the ERM model, the laplacian matrix $\tilde U(f,r_*)$.
+\input{Boxen/Postulat/CouplingRepresentationofthePotential.tex}
+Note that if we would introduce the PIF $f$ with the property $f(0) = 0$ we can simply take the sum over all matrix columns, i.e. $\sum_{j\in[N]}f_{i,j}$. Because $\tilde U(f,r_*)$ is constructed of block matrices, we physically only use the norm of $\phi$, i.e. only its \emph{length}, not its \emph{direction}. This is a reduction of complexity, as the matrix in general holds non-diagonal blocks. Therefore a smaller matrix $M(f,r_*)$ can be defined as $M(f,r_*)_{i,j}$ being the diagonal entry of the $i,j$-th block of $\tilde U(f,r_*)$. We do not notationally differentiate the matrix $\tilde U(f,r_*)\in\R^{N\times N}$ where $\tilde U(f,r_*)_{i,j}$ is the diagonal entry of the $i,j$-th block from the general matrix $\tilde U(f,r_*)\in\R^{d\cdot N\times d\cdot N}$.\\
+
+To introduce the randomness in euclidean \emph{random} matrices we now only need to exchange the fixed positions $r_*\in V_{d,N}$ by random variables coming from an abstract probability space $(\Omega,\Sigma,\mbbP)$ mapping to $(V_{d,N},\mathcal{B}(V_{d,N}))$. This makes our matrix representation also random, i.e. $\Omega\ni\omega\mapsto \tilde U(f,R_\omega)$ becoming a \emph{random matrix}, where $R:\Omega\to V_{d,N}$ is said random variable of positions. Doing so we find for every $\omega\in\Omega$ a initial distribution of positions in our space $\Gamma$, on which we later can calculate the expectency via the pushforwad measure $\mbbP_R:=\mbbP\circ R^{-1}$. 
+\input{Boxen/Definition/PositionDistribution.tex}

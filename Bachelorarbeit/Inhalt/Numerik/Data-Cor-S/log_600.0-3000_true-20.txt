@@ -1,0 +1,42 @@
+ρ = 600.0
+Structure Factor Toggle = true
+Tmp Path = ./Data-Cor-S
+Iterations = 3000
+k_max = 20
+Exp G Toggle = false
+Heaviside Toggle = true
+After iteration 0, the error is 3.339451e-5.
+Converged after 4 iterations, the error is 2.4e-11.
+  3.080785 seconds (3.03 M allocations: 199.424 MiB, 3.00% gc time, 99.94% compilation time)
+512 37.592118 seconds (1.36 G allocations: 331.779 GiB, 48.85% gc time, 695.25% compilation time)
+Setup completed, performing Dyson Iteration
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+     1     2.119728e-01              NaN
+     2     9.120707e-05     8.319887e-09
+  7.871176 seconds (8.40 M allocations: 564.253 MiB, 4.75% gc time, 97.64% compilation time)
+Creating CSV
+FT samples created
+Structure Factor samples created
+All tasks completed
+ρ = 600.0
+Structure Factor Toggle = true
+Tmp Path = ./Data-Cor-S
+Iterations = 3000
+k_max = 20
+Exp G Toggle = true
+Heaviside Toggle = true
+After iteration 0, the error is 3.339451e-5.
+Converged after 4 iterations, the error is 2.4e-11.
+  2.602237 seconds (3.03 M allocations: 199.424 MiB, 2.90% gc time, 99.94% compilation time)
+512345.745527 seconds (153.02 G allocations: 2.525 TiB, 61.54% gc time, 60.57% compilation time)
+Setup completed, performing Dyson Iteration
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+     1     5.594301e-02              NaN
+     2     1.386087e-03     1.922111e-06
+  7.868703 seconds (8.40 M allocations: 564.251 MiB, 6.12% gc time, 95.90% compilation time)
+Creating CSV
+FT samples created
+Structure Factor samples created
+All tasks completed

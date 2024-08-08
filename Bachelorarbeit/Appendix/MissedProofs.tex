@@ -1,0 +1,8 @@
+During the derivation of the Green's function or resolvent of our system's Laplace matrix we needed the Laplace transform of the second derivative with respect to time of a Laplace transformable function $f$. For this we generally stated $(\mcL f^{(n)})(s) = s^n\cdot(\mcL f)(s) - \sum_{k=0}^{n-1}s^{n-1-k}\cdot f^{(k)}(0)$, which for every $n\in\N$ and $f\in C^n(\R_{>0})$ of exponential order we now need to prove.
+\input{Boxen/Lemma/LaplaceTransformOfDerivatives-Proof.tex}
+
+% Next up we need to give a proof for the Fourier transform of the Heaviside function which we have stated to be $\R\ni\omega\mapsto\hat H_a(\omega) = \exp(\cmath\cdot a\cdot \omega)/(\cmath\cdot\omega) + \pi\cdot\delta_0(\omega)$ in Lemma \ref{mlem:FourierTransformOfHeaviside} during our numerical analysis. For this we use an approximation technique to state a candidate for the Fourier transform and conclude with an inverse transformation the full result.
+% \input{../journal/Boxen/Lemma/FouriertransformOfHeaviside-Proof.tex}
+
+
+\input{../journal/Boxen/Lemma/FourierTransformHeavisideSpring-Proof.tex}

@@ -1,0 +1,63 @@
+\begin{mlem}{Parametrization of Complex Spheres}{ParametrizationOfComplexSpheres}
+    Let $N\in\N_{\geq 2}$ and $z\in \overline{B_{N/\rho_*}(0)}\subseteq\C$ be a complex number for $\rho_*\geq 1$. Then there exists a $\varphi\in[0,2\pi)^N$ such that $z = 1/\rho_*\cdot \sum_{i\in[N]}\exp(-\cmath\cdot \varphi_i)$.
+\end{mlem}
+\begin{proof}
+    Assume $\OE$ that $z\neq 0$, Define $z_0:=z/\abs{z}\in \partial B_1(0)$. Because $\psi(\varphi_*):=\exp(-\cmath\cdot \varphi_*)$ is a bijective map from $[0,2\pi)$ to $\partial B_1(0)$ we can find a unique $\varphi_*\in[0,2\pi)$ such that $z_0 = \psi(\varphi_*)$. There are now two cases to consider: Either $\abs{z} = N/\rho_*$ (i) or $\abs{z} < N/\rho_*$ (ii).
+    \begin{itemize}
+        \item[(i)] Then we have $z = N/\rho_*\cdot z_0 = N/\rho_*\cdot \psi(\varphi)$.
+        \item[(ii)] Define $z_* := 2\cdot \abs{z} / N = 2\cdot N/\rho_*\cdot N^{-1} \leq 2$. Let $M(\varphi_*)$ be a rotation matrix such that $\tau(M(\varphi_*)\cdot e_1) = z_0$ for $e_1 = (1,0)$ and $\tau:\R^2\to\C$ isotmorph. Then we find $\vartheta\in[0,2\pi)$ such that
+        \[
+            \tau^{-1}(z_*\cdot z_0) = M(\varphi_*)\cdot \bbra{
+            \tau(\psi(\vartheta)) + \tau(\psi(-\vartheta))
+            }.
+        \] 
+        This can be seen by looking at $\overline{\partial B_(z_*/2)(0)} \cap \overline{\partial B_{z_*/2}(z_*\cdot z_0)} \neq \emptyset$ since $z_*\cdot z_0\leq 2$. We now have to consider $N$ even (ii.i) and $N$ odd (ii.ii) individually.
+        \begin{itemize}
+            \item[(ii.i)] For $N$ even the proof is already complete.
+            \item[(ii.ii)] For $N$ odd use the same argument for $N_*:=N-1$ and define $\varphi_{N_* + 1}:= 0$.
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+Visually we then have the following image:
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[->] (0,0) -- ({cos(60)},{sin(60)}) node[right] {$z_0$}
+        \draw[->,dotted] (0,0) -- ({3*cos(60)},{3*sin(60)}) node[right] {$z$}
+
+        % > --------------- DOTTED CIRCLES ----------------- <
+        \draw[dotted] ({cos(60)},{sin(60)}) circle (1);
+        \draw[dotted] ({2*cos(60)},{2*sin(60)}) circle (1);
+        \draw[dotted] ({3*cos(60)},{3*sin(60)}) circle (1);
+
+        % > --------------- POSSIBLE PATHS ----------------- <
+        \draw[->,red!50] (0,0) -- ({cos(120)},{sin(120)});
+        \draw[->,red!50] ({cos(120)},{sin(120)}) -- ({cos(60)},{sin(60)});
+
+        \draw[->,blue!50] ({cos(60)},{sin(60)}) -- ({(2*sin(60))*cos(90)},{(2*sin(60))*sin(90)});
+        \draw[->,blue!50] ({(
+            2*sin(60))*cos(90)
+        },{(
+            2*sin(60))*sin(90)
+        }) -- ({2*cos(60)},{2*sin(60)});
+
+        \draw[->,green!50] ({2*cos(60)},{2*sin(60)}) -- ({
+            2.6457513110646*cos(60 + atan((sqrt(3)/2)/2.5))
+        },{
+            2.6457513110646*sin(60 + atan((sqrt(3)/2)/2.5))
+        });
+        \draw[->,green!50] ({
+            2.6457513110646*cos(60 + atan((sqrt(3)/2)/2.5))
+        },{
+            2.6457513110646*sin(60 + atan((sqrt(3)/2)/2.5))
+        }) -- ({3*cos(60)},{3*sin(60)});
+
+
+        % > --------------- OUTER CIRCLES ----------------- <
+        \draw[] (0,0) circle (1);
+        \node at (0,-0.6) {$B_1(0)$};
+        \draw[dotted] (0,0) circle (3);
+        \node at (0,-2.6) {$B_{6/2}(0)$};
+    \end{tikzpicture}
+    \caption{Parametrization of complex spheres. For $N=6$ and $\rho_*=2$ we find $z = 3\cdot z_0$ and $z_* = 2\cdot 6/(2\cdot 6) = 1$. This results in an isosceles triangle with constant angles $\alpha = \SI{60}{\degree}$ due to equal side lengths. Each color pair represents the sum of $p(\pm\vartheta)$ for sufficient $\vartheta\in[0,2\pi)$.}
+\end{figure}

@@ -1,0 +1,7 @@
+\begin{mdef}{Fourier Transformation}{FourierTransformation}
+    Let $f\in\mcL^1(\R^d)$ be a $\uplambda$ integrable function. Then we define the \textit{Fourier transformation} $\mcF:\mcL^1(\R^d)\to C_0(\R^d)$ by 
+    \[
+        (\mcF f)(\xi) :=&\, \int_{\R^d}f(x)\cdot e^{\cmath\cdot\scpr{x}{\xi}}\;\uplambda(dx).
+    \]
+    The \textit{inverse Fourier transformation} is then only defined for $f\in\mcS(\R^d)$ by $(\mcF^{-1}g)(x) := \int_{\R^d}g(\xi)\cdot e^{-\cmath\cdot\scpr{x}{\xi}}\;\uplambdabar(d\xi)$. We denote $\uplambdabar:=(2\pi)^{-d}\cdot\uplambda$ and $\hat f := \mcF f$.
+\end{mdef}

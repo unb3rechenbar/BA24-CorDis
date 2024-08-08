@@ -1,0 +1,38 @@
+\begin{mpos}{Operatorgenerated MGF}{OperatorgeneratedMGF}
+                
+    \[
+        T_f:F\mapsto \exp(
+            -\int\mcL_f(x)\;(\mu_{\overline{\text{II}}} + \mu_{\overline{\text{III}}})(dx)
+        )(F)
+    \]
+\end{mpos}
+\begin{proof}
+    We have to start by inspecting the well-definedness of $T_f$.
+    \begin{Aufgabe}
+        \nr{} Show that $T_f$ is well-defined.
+    \end{Aufgabe}
+    Next we use the series expansion of $\exo$ to obtain equality by order, i.e. for arbitrary $F:\mcS(\R^d)\to\R$ we have
+    \[
+        T_f(F) = 
+        \nsqbra{
+            \sum_{n=0}^\infty\frac{1}{n!}\bbbra{-\int\mcL_f(x)\;(\mu_{\overline{\text{II}}} + \mu_{\overline{\text{III}}})(dx)}^n
+        }(F).
+    \]
+    Let $F = \exp(G)$ for $G\in\mcS(\R^d)\to\R$, 
+
+    \begin{multline*}
+        \nsqbra{
+            \sum_{n=0}^\infty\frac{1}{n!}\bbbra{-\int\mcL_f(x)\;(\mu_{\overline{\text{II}}} + \mu_{\overline{\text{III}}})(dx)}^n
+        }(\exp(G)) \\
+        = \exp(
+            \sum_{n=0}^\infty\frac{1}{n!}\bbbra{-\int\mcl_f(x)\;(\mu_{\overline{\text{II}}} + \mu_{\overline{\text{III}}})(dx)}^n(G)
+        )\cdot\exp(G).
+    \end{multline*}
+    \begin{Aufgabe}
+        \nr{} Prove the interchangeability of 
+    \end{Aufgabe}
+    Looking at the internal part we can quickly evaluate
+    \[
+        \bbbra{-\int\mcl_f(x)\;(\mu_{\overline{\text{II}}} + \mu_{\overline{\text{III}}})(dx)}^n(G) = 
+    \]
+\end{proof}

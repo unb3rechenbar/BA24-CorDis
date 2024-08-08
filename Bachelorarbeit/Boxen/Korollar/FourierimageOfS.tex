@@ -1,0 +1,11 @@
+\begin{mcor}{Propagator-notation of $\mbbS$}{PropagatorNotationOfS}
+    Let $\mbbS$ be a functional of $\Phi_{\varphi,r_\omega,f}$ and $G_0$ the free propagator. Then we can write $\mbbS = \overline{\text{I}} + \overline{\text{II}} + \overline{\text{III}}$ with 
+    \begin{align*}
+        \overline{\text{I}} &= \int_{\R^d}\hat\Phi_\varphi(p)\cdot G_0(p,z)^{-1}\cdot\hat\Phi_\varphi(-p)\;\uplambdabar(d p), \\
+        \overline{\text{II}} &= \int_{(\R^d)^2}\hat\Phi_\varphi(p_1)\cdot \mu(p_1,p_2)\cdot\hat\Phi_\varphi(-p_1-p_2)\;\bbra{\uplambdabar\otimes(2\pi)^{-1}\cdot\drho_{r_\omega}}(dp), \\
+        \overline{\text{III}} &= \int_{R(d,3)}\hat\Phi_\varphi(p_1)\cdot V(p_3,-p_2)\cdot\hat\Phi(p_3)\;\bbra{(2\pi)^{-1}\cdot\drho_{r_\omega}}^2(dp),
+    \end{align*}
+    where $R(d,3) := \{x\in(\R^d)^3:x_1 + x_2 + x_3 = 0\}$ is the restricted hyperplane%
+    \footnote{One can also imagine occuring $\delta$ within integration as \emph{restrictions} towards the integration domain.}
+    in $(\R^d)^3$. Furthermore we define $\mu(p_1,p_2) := G_0(p_1,z)^{-1}\cdot V(p_2,-p_1)$ and $V(p_3,-p_2) := \rho\cdot (\hat f(p_3) - \hat f(p_3 + p_2))$.
+\end{mcor}

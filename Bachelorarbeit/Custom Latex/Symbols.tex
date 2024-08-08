@@ -1,0 +1,71 @@
+\newcommand{\dbar}{d\hspace*{-0.08em}\bar{}\hspace*{0.1em}}
+\newcommand{\dbbar}{\dbar\hspace*{-0.08em}\bar{}\hspace*{0.2em}}
+
+\newcommand{\uplambdabar}{\uplambda\hspace*{-0.08em}\bar{}\hspace*{0.1em}} %%     <=================== DEFINITION VERBESSERN
+
+\newcommand{\drho}{\delta\hspace*{-0.15em}\rho}
+
+\renewcommand*{\iint}{\int\hspace{-0.6em}\int}
+\renewcommand*{\iiint}{\int\hspace{-0.6em}\int\hspace{-0.6em}\int}
+
+\newcommand{\relcom}{\subset\hspace{-0.6em}\subset}
+
+
+\renewcommand{\Pr}{\text{P}_{\hspace{-2.5pt}r}}
+\newcommand{\Pf}{\text{P}_{\hspace{-2.5pt}\phi}}
+
+\DeclareMathAlphabet{\mathbfit}{OML}{cmm}{b}{it}
+
+
+\newcommand{\va}{\mathbfit{a}}
+\newcommand{\vb}{\mathbfit{b}}
+\newcommand{\vc}{\mathbfit{c}}
+\newcommand{\vd}{\mathbfit{d}}
+\newcommand{\ve}{\mathbfit{e}}
+\newcommand{\vf}{\mathbfit{f}}
+\newcommand{\vg}{\mathbfit{g}}
+\newcommand{\vh}{\mathbfit{h}}
+\newcommand{\vi}{\mathbfit{i}}
+\newcommand{\vj}{\mathbfit{j}}
+\newcommand{\vk}{\mathbfit{k}}
+\newcommand{\vl}{\mathbfit{l}}
+\newcommand{\vm}{\mathbfit{m}}
+\newcommand{\vn}{\mathbfit{n}}
+\newcommand{\vo}{\mathbfit{o}}
+\newcommand{\vp}{\mathbfit{p}}
+\newcommand{\vq}{\mathbfit{q}}
+\newcommand{\vr}{\mathbfit{r}}
+\newcommand{\vs}{\mathbfit{s}}
+\newcommand{\vt}{\mathbfit{t}}
+\newcommand{\vu}{\mathbfit{u}}
+\newcommand{\vv}{\mathbfit{v}}
+\newcommand{\vw}{\mathbfit{w}}
+\newcommand{\vx}{\mathbfit{x}}
+\newcommand{\vy}{\mathbfit{y}}
+\newcommand{\vz}{\mathbfit{z}}
+
+
+
+
+
+\lstdefinelanguage{Julia}%
+  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+      end,export,false,for,function,immutable,import,importall,if,in,%
+      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      using,while},%
+   sensitive=true,%
+   alsoother={$},%
+   morecomment=[l]\#,%
+   morecomment=[n]{\#=}{=\#},%
+   morestring=[s]{"}{"},%
+   morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\lstset{%
+    language         = Julia,
+    basicstyle       = \ttfamily,
+    keywordstyle     = \bfseries\color{YvesKlein},
+    stringstyle      = \color{magenta},
+    commentstyle     = \color{black!70},
+    showstringspaces = false,
+}

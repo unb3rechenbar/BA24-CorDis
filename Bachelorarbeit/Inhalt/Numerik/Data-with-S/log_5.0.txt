@@ -1,0 +1,48 @@
+ρ = 5.0
+Structure Factor Toggle = true
+Tmp Path = ./Data
+Iterations = 1500
+After iteration 0, the error is 4.810918e-5.
+Converged after 3 iterations, the error is 5.5e-11.
+  2.781738 seconds (3.06 M allocations: 200.668 MiB, 2.84% gc time, 99.93% compilation time)
+2402.243993 seconds (5.14 G allocations: 2.464 TiB, 4.96% gc time, 0.08% compilation time)
+Setup completed, performing Dyson Iteration
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+     0     4.774592e+01              NaN
+     1     1.424252e+00     7.078482e+01
+ρ = 5.0
+Structure Factor Toggle = true
+Tmp Path = ./Data
+Iterations = 1500
+After iteration 0, the error is 4.810918e-5.
+Converged after 3 iterations, the error is 5.5e-11.
+  2.677992 seconds (3.06 M allocations: 200.668 MiB, 3.04% gc time, 99.91% compilation time)
+151.063472 seconds (5.14 G allocations: 2.464 TiB, 55.43% gc time, 33.24% compilation time)
+Setup completed, performing Dyson Iteration
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+ρ = 5.0
+Structure Factor Toggle = true
+Tmp Path = ./Data
+Iterations = 1500
+After iteration 0, the error is 4.810918e-5.
+Converged after 3 iterations, the error is 5.5e-11.
+  2.554608 seconds (3.06 M allocations: 200.668 MiB, 3.12% gc time, 99.92% compilation time)
+159.048249 seconds (5.14 G allocations: 2.464 TiB, 54.86% gc time, 37.34% compilation time)
+Setup completed, performing Dyson Iteration
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+     1     4.774592e+01              NaN
+     2     3.283534e+00     2.861495e+01
+     3     2.505753e+00     1.660345e+01
+     4     7.399526e-01     1.442593e+00
+     5     4.328501e-01     4.930453e-01
+     6     2.862753e-02     2.160662e-03
+     7     3.671893e-02     3.550230e-03
+     8     8.486175e-03     1.896586e-04
+  7.396492 seconds (8.61 M allocations: 640.236 MiB, 4.03% gc time, 90.77% compilation time)
+Creating CSV
+FT samples created
+Structure Factor samples created
+All tasks completed

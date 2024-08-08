@@ -1,0 +1,166 @@
+The idea now is to reduce complexity of the model by using a mean field approach on the particle interaction potential $U_a^{(\textit{num})}$. This is done by untangling to direct and indirect contributions towards one specific particle $x$ in $R$ by seperation:\footnote{By $[2,N]$ we mean the set $\{2,\ldots,N\}$.}
+\begin{align*}
+    U_a^{(\textit{num})}(x,R_2,\ldots,R_N) = 2\cdot\sum_{j\in[2,N]}u_a(x - R_j) + \sum_{(i,j)\in[2,N]^2}u_a(R_i - R_j),
+\end{align*}
+and for two particles $x,y\in\R^d$ via 
+\[
+    U_a^{(\textit{num})}(x,y,R_3,\ldots,R_N) = 2\cdot\nbra{
+        \sum_{j\in[3,N]}u_a(x - R_j) + u_a(y - R_j) + u_a(x - y)
+    } + \sum_{(i,j)\in[3,N]^2}u_a(R_i - R_j)
+\]
+where the factor $2$ is a result of symmetry $u_a(x - y) = u_a(y - x)$ coming from the norm. The pair distribution function $g_N^{(2)}$ would then be given by 
+\begin{multline*}
+    g_N^{(2)}(x,R_2) \propto \int_{V_{d,N-2}}\prod_{j\in[N-2]}\exp(-\beta\cdot2\cdot\bbra{u_a(x - R_j) + u_a(R_2 - R_j) + u_a(x - R_2)})\\
+    \cdot\prod_{(i,j)\in[N-2]^2}\exp(-\beta\cdot u_a(R_i - R_j))\;(\uplambda^d)^{N-2}(dR).
+\end{multline*}
+The radial distribution function $g_{\abs{}}(x,\dabs{R_2}{2})$ then can be calculated by integrating a radial sphere $B_{\dabs{R_2}{2}}(x)$ around the position $x$, which can be regarded as $0$ for large volumes.\footnote{Note that the accuracy of the approximation is depending on wether $0\in V_{d,N-2}$ and on the norm $\dabs{x}{2}$.} From this we get 
+\[
+    \R^d\ni R_2\mapsto g_0(R_2) = \int_{B_{\dabs{R_2}{2}}(0)}g_N^{(2)}(0,r)\;\uplambda^d(dr).
+\]
+
+\subsubchapter{Hypernetted Chain Approximation Method}
+In general, for low densities $\rho_*\to 0$ the radial correlation function in a uniform fluid can be written explicitly using the Boltzmann density $\R^d\ni \vr\mapsto \exp(-\beta\cdot w(\vr))$ \cite[eq. 2.6.10]{book:HANSEN201313} for a pair potential $\R^d\ni R_i - R_j\mapsto w(R_i - R_j)$. Hereby $w$ is called the \emph{potential of mean force}. Uniformity further suggests $w$ to be radially symmetric. This can be founded on a diagrammatical reasoning on the iterative solution of the Ornstein-Zernike equation (introduced shortly in D.\ref{mdef:OrnsteinZernike}). The diagrams arise from the growing composition of integrals (see again \ref{mdef:OrnsteinZernike}) lead ultimately to a series expansion of the radial distribution function $g_{\textit{tot}}$ in terms of the density $\rho_*$ of the fluid \cite{book:HANSEN.chap4}. This expansion is given by
+\[
+    g_{\textit{tot}}(\vr) = \exp(-\beta\cdot w(\vr))\cdot\nbra{1 + \sum_{n = 1}^\infty\rho_*^n\cdot \tilde g_n(\vr)},
+\]
+where $\tilde g_n$ are coefficient functions of $g_{\textit{tot}}$'s expansion. From this we can immediately see our claim. Going forward, for higher order terms resulting from higher densities $\rho_*$ one needs to approximate the second factor. This is done by different approaches, known as \emph{closures}. We will take a look at the \emph{hypernetted chain approximation} (HNC) in the following.
+
+% \color{red} CALLED POTENTIAL OF MEAN FORCE \color{black}
+Since we in general do not know the mapping of $w$ we use an indirect approach. For this we make use of our radial potential $\R^d\ni \vr\mapsto u_a(\vr)$ by defining the \emph{direct} radial distribution function as $\R_{>0}\times\R^d\ni(a,\vr)\mapsto g_{\textit{dir}}(a,\vr) :\approx {\exp}\bbra{-\beta\cdot u_a(\vr)}$.\footnote{By $:\approx$ we mean that an approximation in the HNC was done here.} It makes the contribution of a direct interaction of our reference particle at position $\vr_{\textit{ref}} = 0$ with a particle in $\partial B_r(0)\subset\R^d$, i.e. an other particle at distance $r\in\R$, explicitly. Since there are more than two particles total to be assumed in the system, we provide the \emph{indirect} contribution to the radial distribution function as
+\[
+    g_{\textit{ind}}(a,\vr) := \exp(-\beta\cdot \bbra{w(\vr) - u_a(\vr)}),
+\]
+where we virtually subtract the already described direct part $u_a$ from the total potential $w$. This brings us to $g_{\textit{tot}}(a,\vr) = g_{\textit{ind}}(a,\vr) + g_{\textit{dir}}(a,\vr)$, which can be rearranged to
+\[
+    g_{\textit{dir}}(a,\vr) = \ubra{\exp(-\beta\cdot w(\vr))}{\text{total contribution }g_{\textit{tot}}(\vr)}  - \ubra{\exp(-\beta\cdot \bbra{w(\vr) - u_a(\vr)})}{\text{indirect contribution }g_{\textit{ind}}(r)}.
+\]
+% This can be visialized as a diagram in figure \ref{fig:DirectIndirectContribution}.
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%         \draw[->] (0,0) -- ({2 * cos(30)},{2 * sin(30)}) node[left,above,midway] {$g_{\textit{dir}}$};
+%         \draw[->] ({2 * cos(30)},{2 * sin(30)}) -- ({2 * cos(355)},{2 * sin(355)}) node[right,midway] {$g_{\textit{ind}}$};
+% 
+%         \draw[->] (0,0) -- ({2 * cos(355)},{2 * sin(355)}) node[below,midway] {$g_{\textit{tot}}$};
+% 
+%         \draw[fill=black] (0,0) circle (0.05) node[below] {$r_{\textit{ref}}$};
+%         \draw[fill=black] ({2 * cos(30)},{2 * sin(30)}) circle (0.05) node[left,above] {$r$};
+%         \draw[fill=red] ({2 * cos(355)},{2 * sin(355)}) circle (0.05);
+%     \end{tikzpicture}
+%     \caption{Direct and indirect contributions to the radial distribution function. Their sum is the total radial distribution function.}
+%     \label{fig:DirectIndirectContribution}
+% \end{figure}
+\noindent Writing the series expansion of the exponential function we further find
+\[
+    g_{\textit{dir}}(a,\vr) = \exp(-\beta\cdot w(\vr))  - \Bbra{1 - \beta\cdot \bbra{w(\vr) - u_a(\vr)} + R_2(g_{\textit{ind}},0,\vr)}.
+\]
+Assuming that the contribution of the Taylor remainder $R_2(g_{\textit{ind}},0,\vr)$ is negligible and the difference $w(\vr) - u_a(\vr)$ is small\footnote{Again, where there would be a need of an error estimate, we do not make statements about the quality of the approximation in this work. Please take a look at \cite{book:HANSEN.chap3}.}, we can further simplify the expression to
+\[
+    g_{\textit{dir}}(a,\vr) = \ubra{g_{\textit{tot}}(a,\vr) - 1}{=:h(g_{\textit{tot}},a,\vr)} + \beta\cdot \bbra{w(\vr) - u_a(\vr)} \approx : c(g_{\textit{tot}},a,\vr).
+\]
+The newly defined function\footnote{Notice that in the definitions of $c$ and $h$ (as we have done in $g_{\textit{tot}}$, $g_{\textit{dir}}$ and $g_{\textit{ind}}$) we assume $\beta$ to be constant, otherwise we would write $c_\beta$ and $h_\beta$.} $c$ is known in literature as the \emph{direct correlation function}, while $h$ is called the \emph{pair correlation function} \cite{book:HANSEN.chap4}. Since the total potential $w$ is still unknown, we can express it using already occuring terms by its definition $w(\vr) = -\ln(g_{\textit{tot}}(a,\vr))/\beta$ to obtain a fixed point equation for $g_{\textit{tot}}$ using the \emph{Ornstein-Zernike equation}.
+\input{../journal/Boxen/Definition/Ornstein–ZernikeEquation.tex}
+The Ornstein-Zernike equation can now be used with the definition of $c$ to find the following hypernetted chain fixed point equation
+\begin{align}
+    \Phi_{a,r}:g_{\textit{tot}}\mapsto \ubra{c(g_{\textit{tot}},a,r)}{\text{direct}} + \ubra{\int_{\R}c(g_{\textit{tot}},a,r')\cdot \bbra{g_{\textit{tot}}(a,r - r') - 1}\;\uplambda(dr')}{\text{indirect}},\label{eq:FixedPointEquationHCA}\tag{HCA}
+\end{align}
+which is solved by $g_{\textit{tot}}$ as a zero of $g\mapsto \Phi_{a,r}(g) - g$, thus approaching the unknown potential function $w$ indirectly. Since we can again see a split of contributions to the indirect and direct part, the interpretation of the Ornstein Zernike equation becomes clear in the context of our earlier considerations.
+
+\subsubchapter{Static Structure Factor}
+If we successively find the fixed point $g_{\textit{tot}}$ of equation \eqref{eq:FixedPointEquationHCA} we can calculate the static structure factor $S_*$ from lemma \ref{mlem:StaticStructureFactorandRadialDistributionFunction} by
+\begin{align}
+    \R^d\ni \vq\mapsto S_*(\vq) = 1 + \rho_*\cdot\int_{\R^d}\exp(\cmath\cdot\scpr{\vq}{\vr})\cdot\bbra{g_{\textit{tot}}(a,\vr) - 1}\;\uplambda(d\vr). \label{eq:StaticStructureFactorHCA}\tag{SSF}
+\end{align}
+For simplicity we stick to a three dimensional space going forward. Since $w$ is radially symmetric, $\R^d\in \vr\mapsto g_{\textit{tot}}(a,\vr)$ also is a function changing with the vectors norm, i.e. in three dimensions radially symmetric. It turns out to be convenient to make a spherical coordinate transformation and considering $\R\ni r\mapsto g_{\abs{\text{tot}}}(a,r)$ going forward.\footnote{To recover dimensionality dependencies we write $w_\abs{}$ defined by $w(\vr) = (w_{\abs{}}\circ\dabs{\cdot}{2})(\vr)$ for $\vr\in\R^d$ and $r\mapsto g_{\abs{\text{tot}}}(r):=\exp(-\beta\cdot w_{\abs{}}(r))$, thus $g_{\textit{tot}}(\vr) = g_{\abs{\textit{tot}}}(\dabs{r}{2})$. The physicist will know that this is meant by radial symmetry of $g_{\textit{tot}}(\vr)$.} For this we use the cos relation $\cos(\vartheta)\cdot\dabs{\vq}{2}\cdot\dabs{\vr}{2} = \scpr{\vq}{\vr}$ based on the \emph{Cauchy-Schwarz Inequality} $\abs{\scpr{\cdot}{\cdot}}\leq\dabs{\cdot}{}\cdot\dabs{\cdot}{}$ for the scalar product of $\vq,\vr\in\R^3$ to transform the integral:
+\[
+    S_*(\vq) = 1 + \rho_*\cdot\int_{\R^3}\bbra{g_{\abs{\textit{tot}}}(a,\dabs{\vr}{2}) - 1}\cdot{\exp}\bbra{\cmath\cdot\dabs{\vq}{2}\cdot\dabs{\vr}{2}\cdot\cos(\vartheta)}\;\uplambda(dr).
+\]
+The spherical transformation function $(\rho,\vartheta,\varphi)\mapsto \rho\cdot (\sin(\vartheta)\cdot\cos(\varphi),\sin(\vartheta)\cdot\sin(\varphi),\cos(\vartheta))$ yields a Jacobian determinant of $(\rho,\vartheta)\mapsto \rho^2\cdot\sin(\vartheta)$, which represents our integral in spherical coordinates as
+\[
+    \int_{(-\pi,\pi)}\int_{\R_{>0}}\int_{[0,\pi)}\nsqbra{\bbra{g_{\abs{\textit{tot}}}(a,\rho) - 1}\cdot\exp(\cmath\cdot\rho\cdot\dabs{\vq}{2}\cdot\cos(\vartheta))}\cdot\rho^2\cdot\sin(\vartheta)\;\uplambda^3(d(\vartheta,\rho,\varphi)).
+\]
+Evaluation of the outer integral to $2\pi$ can be done effortlessly since there appears no dependency on $\varphi$. The factor $(g_0(\rho) - 1)$ can be linearly interchanged with $\int_{[0,\pi)}$ such that the inner integral is performed on 
+\[
+    \R\ni\vartheta\mapsto \sin(\vartheta)\cdot{\exp}\bbra{\cmath\cdot\rho\cdot\dabs{\vq}{2}\cdot\cos(\vartheta)}.
+\]
+Noticing the cos function in the exponential we can use the chain rule of differentiation to find 
+\[
+    \sin(\vartheta)\cdot{\exp}\bbra{\cmath\cdot\rho\cdot\dabs{\vq}{2}\cdot\cos(\vartheta)} = -\bbra{\cmath\cdot\rho\cdot\dabs{\vq}{2}}^{-1}\cdot\frac{d}{d\vartheta}\,{\exp}\bbra{\cmath\cdot\rho\cdot\dabs{\vq}{2}\cdot\cos(\vartheta)}
+\]
+for given $\rho\in\R_{>0}$ and $\vq\in\R^3$. The differentiation means vanishing integration with respect to $\vartheta$, such that evaluation yields
+\[
+    \R\times\R^3\ni(\rho,\vq)\mapsto \frac{\cmath}{\dabs{\vq}{2}\cdot\rho}\cdot\Bbra{
+        {\exp}\bbra{-\cmath\cdot \dabs{\vq}{2}\cdot\rho} - {\exp}\bbra{\cmath\cdot \dabs{\vq}{2}\cdot\rho}
+    }.
+\]
+This basically is the definition of sinc, since $\sin(x) = (e^{\cmath x} - e^{-\cmath x})/(2\cdot\cmath)$ and $\sinc(x) = \sin(x)/x$, such that the mapping is eqivalent to $(\rho,q)\mapsto 2\cdot\sinc(\dabs{\vq}{2}\cdot\rho)$.
+As a result the integration over $\R^3$ turns out to be an integration over $\R_{>0}$ with respect to $\rho$ at given wave vectors $\vq\in\R^3$ of the \underline{I}ntegrand of the static \underline{S}tructure factor relation in \underline{S}pherical coordinates\footnote{Pun intended.}
+\begin{align}
+    \rho\mapsto 4\pi\cdot\bbra{g_{\textit{tot}}(a,\rho) - 1}\cdot\rho^2\cdot\sinc(\dabs{\vq}{2}\cdot\rho)
+    \label{eq:IntegrandSstarPolar}\tag{ISS}
+\end{align}
+Notice that the vector arguments $\vq$ in no form utilize their directional components, such that the integrand is a radial symmetric function of $\R_{\neq 0}\ni q\mapsto S_{\abs{*}}(q)$. Coming back to equation \eqref{eq:StaticStructureFactorHCA} we can now evaluate the integral over $\R_{>0}$ to define a radially symmetric static structure factor $\R_{\neq 0}\ni q\mapsto S_*(q)$ as
+\[
+    S_*(\vq) = 1 + 4\pi\cdot\rho_*\cdot\int_{\R_{>0}}\bbra{g_{\abs{\textit{tot}}}(a,\rho) - 1}\cdot \rho^2\cdot\sinc(\dabs{\vq}{2}\cdot\rho)\;\uplambda(d\rho).
+\]
+
+
+\subsubchapter{Dyson Equation Fixed Point Form}
+The last step now to be taken is to find the fixed point of the Dyson equation in first loop order. 
+
+% \input{../journal/Boxen/Lemma/FouriertransformOfHeaviside.tex}
+\input{../journal/Boxen/Lemma/FourierTransformHeavisideSpring.tex}
+The proof is given in the Appendix. With this we can define the bare propagator $\R^3\times\C\ni(\vp,z)\mapsto G_0(\vp,z)$ and the Vertex function $(\R^3)^2\ni(\vq,\vp)\mapsto V(\vq,\vp)$ both are needed for the self energy $\R^3\times\C\ni(\vp,z)\mapsto \Sigma^{(1)}(\vp,z)$. The first function is given by
+\[
+    \R^3\times\C\ni(\vp,z)\mapsto G_0(\vp,z) = \frac{1}{z - \rho_*\cdot\bbra{\hat F_a(\mathbf{0}) - \hat F_a(\vp)}},
+\]
+whereas the vertex function is given by 
+\[
+    \R^2\ni (\vq,\vp)\mapsto V(\vq,\vp) = \rho_*\cdot\bbra{\hat F_a(\vq) - \hat F_a(\vq - \vp)}.
+\]
+From this we are already able to build up the integral representation which we will use as our fixed point iteration for the propagator $(\vp,z)\mapsto G(\vp,z)$ in the first loop order. It is firstly of the form 
+\[
+    G\mapsto \frac{G_0(\vp,z)^2}{\rho_*}\cdot\int_{\R^3}S_*(\vq)\cdot G(\vp - \vq,z)\cdot V(\vq,\vp)^2\;\uplambdabar(d\vq),
+\]
+where we again need to spherically deal with the three dimensional integral. But before we do so, since our goal is numerical analysis, we will have to discretize the integral later on. Since we need to iterate over discrete evaluations of $G$ at gridpoints $\vq_i$, we transform the integral linearely with $\vq\mapsto \vp - \vq$ to get
+\[
+    G\mapsto G_0(\vp,z) \cdot \nbra{1 + \frac{G_0(\vp,z)}{\rho_*}\cdot\int_{\R^3}S_*(\vp - \vq)\cdot G(\vq,z)\cdot V(\vp - \vq,\vp)^2\;\uplambdabar(d\vq)}^{-1}.
+\]
+Conveniently we have proven a symmetry in $V$ during its introduction in TD.\ref{msatdef:VertexFunction}, which unveils a simplification $\bbra{V(\vp - \vq,\vp)}^2 = (-1)^2\cdot\bbra{-V(\vp - \vq,\vp)}^2 = V(\vq,\vp)^2$. Lastly using D.\ref{mdef:DysonFixpoint} and the geometric series by preassuming $\int_{\R^3}S_*(\vp - \vq)\cdot G(\vq,z)\cdot V(\vq,\vp)^2\;\uplambdabar(d\vq)\cdot G_0(\vp,z)^2/\rho_*\in [0,1)$ the fixed point form convertes to 
+\[
+    G\mapsto \nbra{G_0(\vp,z)^{-1} - \rho_*^{-1}\cdot\int_{\R^3}S_*(\vp - \vq)\cdot G(\vq,z)\cdot V(\vq,\vp)^2\;\uplambdabar(d\vq)}^{-1}.
+\]
+Later on we can use a matrix representation for the integral of the form $\text{IntM}\cdot G_v$ due to the grid $Q = \{q_1,\ldots,q_{n_q}\}$. But before doing so we continue the analytic discussion.
+Performing the spherical transformation by again using $\Phi:(\rho,\vartheta,\varphi)\mapsto \rho\cdot (\sin(\vartheta)\cdot\cos(\varphi),\sin(\vartheta)\cdot\sin(\varphi),\cos(\vartheta))$ we get
+\[
+    \int_{(-\pi,\pi)}\int_{\R_{>0}}\int_{[0,\pi)}\nsqbra{S_*\bbra{\vp - \Phi(\vartheta,\rho,\varphi)}\cdot G_{\abs{}}(\rho,z)\cdot V\bbra{\Phi(\vartheta,\rho,\varphi),\vp}^2}\cdot\rho^2\cdot\sin(\vartheta)\;\uplambda^3(d(\vartheta,\rho,\varphi)).
+\]
+It was easy to replace $\vq$ with $\rho$ within $G_{\abs{}}$ since we directly have $G_0 = G_{\abs{0}}\circ\dabs{\cdot}{2}$ from $\hat F_a = \hat F_{a,\abs{}}\circ\dabs{}{2}$ for scalar Functions $G_{\abs{0}}$ and $F_{a,\abs{}}$, see L.\ref{mlem:FourierTransformOfHeavisideSpring}. Following the iteration of the fixed point equation, this radial symmetry is reserved for all following propagators.
+
+For the other functions we have to be more careful. With $\vp\in\R^3$ we have
+\[
+    \dabs{\vp - \Phi(\vartheta,\rho,\varphi)}{2}^2 = \dabs{\vp}{2}^2 + \rho^2 - 2\cdot\scpr{\vp}{\Phi(\vartheta,\rho,\varphi)},
+\]
+where $\dabs{\Phi(\vartheta,\rho,\varphi)}{2} = \rho$. From the radial symmetry in $\vp$ we can freely choose the particular direction of $\vp$. Looking at the spherical transformation $\Phi$ we decide on $\vp = \dabs{\vp}{2}\cdot e_3$ such that
+\[
+    \scpr{\vp}{\Phi(\vartheta,\rho,\varphi)} = \dabs{\vp}{2}\cdot\cos(\vartheta)\cdot\rho.
+\]
+Furthermore the norm is now accessible by only $\rho$, $\vartheta$ and $\dabs{\vp}{2}$, such that a scalar function can be used:
+\[
+    \dabs{\vp - \Phi(\vartheta,\rho,\varphi)}{2}^2 \stackrel{\vp = p\cdot e_3}{=} p^2 + \rho^2 - 2\cdot p\cdot\rho\cdot\cos(\vartheta) =: N(p,\rho,\vartheta).
+\]
+Defining $\R^2\ni(x,y)\mapsto V_{\abs{}}(x,x-y):=\rho_*\cdot\bbra{\hat F_{a,\abs{}}(x) - \hat F_{a,\abs{}}(x-y)}$ we hereby get the integrand
+\begin{align}
+    (p,\vartheta,\rho)\mapsto
+    S_{\abs{*}}\bbra{
+            N(p,\rho,\vartheta)
+        }\cdot G_{\abs{}}(\rho,z)\cdot V_{\abs{}}(\rho,N(p,\rho,\vartheta))^2
+    \cdot\rho^2\cdot\sin(\vartheta). \label{eq:IntegrandFixedPointDysonTransformed}
+\end{align}
+Since we can already see the independence of $\varphi$ due to the direction of $\vp$ the integral $\int_{(-\pi,\pi)}\ldots\;\uplambda(d\varphi)$ is easily evaluated to $2\pi$. Setting $\text{Int}(\vp,\vartheta,\rho):=2\pi\cdot\eqref{eq:IntegrandFixedPointDysonTransformed}$ we can now formulate the fixed point equation based on the dyson formalism that is used in the following numerical analysis for arguments $(p,z)\in\R\times\C$ as
+\begin{align}
+    G\mapsto \nbra{
+        z - \rho_*\cdot\bbra{\hat F_{a,\abs{}}(0) - \hat F_{a,\abs{}}(p)} - (\rho_*)^{-1}\cdot\int_{\R_{>0}}\int_{[0,\pi)}\text{Int}(\vp,\vartheta,\rho)\;\uplambda^2(d(\vartheta,\rho))
+    }^{-1}. \label{eq:FixedPointEquationDysonTransformed}\tag{DF}
+\end{align}
+Now the question of implementation remains to be discussed.

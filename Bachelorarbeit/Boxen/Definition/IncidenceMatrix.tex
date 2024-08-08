@@ -1,0 +1,11 @@
+\begin{mdef}{Incidence Matrix}{IncidenceMatrix}
+    Let $G=(V,E)$ be a graph. The \emph{incidence matrix} $B(G)\in (\abs{V}\times \abs{E}\to \{0,\pm 1\})$ for $v\in(\abs{V}\to V)$ and $e\in(\abs{E}\to E)$ is defined as
+    \[
+        B(G)_{i,j} = \begin{cases}
+            1 & \text{if } v_i \text{ is the initial node of } e_j,\\
+            -1 & \text{if } v_i \text{ is the terminal node of } e_j,\\
+            0 & \text{otherwise}.
+        \end{cases}.
+    \]
+    Is $G$ a weighted graph, then instead of $\pm 1$ we have $\pm\sqrt{W(v_i,v_j)}$.
+\end{mdef}

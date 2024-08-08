@@ -1,0 +1,52 @@
+
+
+\pagenumbering{alph}
+\KOMAoptions{twoside = false}
+\begin{titlepage}
+	\begin{center}
+	
+		% Title
+		{\LARGE\textbf{\BAtitle}}
+		\vspace{12ex} \\
+		{\LARGE\textbf{Bachelor Thesis}}
+		\vspace{8ex}\\
+		
+		% Submitted by
+		{\Large{submitted by}}
+		\vspace{0ex}\\
+		{\Large\textbf{\BAauthor}}
+		\vspace{8ex}\\
+		
+		% At the University of Konstanz
+		at\\
+		\begin{figure}[htpb]
+		\centering
+		\includegraphics[width=10cm]{Titelseite/Universitaetslogo.pdf}
+		\end{figure}
+		
+		% Department
+		Mathematisch-Naturwissenschaftliche Sektion\\
+		Fachbereich Physik
+		\vspace{8ex}\\
+		
+		% Supervisors
+		\begin{table}[h]
+		\centering
+		
+		\begin{tabular}{ll}
+		1. Betreuer & \BAreaderone \\
+		2. Betreuer & \BAreadertwo \\
+		\end{tabular}
+		\end{table}
+		
+		% Date
+		\vfill
+		Konstanz, \BAyear
+	\end{center}
+\end{titlepage}
+\KOMAoptions{twoside}
+\pagestyle{empty}
+
+\input{Titelseite/Titelrückseite.tex}
+\newpage
+

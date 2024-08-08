@@ -1,0 +1,85 @@
+\newcounter{Chapcounter}
+\newcounter{SubChapcounter}
+\newcounter{SubSubChapcounter}
+
+
+\newcommand{\chapter}[1]
+{ {
+        \addtocounter{Chapcounter}{1}
+        \addtocounter{section}{1}
+        \addcontentsline{toc}{section}{\color{YvesKlein}\theChapcounter~~#1}
+        \setcounter{SubChapcounter}{0}
+        \setcounter{SubSubChapcounter}{0}
+    } 
+    {
+        \newpage\noindent
+        \begin{minipage}{\textwidth}
+            \huge
+            \begin{center}
+                $\hookrightarrow$ \textbf{\color{YvesKlein}\textsc{#1}} $\hookleftarrow$
+            \end{center}
+            \large\vspace{-0.5cm}
+            \begin{center}
+                \itshape
+                Chapter \theChapcounter
+            \end{center}
+            \vspace{0.5cm}
+        \end{minipage}
+    }
+}
+
+
+\newcommand{\chapterstar}[1]
+{ 
+    {
+        \huge
+        \begin{center}
+            $\hookrightarrow$ \textbf{\color{YvesKlein}\textsc{#1}} $\hookleftarrow$
+        \end{center}
+    }
+}
+
+\renewcommand{\subchapter}[1]
+{ {
+        \addtocounter{SubChapcounter}{1}
+        \addcontentsline{toc}{subsection}{\theChapcounter.\theSubChapcounter~~~~#1}
+        \setcounter{SubSubChapcounter}{0}
+    }
+    {
+        \noindent
+        \begin{minipage}[c]{\textwidth}
+            \vspace{15pt}
+            \large
+            \noindent\textbf{\theChapcounter.\theSubChapcounter~~#1}
+            \vspace{10pt}
+        \end{minipage}
+    }
+}
+
+\renewcommand*{\subchapterstar}[1]
+{ 
+    {
+        \noindent
+        \begin{minipage}[c]{\textwidth}
+            \vspace{15pt}
+            \large
+            \noindent\textbf{\theChapcounter.\theSubChapcounter~~#1}
+            \vspace{10pt}
+        \end{minipage}
+    }
+}
+
+\newcommand{\subsubchapter}[1]{
+    {
+        \addtocounter{SubSubChapcounter}{1}
+        \addcontentsline{toc}{subsubsection}{\theChapcounter.\theSubChapcounter.\theSubSubChapcounter~~~~#1}
+    }{
+        \noindent
+        \begin{minipage}[c]{\textwidth}
+            \vspace{15pt}
+            \large
+            \noindent\textbf{\theChapcounter.\theSubChapcounter.\theSubSubChapcounter~~#1}
+            \vspace{10pt}
+        \end{minipage}
+    }
+}

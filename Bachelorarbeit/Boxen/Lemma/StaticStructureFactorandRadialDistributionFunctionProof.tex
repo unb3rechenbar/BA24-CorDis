@@ -1,0 +1,27 @@
+\begin{proofidea}
+    We only discuss the proof idea here because for its full extent we have to consider distributions and their properties. \\
+
+    \hspace{15pt} Following definitions we have established equation \eqref{eq:StructureFactorDefinitions} which now can be transformed to the sum over non-diagonal elements plus the diagonal elements of the matrix $(i,j)\mapsto \exp(-\cmath\cdot\scpr{q}{r_i - r_j})$. Since for diagonal elements we have $(i,i)\mapsto 1$ and the sum reduces with $\mbbE_\omega(\sum_{i\in[N]}1) = N$ to
+    \[
+        N\cdot S_*(q) = N + \mbbE_r\nbra{
+            \sum_{(i,j)\in[N]^2_{\neq}}\exp(-\cmath\cdot\scpr{q}{r_i - r_j})
+        }.
+    \]
+    Introducing two dirac integrals over $\delta_{r_i}$ and $\delta_{r_j}$ we can further write the expected value as
+    \[
+        \mbbE_r\nbra{
+            \sum_{(i,j)\in[N]^2_{\neq}}\int_{(\R^d)^2}\exp(-\cmath\cdot\scpr{q}{x_1 - x_2})\;(\delta_{r_i}\otimes\delta_{r_j})(dx)
+        }.
+    \]
+    Interchanging the expectation operator with the integral and using lemma \ref{mlem:Expectencyoftworestrictions} we can hide the sums per definition of the $2$-particle density $\rho_N^{(2)}$ that will be introduced in definition \ref{mdef:nParticleDensity} to obtain
+    \[
+        N\cdot S_*(q) = N + \int_{(\R^d)^2}\exp(-\cmath\cdot\scpr{q}{x_1 - x_2})\;\bbra{
+            \rho_N^{(2)}\cdot(\delta_{r_1}\otimes\delta_{r_2})
+        }(dx_1,dx_2).
+    \]
+    Translation invariance then leads to the result
+    \[
+        S_*(q) = 1 + \rho_*\cdot\int_{\R^d}\exp(-\cmath\cdot\scpr{q}{x})\cdot g_0(x)\;\uplambda(dx).
+    \]
+    Because of this being a distributional equality which experimentally is not accessable, we have to regularize the integrand by shifting $g_0$ by its limit $A:=\lim_{x_*\to\infty}g_{\abs{}}(x,x_*) = 1$ to obtain the final result.
+\end{proofidea}

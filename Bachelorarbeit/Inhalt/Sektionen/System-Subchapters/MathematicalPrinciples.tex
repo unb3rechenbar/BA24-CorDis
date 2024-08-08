@@ -1,0 +1,111 @@
+To start off, a mathematical description of the particle system above is given by a mathematical object called a \emph{graph}.
+\input{../journal/Boxen/Definition/Graph.tex}
+Its properties can be analysed and characterized. For example, if we know the amount of particles in a box, we could ask how many other particles are influenced by the existence of our reference particle. In the language of mathematics this is called the \emph{degree} of a node.
+\input{../journal/Boxen/Definition/DegreeAndDegreeMatrix.tex}
+Since our particle interaction will be undirected, we do not have to distinguish between the initiation and termination of a particle. Later on this will be given by a symmetry $f(x) = f(-x)$ in the pair interaction function \cite{paper:Grigera_2011,mth:vogel}. The value of $f$, namely the strength of interaction, can be mathematically encoded in the \emph{weight matrix} of a graph.
+\input{../journal/Boxen/Definition/WeightMatrix.tex}
+% A natural way of counting \emph{if} a node has a connection to another node is given by the adjacency matrix, whose entries are $1$ if a connection is present and $0$ otherwise. For weighted graphs we can use the weight matrix to encode the strength of the connection. 
+From these defintions we can already construct a matrix that will be very prominent in our model, the \emph{laplacian matrix}.
+\input{../journal/Boxen/Definition/LaplacianMatrix.tex}
+The laplacian matrix in its entrys will encode the interactions between particles $i$ and $j$. It is also related to differential geometry and the discretized Laplace operator, but we will not go into detail here. For directed graphs it is also interesting to characterize \emph{if} and \emph{how} particles are connected. This can be done by the \emph{incidence matrix}.
+\input{../journal/Boxen/Definition/IncidenceMatrix.tex}
+Practically for our model every particle is connected with each other in a symmetric way. This means that $w_{ij} = w_{ji}$ for a weight function $w:\abs{V}^2\to \R$.
+In an example with $V=\{a,b,c\}$ and $E=\{(a,b),(b,a),(a,c),(c,a),(b,c),(c,b)\}$ the incidence matrix would therefore look like
+\[
+    G \cong
+    \vcenter{\hbox{
+        \begin{tikzpicture}
+            \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (a) at (-1,0);
+            \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (b) at (1,0);
+            \node[draw, circle, fill=black, inner sep=0pt, minimum size=5pt] (c) at (0,1.732050807568877);
+    
+            % \draw[] (a) circle (2);
+    
+            \draw[black!50] (a) -- (b) node[midway, below] {$w_{ab}$};
+            \draw[black!50] (b) -- (c) node[midway, right] {$w_{bc}$};
+            \draw[black!50] (c) -- (a) node[midway, left] {$w_{ca}$};
+        \end{tikzpicture}
+    }}
+    \implies B_G = \begin{pmatrix}
+        \sqrt{w_{ab}} & -\sqrt{w_{ab}} & -\sqrt{w_{ac}} & \sqrt{w_{ac}} & 0 & 0 \\
+        -\sqrt{w_{ab}} & \sqrt{w_{ab}} & 0 & 0 & \sqrt{w_{bc}} & -\sqrt{w_{bc}} \\
+        0 & 0 & -\sqrt{w_{ac}} & \sqrt{w_{ac}} & -\sqrt{w_{bc}} & \sqrt{w_{bc}}
+    \end{pmatrix}.
+\]
+It can be shown that $L = B\cdot B^\top$ and $L = D - W$ are equivalent \cite{bookchapter:GraphsAndLaplacians}. \\
+
+Moving on, the modelling of glasses is founded on randomly positioned particles which are proportionally to their displacement from their equillibrium state impacted by a harmonic restoring force. Evaluating their mean with respect to equillibrium positions and displacements yields a theoretical prediction that can be compared to experimental data or other established theories, for example with respect to vibrations in glasses \cite{paper:Grigera_2011}. To mathematically describe the randomness of particle positions within those graphs, we introduce the concept of \emph{probability spaces}.
+\input{../journal/Boxen/Definition/RandomVariablesonProbabilitySpaces.tex}
+This concept seems fairly abstract, but it is a very powerful tool used throughout this thesis. It becomes more accessable when setting $(S,\mcS)$ to $(\R^2,\mcB(\R^2))$ or even its trace on a box $\Gamma\subset\R^2$ with its Borel $\sigma$-algebra $\mcB(\Gamma)$. To more intuitively calculate expectancies throughout this paper we also introduce the \emph{pushforward measure} given by a random variable $X$ on $\mbbP$.
+\input{../journal/Boxen/Definition/PushforwardmeasureofRandomVariables.tex}
+Since we now start to talk about \emph{integration}, one small note to notation should be made. Because within the thesis measures are of higher importance, we will explicitly denote which is currently used for notation. This will be done by writing $\mu$ at the end of the integral, i.e. $\int f\;\mu = \int f(x)\;\mu(dx)$. This expression now means integration with respect to the measure $\mu$, from which the measure space is clear. The standard integral then is $\int f(x)\;\dd x = \int f(x)\;\uplambda(dx)$, where $\uplambda$ is the Lebesgue measure. \\  
+The integral over $Y\subset \Omega$ regarding $X$ can therefore be written as $\int_{Y}X\;\mbbP = \int_{X(Y)}1\;\mbbP_X$. If we concider particle position vectors, it is now far more intuitive talking about \emph{where} the particles randomly land (which is the $R(\omega)\in\Gamma$) than about the abstract process of random assignment $\omega\mapsto R(\omega)$.\footnote{Funnily enough called the \emph{law of the unconscious statistician}.} Said integral becomes for $Y = \Omega$ the expectation value of $X$.
+\input{../journal/Boxen/Definition/ExpectedValueandVariance.tex}
+Since we will talk alot about the expectancy of products of random variables (which we will also refer to as \emph{correlator}), this definition will become very prominent. If $[n]\to (\Omega\to S)$ is a collection of random variables, we will ask about how we can express the expectation value of their product in terms of simpler products, i.e. using the expectancy of \emph{pairs} of random variables:
+\[
+    \mbbE\bbbra{
+        \prod_{i=1}^n X_i
+    } \stackrel{\substack{
+        {
+            \small
+            \begin{tabular}{c}
+                What is the \\
+                relation?
+            \end{tabular}
+        }
+    }}{
+        \longleftrightarrow
+    }
+    \sum_{p\in\,?}\prod_{(i,j)\in p}\mbbE[X_i\cdot X_j].
+\]
+For a specific kind of probability measure this question can be explicitly answered: The normally pushforwarded measure of a random variable.
+
+% \input{../journal/Boxen/Definition/TheCovarianceMapping.tex}
+
+% \input{../journal/Boxen/Definition/TheCorrelationFunction.tex}
+
+\input{../journal/Boxen/Definition/NormallyDistributedRandomVariable.tex}
+Within the theory of ERM we will find ourselves in the situation of having a normally distributed random variable, which will allow us to perturbatively produce Feynman graphs out of correlation functions. In physical terms this correlation function models the response of other particles positioning to one particle moving from its initial state. In the introduction we have already seen our idea of reparametrizing the phase space using two types of position arguments: the critical initial states $r_0$ and the shiftings $\phi$. Both of them are measured by one probability measure $\mbbP$, which can be split up into a product of two independent measures $\mbbP_r\cdot \mbbP_\phi$ thanks to the \emph{stochastical independency} of the used random variable.
+\input{../journal/Boxen/Definition/StochasticalIndependency.tex}
+Another assumption on our random variables is made, which assumes our physical system to be \emph{frozen in time}. This means that we are only interested in one particular point in time and no statistical processes are happening. In physics, this setting also is referred to as \emph{quenched disorder}.
+
+Coming back to stochastical independency, having such simplifications at hand is of course not always the case, and sometimes there are no such formulars available or known. This will occur in our model when we introduce the corrected density function for the critical equilibrium positions of particles. In general one must find an alternative way of dealing and systemizing such products of random variables. In our case we will evade this problem by \emph{gaussianizing} said density whilst knowingly making an error with this approximation, which will not be discussed. \\ 
+
+For the seperation made in the introduction of $U(r_0 + \phi)$ we use the well known theorem of Taylor.
+\input{../journal/Boxen/Satz/TaylorsTheorem.tex}
+Its proof can be found in \cite{skript:JunkAna2} or in any other analysis script and standard literature. Since we only use the first two derivatives of $U$ in our model, by the theorem we introduce an error of $D_\phi^{3}U(r_0 + \theta\cdot \phi)$ for some $\theta\in(0,1)$. For our investigations we will not go into detail about its influence on our results. \\
+
+Since we will thoroughly deal with Dirac functionals and measures when investigating the eigenvalues of the ERM matrix it is highly suggested to look into technical aspects, which are in short presented in the appendix. 
+
+What is of higher importance to introduce at this point is the \emph{resolvent} of a matrix. It will be used to approximate the eigenvalues of the ERM matrix and states a very powerful tool in the theory of random matrices.
+\input{../journal/Boxen/Definition/TheResolvent.tex}
+During eigenvalue approximation and evaluation of correlators we will discuss fourier transformed random variables, for which we now clarify their definition by introducing the \emph{Fourier transformation}.
+\input{../journal/Boxen/Definition/FourierTransform.tex}
+Note that within our definition we pushed the normalization factor $(2\pi)^{-d}$ to the inverse Fourier transform, which is a common practice in the literature \cite{paper:Grigera_2011} and motivated by convenience. The first important Fourier transformation we will discuss is the one of the Dirac distribution.
+\input{../journal/Boxen/Korollar/FourierTransformationofDeltaDistributions.tex}
+The interpretation of this statement is much simpler than its formulation might seem, since it suggests that $(\mcF\delta_y)(x) = \exp(\cmath\cdot x\cdot y)$, which is exactly the kernel of said integral. This will be of use later on when we discuss the probability density correction of the critical equilibrium positions. 
+
+Lastly to gain the Green's function that will state the bare propagator, we will make use of the \emph{Laplace transformation} when facing a differential equation in random variables.
+\input{../journal/Boxen/Satz und Definition/LaplaceTransformation.tex}
+
+Before we start to develop the physical and mathematical theory of ERM, a remark to general notation. We will use the following symbols throughout the thesis:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|l}
+        Symbol & Meaning \\
+        \hline\hline
+        $\circ$ & Composition of functions \\
+        $\scpr{v}{w}$ & Scalar product of vectors $v,w$ \\
+        $\dabs{v}{}$ & Norm of vector $v$ \\
+        $\mbbE$ & Expectation value \\
+        $\mbbE_r$ & Expectation value with respect to $r$ \\
+        $\mbbP$ & Probability measure \\
+        $\langle \cdot\rangle_{\mbbP}$ & Expectation value with respect to $\mbbP$ \\
+        $\langle \cdot\rangle_{\mbbP(dr)}$ & Expectation value with respect to $\mbbP(dr)$ \\
+        $M^\bot$ & Transposed matrix of $M\in K^{n\times m}$, $K$ a field \\
+        \hline\hline
+        $B_r(x)\subset V$ & for $r>0$ Ball in $(V,\dabs{\cdot}{})$ defined by $\{v\in V: \dabs{v-x}{} < r\}$ \\
+        $\partial B_r(x)$ & Boundary of $B_r(x)$ def. by $\{v\in V: \dabs{v-x}{} = r\}$ \\
+        $B_{r,R}(x)$ & for $r<R$ Annulus def. by $B_R(x)\setminus B_r(x)$ \\
+    \end{tabular}
+\end{table}
