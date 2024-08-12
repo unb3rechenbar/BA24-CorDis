@@ -40,7 +40,15 @@ The final version of the thesis that was used for the print version might contai
 
 ### Known Mistakes
 - The calculation of the velocity of sound contains a second root, i.e. the mean over $q\mapsto ((D_{\rho_\ast}(q))^{0.5}/q)^{0.5}$ was calculated. Obviously this does not represent local derivatives, such that a corrected version should follow
-$
-    c(\rho_\ast) := mean_{q\in G_q}((D_{\rho_\ast}(q))^{0.5}/q). 
-$
-This mistake is present in the print version of the thesis. It is fixed in the Code Base within the file `Bachelorarbeit/Inhalt/Numerik/Schallgeschwindigkeit_Modul_fixed.jl`. Its implications are not yet fully investigated.
+$$
+    c(\rho_\ast) := \underset{q\in G_q}{\text{mean}}\left(\sqrt{D_{\rho_\ast}(q)}/q\right),
+$$
+while faulty calculations were based on 
+$$
+    c_{\text{faulty}}(\rho_\ast) := \underset{q\in G_q}{\text{mean}}\left(\left(\sqrt{D_{\rho_\ast}(q)}/q\right)^{0.5}\right).
+$$
+This mistake is present in the print version of the thesis. It is fixed in the Code Base within the file `Bachelorarbeit/Inhalt/Numerik/Schallgeschwindigkeit_Modul_fixed.jl`. Since $x\mapsto \sqrt{x}$ is a monotonically increasing function, the mistake only changes "the form" of the velocity's graphs around $1$, but keeps near $1$ behaviour. This directly affects figures 17 and 21 and is corrected for commits after august 12th. One can see the change in an example on figure 17:
+![Velocity of Sound](Images/VelocityOfSound-17-Corrected.png)
+compared to the faulty calculation:
+![Velocity of Sound](Images/VelocityOfSound-17.png)
+So thankfully, general results stay the same, but velocity amplitudes change with $((D_{\rho_\ast}(q))^{0.5}/q)^{0.5} \geq \sqrt{D_{\rho_\ast}(q)}/q$ for $q < 1$ and reversed for $q > 1$. 
