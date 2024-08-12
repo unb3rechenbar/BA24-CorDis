@@ -57,8 +57,8 @@ One can also directly observe a small shift and increase in the maximum of the r
         \begin{axis}[
             axis x line=bottom,
             axis y line=left,
-            xlabel={$\dabs{\mathbf{q}}{2}$},
-            ylabel={$G_0(\dabs{\mathbf{q}}{2})$},
+            xlabel={$\dabs{\mathbf{r}}{2}$},
+            ylabel={$g_0(\vr)$},
             grid=both,
             grid style={line width=.1pt, draw=gray!10},
             major grid style={line width=.2pt,draw=gray!50},
@@ -561,7 +561,7 @@ Looking at the minimum of the dispersion relation with and without the corrected
             axis x line=bottom,
             axis y line=left,
             xlabel={$\rho_*$},
-            ylabel={$D_{S_*(\dabs{\mathbf{q}}{2})}  - D_{1.0}$},
+            ylabel={$\mathit{min}(D_{\rho_*})$},
             grid=both,
             grid style={line width=.1pt, draw=gray!10},
             major grid style={line width=.2pt,draw=gray!50},
@@ -641,7 +641,7 @@ Another comparison by plotting the difference of the dispersion relations shows 
     \caption{Comparison of the dispersion relation $D_{\rho_*}$ for $\rho_* = 5.0$ with $S_*(q) = 1.0$ and $S_*(q) = 1.0 + \rho_*\cdot(\mcF g_0 - 1.0)(q)$. It is drawn $D_{S_*(q)} - D_{1.0}$ for $D_{S_*(q)}$ the dispersion relation with the corrected structure factor. A positive value means that dispersion with static structure factor yields a higher amplitude.}
     \label{fig:DispersionRelationComparison}
 \end{figure}
-Evaluating the velocity of sound $c_{\rho_*} = \sum_{q\in G_q}\sqrt{D_{\rho_*}(q)}/q$ for different densitys $\rho_*$ yields the graph shown in figure \ref{fig:SoundVelocity}. One can see a small increase of amplitude in a density region of $\rho_*\in[2.0,12.0]$. Afterward the amplitudes of corrected and uncorrected dispersion relations are effectively identical, as figure \ref{fig:DispersionRelationLargeDens} shows.
+Evaluating the velocity of sound $c_{\rho_*} = \underset{q\in G_q}{\text{mean}}\bbra{\sqrt{D_{\rho_*}(q)}/q}$ for different densitys $\rho_*$ yields the graph shown in figure \ref{fig:SoundVelocity}. One can see a small increase of amplitude in a density region of $\rho_*\in[2.0,12.0]$. Afterward the amplitudes of corrected and uncorrected dispersion relations are effectively identical, as figure \ref{fig:DispersionRelationLargeDens} shows.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}

@@ -9,6 +9,7 @@ Code Base to the bachelor's thesis "Studies of ERM Models with Correlated Disord
 1. [Structure](#structure)
 2. [Usage](#usage)
 3. [Corrections](#corrections)
+4. [Known Mistakes](#known-mistakes)
 
 
 ### Structure
@@ -36,3 +37,10 @@ The final version of the thesis that was used for the print version might contai
 ```
     2611f066b6d9c5a104089db123ca1d1eb520cbe4
 ```
+
+### Known Mistakes
+- The calculation of the velocity of sound contains a second root, i.e. the mean over $q\mapsto \sqrt{\sqrt{D_{\rho_*}(q)}/q}$ was calculated. Obviously this does not represent local derivatives, such that a corrected version should follow
+\[
+    c(\rho_*) := \underset{q\in G_q}{\text{mean}}\left(\frac{\sqrt{D_{\rho_*}(q)}}{q}\right).    
+\]
+This mistake is present in the print version of the thesis. It is fixed in the Code Base within the file `Bachelorarbeit/Inhalt/Numerik/Schallgeschwindigkeit_Modul_fixed.jl`. Its implications are not yet fully investigated.
