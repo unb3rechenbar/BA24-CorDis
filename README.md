@@ -33,14 +33,14 @@ The LaTeX project files requires a package containing several customizations I h
 The numerical results can reproduced by running the `Simulation/runsim.sh` script. Needed packages for the julia simulation can be checked and installed via `Simulation/PackageCheck.jl`. For the fixed point solver multithreading is recommended. It can be activated using the `-t` flag in the `runsim.sh` script.
 
 ### Corrections
-The final version of the thesis that was used for the print version might contain mistakes. Since the project formally is completed, any corrections made will be stored in the `Bachelorarbeit` folder. To access the original LaTeX code please see the commit with the hash:
+The final version of the thesis that was used for the print version might contain mistakes. Since the project formally is completed, any corrections made will be stored in the `Bachelorarbeit` folder. To access the original LaTeX code please see the commit on august 8th, 2024 with the hash
 ```
     2611f066b6d9c5a104089db123ca1d1eb520cbe4
 ```
 
 ### Known Mistakes
-- The calculation of the velocity of sound contains a second root, i.e. the mean over $q\mapsto \sqrt{\sqrt{D_{\rho_*}(q)}/q}$ was calculated. Obviously this does not represent local derivatives, such that a corrected version should follow
-\[
-    c(\rho_*) := \underset{q\in G_q}{\text{mean}}\left(\frac{\sqrt{D_{\rho_*}(q)}}{q}\right).    
-\]
+- The calculation of the velocity of sound contains a second root, i.e. the mean over $q\mapsto \sqrt{\sqrt{D_{\rho_\ast}(q)}/q}$ was calculated. Obviously this does not represent local derivatives, such that a corrected version should follow
+$$
+    c(\rho_*) := \underset{q\in G_q}{\text{mean}}\left(\frac{\sqrt{D_{\rho_\ast}(q)}}{q}\right). 
+$$
 This mistake is present in the print version of the thesis. It is fixed in the Code Base within the file `Bachelorarbeit/Inhalt/Numerik/Schallgeschwindigkeit_Modul_fixed.jl`. Its implications are not yet fully investigated.
