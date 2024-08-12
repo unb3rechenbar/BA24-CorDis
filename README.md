@@ -5,6 +5,12 @@ Code Base to the bachelor's thesis "Studies of ERM Models with Correlated Disord
     BA2024-StudiesOfERMmodelswithcorrelateddisorder Final.pdf
 ```
 
+Each correction of mistakes results in the updated version:
+    
+```
+    BA2024-StudiesOfERMmodelswithcorrelateddisorder.pdf
+```
+
 ## Table of Contents
 1. [Structure](#structure)
 2. [Usage](#usage)
@@ -54,3 +60,7 @@ The final version of the thesis that was used for the print version might contai
   So thankfully, general results stay the same, but velocity amplitudes change with $((D_{\rho_\ast}(q))^{0.5}/q)^{0.5} \geq \sqrt{D_{\rho_\ast}(q)}/q$ for $q < 1$ and reversed for $q > 1$. 
   
   The new data can be seen in `Bachelorarbeit/Inhalt/Numerik/Cor-S-SOS-Comp/VelocityOfSound-S-fixed.csv` and compared to the old data `Bachelorarbeit/Inhalt/Numerik/Cor-S-SOS-Comp/VelocityOfSound-S.csv`.
+
+- Figure 15 uses a wrong label on the x-axis. Although its purpose can be deduced from the legend, it should be corrected to $\text{min}(D_{\rho_\ast})$, where $\text{min}$ operates on the respective grid $G_q$ for wave vectors $q$.
+
+- Figure 9 also uses wrong labels on both axis, which should be corrected to $||\mathbf{r}||_2$ on the x-axis and $g_0(\mathbf{r})$ on the y-axis.
