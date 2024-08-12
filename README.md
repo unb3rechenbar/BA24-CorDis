@@ -40,7 +40,7 @@ The final version of the thesis that was used for the print version might contai
 
 ### Known Mistakes
 - The calculation of the velocity of sound contains a second root, i.e. the mean over $q\mapsto ((D_{\rho_\ast}(q))^{0.5}/q)^{0.5}$ was calculated. Obviously this does not represent local derivatives, such that a corrected version should follow
-$$
+$
     c(\rho_\ast) := \underset{q\in G_q}{\text{mean}}\left(\frac{\sqrt{D_{\rho_\ast}(q)}}{q}\right). 
-$$
+$
 This mistake is present in the print version of the thesis. It is fixed in the Code Base within the file `Bachelorarbeit/Inhalt/Numerik/Schallgeschwindigkeit_Modul_fixed.jl`. Its implications are not yet fully investigated.
