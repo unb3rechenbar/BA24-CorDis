@@ -10,6 +10,11 @@
 #set text(size: 20pt, font: "New Computer Modern")
 
 #let cL = $cal(L)$
+#let drho = pad(right: -13pt)[$delta #move(dx: -12pt)[$rho$]$]
+#let ci = $accent(i,°)$
+#let vp = $bold(p)$
+#let vq = $bold(q)$
+
 
 #let pointset = ((0,0), (1,0.5), (3,1), (-3,4), (-2,-1), (-1,4), (0,1), (-1.5,2), (-2.5,1), (2,2))
 #let realspectrum = ((0,0), (1,0), (3,0), (5,0), (7,0), (7.5,0), (8,0), (9,0), (10,0), (10.5,0), (10.7,0), (10.8,0), (12.0,0))
@@ -369,7 +374,7 @@
   )
   #pause
   $
-    arrow.r.hook #h(1em) delta/(delta J(x)) text(S)_(z,R_omega)^((0))[Phi] = accent(i,°) dot Phi (-x). 
+    arrow.r.hook #h(1em) delta/(delta J(x)) text(S)_(z,R_omega)^((0))[Phi] = ci dot Phi (-x). 
   $
 ]
 
@@ -397,10 +402,10 @@
   $
     #fletcher.diagram($
       fletcher.edge("r", "-|>-")
-    $) :=& (G_0(bold(p),z)) / rho_* \
+    $) :=& (G_0(vp,z)) / rho_* \
     #fletcher.diagram($
       fletcher.edge(gamma, "wave")
-    $) :=& (bb(E)((cal(F) delta rho_(R))(bold(q)) dot (cal(F) delta rho_(R))(-bold(q)))) / rho_*
+    $) :=& (bb(E)((cal(F) drho_(R))(vq) dot (cal(F) drho_(R))(-vq))) / rho_*
   $
   #pause
   .. possible connections of these edges are given by _vertices_:
@@ -419,19 +424,19 @@
         let S = (0,0)
         let (A,B,C) = ((1.5,0),(calc.cos(140deg),calc.sin(140deg)),(calc.cos(220deg),calc.sin(220deg)))
 
-        fletcher.edge(S,A,$bold(p)+bold(q)$,"-|>-")
-        fletcher.edge(S,B,$bold(p)$,left,"-<|-")
-        fletcher.edge(S,C,$bold(q)$,"wave")
-      }),$:= mu_z (bold(p),bold(q))$, $=>$, "Three-point Vertex",
+        fletcher.edge(S,A,$vp+vq$,"-|>-")
+        fletcher.edge(S,B,$vp$,left,"-<|-")
+        fletcher.edge(S,C,$vq$,"wave")
+      }),$:= mu_z (vp,vq)$, $=>$, "Three-point Vertex",
       fletcher.diagram({
         let S = (0,0)
         let (A,B,C,D) = ((1.5,0),(calc.cos(140deg),calc.sin(140deg)),(calc.cos(220deg),calc.sin(220deg)),(calc.cos(180deg),calc.sin(180deg)))
 
-        fletcher.edge(S,A,$bold(p)+bold(q)$,"-|>-")
-        fletcher.edge(S,B,$bold(p)$,left,"-<|-")
-        fletcher.edge(S,C,$bold(q)_2$,"wave")
-        fletcher.edge(S,D,$bold(q)_1$,center,label-pos: 1,"wave")
-      }), $:=-V_z (bold(p),-bold(q)_1)$, $=>$, "Four-point Vertex"
+        fletcher.edge(S,A,$vp+vq$,"-|>-")
+        fletcher.edge(S,B,$vp$,left,"-<|-")
+        fletcher.edge(S,C,$vq_2$,"wave")
+        fletcher.edge(S,D,$vq_1$,center,label-pos: 1,"wave")
+      }), $:=-V_z (vp,-vq_1)$, $=>$, "Four-point Vertex"
     )
   $
   #pause
@@ -444,25 +449,90 @@
   .. displaying summands in operator expansion. 
 
   #pause
-  We begin with *one* loop diagrams:
+  #align(center)[Observe *one* loop diagrams:]
   $
-    #fletcher.diagram({
-      let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
+    #grid(
+      columns: 4,
+      column-gutter: 20pt,
+      align: center + top,
+      fletcher.diagram({
+        let (B,C,H,E) = ((-1,0),(0,0),(0,-0.5),(1,0))
 
-     fletcher.edge(B,C1,$bold(p)$,"-|>-")
-     fletcher.edge(C1,C2,$bold(p)$,"wave", bend: 90deg)
-     fletcher.edge(C1,C2,$bold(q)$,right,"-|>-")
-     fletcher.edge(C2,E,$bold(p)$,"-|>-")
-    })
-    #move(dy: -1.4em, 
-      $
-        = (G_0 (bold(p),z)^2) / rho_* dot integral_(RR^d) G_0(bold(q)-bold(p),z) dot mu_z (bold(p),-bold(q))^2 med d bold(q)
-      $
+        fletcher.edge(B,C,$vp$,"-|>-")
+        fletcher.edge(C,H,"wave", bend: 80deg)
+        fletcher.edge(H,C,"wave", bend: 80deg)
+        fletcher.edge(C,E,$vp$,"-|>-")
+      }),
+      fletcher.diagram({
+        let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
+
+       fletcher.edge(B,C1,$vp$,"-|>-")
+       fletcher.edge(C1,C2,"wave", bend: 90deg)
+       fletcher.edge(C1,C2,$vq$,right,"-|>-")
+       fletcher.edge(C2,E,$vp$,"-|>-")
+      }),
+      fletcher.diagram({
+        let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
+
+       fletcher.edge(C1,C2,"wave", bend: 90deg)
+       fletcher.edge(C1,C2,$vq$,right,"-|>-")
+       fletcher.edge(C2,E,$vp$,"-|>-")
+      }),
+      fletcher.diagram({
+        let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
+
+       fletcher.edge(C1,C2,"wave", bend: 90deg)
+       fletcher.edge(C1,C2,$vq$,right,"-|>-")
+      })
     )
   $
+  #pause
+  .. represented diagrams are _irreducible_: $Z_(z,R_omega)[J] = exp(sum_(C in cal(C)) C)$.
 ]
 
+#slide[
+  == Integral representations #footnote[Attention! The terms have been simplified. For more details see Thesis sec. 2.4.2.]
+  #pause
+  #align(center)[
+    #grid(
+      columns: 2,
+      column-gutter: 10pt,
+      row-gutter: 10pt,
+      align: (right + top, left + top),
+      fletcher.diagram({
+        let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
 
+       fletcher.edge(B,C1,$vp$,"-|>-")
+       fletcher.edge(C1,C2,"wave", bend: 90deg)
+       fletcher.edge(C1,C2,$vq$,right,label-sep: 1pt,"-|>-")
+       fletcher.edge(C2,E,$vp$,"-|>-")
+      }),
+      $
+        = (G_0 (vp,z)^2) / rho_* dot integral_(RR^d) G_0(vq-vp,z) dot mu_z (vp,-vq)^2 med d vq,
+      $,
+      fletcher.diagram({
+        let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
+
+       fletcher.edge(B,C1,$vp$,"-|>-")
+       fletcher.edge(C1,C2,"wave", bend: 90deg)
+       fletcher.edge(C1,C2,$vq$,right,label-sep: 1pt,"-|>-")
+       fletcher.edge(C2,E,$vp$,"-|>-")
+      }),
+      $
+        = -(2 dot G_0(vp,z)) / rho_* dot integral_(RR^d) G_0(vp - vq,z) dot mu_z(vp,-vq) med d vq,
+      $,
+      fletcher.diagram({
+        let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
+
+       fletcher.edge(C1,C2,"wave", bend: 90deg)
+       fletcher.edge(C1,C2,$vq$,right,label-sep: 1pt,"-|>-")
+      }),
+      $
+        = 1/rho_* dot integral_(RR^d) G_0(vp - vq,z) med d vq.
+      $
+    ) 
+  ]
+]
 
 
 
@@ -470,9 +540,224 @@
   = What is Correlated Disorder?
 ]
 
+#slide[
+  == Second Moment of density fluctuations
+  #pause
+  .. previously we used an _a priori_ probability density $R -> 1/abs(V_(d,N))$
+
+  #pause
+  $arrow.r.hook$ This did not account for the _structure_ of our system. 
+
+  #pause 
+  Main question to solve:
+
+  #pause
+  #align(center)[
+    *How can we include _structure_ in our probability density?*
+  ]
+]
+
+#slide[
+  == The (radial) Particle Distribution Density
+  #pause
+  #grid(
+    columns: 2,
+    column-gutter: 20pt,
+    align: (center + top, center + horizon),
+    "To calculate possibility of finding particles near a given reference " + $r_0$ + " we used the " + text(style: "italic", "radial distribution function") + $
+      g_(r_0)(r) = integral_(RR^d) rho_N^((2))(r_0 + r,r) med d r,
+    $ + "while " + $rho_N^((2))$ + " reflects integration of " + $exp(-beta dot H(r,dot))$ + " for remaining particles.",
+    cetz.canvas({
+      import cetz.draw: *
+
+      circle((0,0), radius: 5, stroke: (paint: black, dash: "loosely-dotted"), fill: gray)
+      circle((0,0), radius: 3, stroke: (paint: black, dash: "loosely-dotted"), fill: white)
+
+      circle((0,0), radius: 4, stroke: black + 1pt)
+
+      line((3,0),(5,0), stroke: black + 1pt)
+      content((5.08,0.08), sym.arrow.r, anchor: "east")
+      content((2.92,0.08), sym.arrow.l, anchor: "west")
+
+      circle((0,0), radius: 0.05, fill: black)
+      content((0,0), $r_0$, anchor: "north")
+    })
+  )
+]
+
+#slide[
+  == How can we use this now?
+  #pause
+  #align(center)[
+    #box(stroke: black + 1pt, inset: 15pt)[
+      #align(center)[
+        There is a particular connection between $g$ and \
+        the _static structure factor_ $S_*$!
+      ]
+    ]
+  ]
+  #pause
+  .. namely given by 
+  $
+    S_*(vq) = 1 + integral_(RR^d) (g_0(bold(r)) - 1) dot e^(ci dot vq dot bold(r)) med d bold(r).
+  $
+]
+
+#slide[
+  == What does $g_0$ look like? #footnote[Looking at a soft sphere model, see later.]
+  #pause
+  #align(center)[
+    #image(height:9.7em, "img/example_radial_dist_fnc_soft_spheres.png")
+  ]
+]
+
+#slide[
+  == Resulting in the Static Structure Factor
+  #pause
+  #align(center)[
+    #image("img/example_static_structure_factor_soft_spheres.png")
+  ]
+]
 
 
 
 #focus-slide[
-  = What did we implement?
+  = Where did we implement this, what did it change?
+]
+
+#slide[
+  == Analytical Aspects
+  #pause
+  We have established a new expectancy for $drho_R (vq) dot drho_R (-vq)$:
+  #pause
+  #align(center)[
+    $
+      angle.l drho_R (vq), drho_R (-vq) angle.r = 1/rho_* dot S_*(vq). 
+    $
+  ]
+  #pause
+  This results in a slight change in Feynman edges:
+  #pause
+  #align(center)[
+    $
+      #fletcher.diagram($
+        fletcher.edge(gamma, "wave")
+      $) := (S_*(vq)) / rho_*
+    $
+  ]
+]
+
+#slide[
+  == Analytical Aspects
+  #pause
+  From this the Integrands of the irreducible diagrams gain a factor:
+  #pause
+  #align(center)[
+    $
+      #grid(
+        columns: 2,
+        column-gutter: 20pt,
+        align: (center + top, center + top),
+        fletcher.diagram({
+          let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
+
+          fletcher.edge(B,C1,$vp$,"-|>-")
+          fletcher.edge(C1,C2,"wave", bend: 90deg)
+          fletcher.edge(C1,C2,$vq$,right,label-sep: 1pt,"-|>-")
+          fletcher.edge(C2,E,$vp$,"-|>-")
+        }),
+        $
+          = (G_0 (vp,z)^2) / rho_* dot integral_(RR^d) G_0(vq-vp,z) dot mu_z (vp,-vq)^2 dot S_*(vq) med d vq,
+        $
+      )
+    $ 
+  ]
+  #pause
+  This also affects the Self-Energy:
+  #pause
+  $
+    Sigma_(S_*)^((1))(vp,z) = 1/rho_* dot integral_(RR^d) S_*(vq) dot G_0(vp - vq,z) dot S_*(vq) med d vq.
+  $
+]
+
+#focus-slide[
+  Can we in any way compare our results?
+]
+
+#slide[
+  == The Approach of Martin-Mayor
+  #pause
+  Here, a _superposition approximation_ was used:
+  #align(center)[
+    $
+      1/abs(V_(d,N)) dot exp(-beta dot U(r)) approx 1/abs(V_(d,N)) dot exp(-beta dot sum_(i in [N-1]) u(r_i - r_(i + 1)))
+    $ 
+  ]
+  #pause
+  This approach only considers _direct neighbors_ in a chain. #pause Compare:
+  $
+    exp(-beta dot U(r)) = exp(-beta dot sum_((i,j) in [N]^2) u(r_i - r_j)).
+  $
+]
+
+#slide[
+  == The Approach of Martin-Mayor
+  #pause
+  An implementation of $r|->exp(-beta dot sum ..)/abs(V_(d,N))$ is done:
+  $
+    cal(f)(r) :approx (f(r))/abs(V_(d,N)) dot exp(-beta dot sum_((i,j) in [N]^2) u(r_i - r_j)).
+  $
+  #pause
+  This has an explicit approximation built into the spring function!
+]
+
+#slide[
+  == The Approach of Martin-Mayor
+  #pause
+  In a consequence, the bare propagator changes:
+  #pause
+  $
+    G_0(vp,z) = 1/(z - rho_* dot (cal(f)(bold(0)) - S_*(vp))) eq.not underbrace(1/(z - rho_* dot (f(bold(0)) - S_*(vp))),"Our Approach").
+  $
+  #pause
+  - We explicitly did not approximate the spring function.
+  #pause
+  - We did not change the zeroth order term in the propagator.
+]
+
+#focus-slide[
+  = What did a numerical model show?
+]
+
+#slide[
+  == Analytical Foundation
+  #pause
+  We chose a _step function_ for the spring mapping:
+  $
+    RR in.rev r |-> f_a^((italic("num")))(r) = cases(
+      1 "if" r < a ",",
+      0 "else".
+    )
+  $
+  #pause
+  .. resulting in a pair potential 
+  #pause
+  $
+    V_(d,N) in.rev R |-> U_a^((italic("num")))(R) = sum_((i,j) in [N]^2) cases(
+      1/2 dot (norm(R_i - R_j) - a)^2 "if" norm(R_i - R_j) < a",",
+      0 "else".
+    )
+  $
+]
+
+#slide[
+  == Results using the Hypernetted Chain
+  #pause
+  #align(center)[
+    #image(height: 9.7em,"img/results_sound_velocity.png")
+  ]
+  #pause
+  #text(size: 20pt)[
+    $->$ Sadly no major differences in the velocity of sound noticeable.
+  ]
 ]
