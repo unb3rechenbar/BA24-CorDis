@@ -11,7 +11,9 @@
 
 #let cL = $cal(L)$
 #let drho = pad(right: -13pt)[$delta #move(dx: -12pt)[$rho$]$]
-#let ci = $accent(i,°)$
+// #let ci = $dotless.i #place(dx: -5.5pt, dy: -15pt)[#sym.compose]$ 
+#let ci = $accent(dotless.i,compose)$
+
 #let vp = $bold(p)$
 #let vq = $bold(q)$
 
@@ -25,6 +27,12 @@
   footer: [(#utils.polylux-progress( ratio => [#calc.round(ratio * 100)#sym.percent])) of "_Studies of ERM Models with Correlated Disorder_", Tom Folgmann, 2024]
 )
 
+
+
+// =======================================================
+// INTRODUCTION: Goals
+// =======================================================
+
 #title-slide[
   = Studies of ERM Models with Correlated Disorder
   #v(2em)
@@ -32,6 +40,46 @@
   #v(4em)
   #text(size: 15pt, [Bachelor Thesis Presentation, 2024])
 ]
+
+#slide[
+  == Upfront: Goals.
+  #pause
+  === Foundations
+  #pause
+  - What is ERM? #pause 
+    - How can a simple model be build on the idea of (repulsively) interacting (finite) particles? #pause
+    - Where lies our main theoretical interest? #pause
+    - What means randomness for the model? #pause
+  - Understanding the action. #pause
+    - How does it arise? #pause
+    - How can a Gaussian approach help us out?
+]
+
+#slide[
+  == Upfront: Goals.
+  === Foundations
+  - What means _generating_ with respect to boltzmann densities? #pause
+    - Is there a visual approch to calculations?
+]
+
+#slide[
+  == Upfront: Goals.
+  === Steps forward
+  #pause
+  - Now, where comes the correlative nature into play?
+  #pause
+    - What did we implement in our research? #pause (Has this been done before?)
+  #pause
+    - What did we *conclude*?
+]
+
+
+
+// =======================================================
+// INTRODUCTION: What is ERM?
+// =======================================================
+
+
 
 #focus-slide[
   = What is ERM?
@@ -73,7 +121,7 @@
   #pause
   $ L(G) := D(G) - W(G). $
   #pause
-  - $D(G)$ gives the _degree_ of each node: _Number of connected edges_.
+  - $D(G)$ gives the _degree_ of each node: _Number of connected edges_. #pause
   - $W(G)$ encodes the _strength_ (and direction) of the connections.
   #pause
   $
@@ -86,15 +134,15 @@
 
 #slide[
   == Definition of the ERM Laplacian Matrix
-
-  In the ERM model the Laplacian matrix is defined as
+  #pause
+  In the ERM model the Laplacian matrix is defined as:
   $
     accent(U, ~)(f,r) := mat(
       Sigma(f,1), -f_(1 2), ..., -f_(1 N);
       -f_(2 1), Sigma(f,2), ..., -f_(2 N);
       dots.v, dots.v, dots.down, dots.v;
       -f_(N 1), -f_(N 2), ..., Sigma(f,N)
-    ),
+    ) = D(G) - W(G).
   $
   #pause 
   - _Interaction strength_ given by $f_(i j) eq.m f(r_i - r_j)$
@@ -119,7 +167,7 @@
     })
   ]
   #hide[
-  ... results in an (unnormalized) density function 
+  ... results in an (unnormalized) density function: #pause
   $
     E |-> sum_(i in [p]) delta_(Lambda_i)(E) wide in {0,p}
   $
@@ -211,6 +259,9 @@
       content((0,3.2), $Im(z)$, anchor: "south")
 
       circle((7.03,0), radius: 2, stroke: (paint: gray, dash: "dotted"))
+
+      circle((7.03,0), radius: 0.1, fill: black)
+      content((7.5,-0.1), $Lambda_i$, anchor: "north")
       
       line((7.03,0), (7.03,2), stroke: black + 1pt)
       content((7.03,2), sym.arrow.t, anchor: "north")
@@ -281,6 +332,20 @@
 ]
 
 #slide[
+  == What does this mean for Eigenvalue measurement?
+  #pause
+  Using a physical argument, complex analysis can be utilized for measurement. #footnote[A direct connection can be obtained, see Thesis p. 17.] 
+  #pause
+  This leads to the _resolvent_:
+  #pause
+  $
+    G_N(vp,z) = sum_((i,j)) integral plus.minus 1 /(accent(U,~)(f,r)_(i,j) - delta_(i j) dot z) dot e^(ci dot vp dot (x_i - x_j)) med d x.
+  $
+  #pause
+  Q: What are we integration over?
+]
+
+#slide[
   == Where does _Randomness_ come into play?
   #pause
   .. by a _slight_ modification of functions!
@@ -299,7 +364,7 @@
         $R$, "Random variable, abstract",
         $R(omega)$, "Vector of time dep. pos.",
         $R(omega)_i$, $i$ + "-th particle position, time dep. path",
-        $R(omega)_i (t)$, "Position of " + $i$ + "-th particle at time " + $t$
+        $R(omega)_i (t)$, "Position of " + $i$ + "-th particle at time " + $t$ + " (fixed for us.)"
     )]
     #set text(size: 25pt)
   ]
@@ -321,7 +386,7 @@
       $R$, "Random variable, abstract",
       $R(omega)$, "Vector of time dep. pos.",
       $R(omega)_i$, $i$ + "-th particle position, time dep. path",
-      $R(omega)_i (t)$, "Position of " + $i$ + "-th particle at time " + $t$
+      $R(omega)_i (t)$, "Position of " + $i$ + "-th particle at time " + $t$ + " (fixed for us.)"
   )]
   #set text(size: 25pt)
 ]
@@ -367,7 +432,7 @@
     [
       For $R:Omega -> V_(d,N)$ and $Phi in bb(F)_(d,N)$ we define 
       $
-        J |-> -1/2 dot S_(z,R_omega)^((0))(Phi) + integral_(RR^d) J(x) dot Phi(-x) + J(-x) dot Phi(x) med lambda(d x)
+        J |-> -1/2 dot S_(z,R_omega)^((0))(Phi) + integral_(RR^d) J(x) dot Phi(-x) + J(-x) dot Phi(x) med d x
       $
       the _field shifted action_ $text(S)_(z,R_omega)^((0))$ by an external field $J in cal(S)(RR^d)$.
     ]
@@ -383,8 +448,25 @@
   Using these tools, an Operator generating $Z_(z,R_omega)$ can be deduced:
   #pause
   $
-    Z_(z,R_omega)[J] = integral_(bb(F)_(d,N)) e^((S_(z,R_omega)^((0))Phi + S_(z,R_omega)^((italic("int")))Phi)[J]) d Phi = 
-    underbrace(
+    Z_(z,R_omega)[J] &= integral_(bb(F)_(d,N)) e^((S_(z,R_omega)^((0))Phi + S_(z,R_omega)^((italic("int")))Phi)[J]) d Phi \
+    #hide[
+      $&= underbrace(
+        ["Ex"_(cal(L)_f)[
+          integral_(bb(F)_(d,N)) e^(("S"_(z,R_omega)^((0))Phi)[dot])d Phi
+        ]],
+        "Generative Part"
+      )
+      [J].$
+    ]
+  $
+]
+
+#slide[
+  == The Generative Operator
+  Using these tools, an Operator generating $Z_(z,R_omega)$ can be deduced:
+  $
+    Z_(z,R_omega)[J] &= integral_(bb(F)_(d,N)) e^((S_(z,R_omega)^((0))Phi + S_(z,R_omega)^((italic("int")))Phi)[J]) d Phi \
+    &= underbrace(
       ["Ex"_(cal(L)_f)[
         integral_(bb(F)_(d,N)) e^(("S"_(z,R_omega)^((0))Phi)[dot])d Phi
       ]],
@@ -392,6 +474,20 @@
     )
     [J].
   $
+  #pause
+  #place(bottom + left)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(2,-1))
+
+      fletcher.edge(A,B,[This needs explanation.],label-pos: 0, center, label-anchor: "east", "->", bend: -30deg)
+    })
+  ]
+]
+
+#slide[
+  .. "Ex" of course is an abbreviation. #pause
+  Q: What does it include?
+
   $->$ Looking at different Taylor expansion terms yields different integrals.
 ]
 
@@ -534,6 +630,21 @@
   ]
 ]
 
+#slide[
+  == A small note..
+  #pause
+  #one-by-one(start: 2)[The actual calculation is very tedious. ][Used aspects:]  
+  
+  #pause#pause
+  - Integral Operator representation of $"Ex"_(cal(L)_f)$ in _second order_. #pause
+    - Reduction of $cal(L)$ to _three point vertex_. #pause
+  - Treatment of six point correlator. #pause
+    - Useful tool: _Isserlis/Wick's Theorem_. #pause
+  - Consideration of restrictions towards moment space. #pause
+    - Processing linear system of equations for remaining integration parameters. #pause
+  - Utilization of vertex' and propagator symmetries. 
+]
+
 
 
 #focus-slide[
@@ -560,29 +671,31 @@
 #slide[
   == The (radial) Particle Distribution Density
   #pause
-  #grid(
-    columns: 2,
-    column-gutter: 20pt,
-    align: (center + top, center + horizon),
-    "To calculate possibility of finding particles near a given reference " + $r_0$ + " we used the " + text(style: "italic", "radial distribution function") + $
+  #side-by-side(
+    columns: (2fr, 1.2fr)
+  )[
+    #one-by-one[][To calculate possibility of finding particles near a given reference $r_0$ we used the _radial distribution function_ ][$
       g_(r_0)(r) = integral_(RR^d) rho_N^((2))(r_0 + r,r) med d r,
-    $ + "while " + $rho_N^((2))$ + " reflects integration of " + $exp(-beta dot H(r,dot))$ + " for remaining particles.",
-    cetz.canvas({
-      import cetz.draw: *
+    $][while $rho_N^((2))$ reflects integration of $exp(-beta dot H(r,dot))$ for remaining particles.]
+  ][
+    #alternatives(repeat-last: true)[][][
+      #cetz.canvas({
+        import cetz.draw: *
 
-      circle((0,0), radius: 5, stroke: (paint: black, dash: "loosely-dotted"), fill: gray)
-      circle((0,0), radius: 3, stroke: (paint: black, dash: "loosely-dotted"), fill: white)
+        circle((0,0), radius: 5, stroke: (paint: black, dash: "loosely-dotted"), fill: gray)
+        circle((0,0), radius: 3, stroke: (paint: black, dash: "loosely-dotted"), fill: white)
 
-      circle((0,0), radius: 4, stroke: black + 1pt)
+        circle((0,0), radius: 4, stroke: black + 1pt)
 
-      line((3,0),(5,0), stroke: black + 1pt)
-      content((5.08,0.08), sym.arrow.r, anchor: "east")
-      content((2.92,0.08), sym.arrow.l, anchor: "west")
+        line((3,0),(5,0), stroke: black + 1pt)
+        content((5.08,0.08), sym.arrow.r, anchor: "east")
+        content((2.92,0.08), sym.arrow.l, anchor: "west")
 
-      circle((0,0), radius: 0.05, fill: black)
-      content((0,0), $r_0$, anchor: "north")
-    })
-  )
+        circle((0,0), radius: 0.05, fill: black)
+        content((0,0), $r_0$, anchor: "north")
+      })
+    ]
+  ]
 ]
 
 #slide[
@@ -649,7 +762,6 @@
 
 #slide[
   == Analytical Aspects
-  #pause
   From this the Integrands of the irreducible diagrams gain a factor:
   #pause
   #align(center)[
@@ -681,7 +793,7 @@
 ]
 
 #focus-slide[
-  Can we in any way compare our results?
+  = Can we in any way compare our results?
 ]
 
 #slide[
@@ -702,8 +814,8 @@
 
 #slide[
   == The Approach of Martin-Mayor
+  A spring implementation of $r|->exp(-beta dot sum ..)/abs(V_(d,N))$ is done:
   #pause
-  An implementation of $r|->exp(-beta dot sum ..)/abs(V_(d,N))$ is done:
   $
     cal(f)(r) :approx (f(r))/abs(V_(d,N)) dot exp(-beta dot sum_((i,j) in [N]^2) u(r_i - r_j)).
   $
@@ -713,8 +825,7 @@
 
 #slide[
   == The Approach of Martin-Mayor
-  #pause
-  In a consequence, the bare propagator changes:
+  As a consequence, the bare propagator changes:
   #pause
   $
     G_0(vp,z) = 1/(z - rho_* dot (cal(f)(bold(0)) - S_*(vp))) eq.not underbrace(1/(z - rho_* dot (f(bold(0)) - S_*(vp))),"Our Approach").
@@ -740,7 +851,7 @@
     )
   $
   #pause
-  .. resulting in a pair potential 
+  .. resulting in a pair potential $(d = 3)$:
   #pause
   $
     V_(d,N) in.rev R |-> U_a^((italic("num")))(R) = sum_((i,j) in [N]^2) cases(
@@ -760,4 +871,22 @@
   #text(size: 20pt)[
     $->$ Sadly no major differences in the velocity of sound noticeable.
   ]
+]
+
+#slide[
+  == Concluding terms..
+  #pause
+  Adoption of the radial probability density and static structure factor introduced an integral correction in $c_(rho_*)$:
+  #pause
+  $
+    G |-> (
+      G_0(vp,0)^(-1) - rho_* dot integral_(RR^3) S_* (vp - vq) dot G(vq,z) dot V_0 (vq, vp) med d vq
+    )^(-1).
+  $
+  #pause
+  There is a possibility of extention onto higher loop orders.KK
+  #pause
+  $
+    exp(-beta dot U(r)) approx exp(-beta dot (r - nu)^bot dot A dot (r - nu)), med (rho "mediocre")
+  $
 ]
