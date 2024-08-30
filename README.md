@@ -69,3 +69,5 @@ The final version of the thesis that was used for the print version might contai
 - In Definition 2.22 (External Field Shifting) there is mistakenly $\Phi_\varphi$ used within the integrnal, which should be corrected to only $\Phi$, since it is the only introduced argment.
 
 - In Postulate 2.4 (The Moment Generating Function) the random variable has both $r$ and $R$ as its name. To avoid confusion and match overall notation, it should be corrected to $R$.
+
+- In the definition of the first Lagrange operator summand $\mathcal{L}_{f,\overline{\text{II}},\mathcal{F}}$ on page 29 right after Corollary 2.4 (Perturbative Basis of the MGF with Normalization) the signs in the second functional derivative should be inverted, i.e. $\delta/\delta \hat J(p_1 + p_2)$. Furthermore to every $J$ a hat should also be added.

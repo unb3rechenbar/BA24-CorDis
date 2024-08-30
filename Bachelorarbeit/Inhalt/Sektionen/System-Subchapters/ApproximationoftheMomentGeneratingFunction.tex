@@ -9,8 +9,8 @@ With the free theory under Fourier transformation explicitly handled, the two in
 The construction of $\text{Ex}$ however remains similar in the Fourier image. 
 With this and \cite{mth:vogel} we therefore find:\footnote{The integration domain of the second summand is given by the hyperplane introduced due to the limitation $\drho_{R_\omega}(-(p_1 + p_2 + p_3))$. We assume this to be convered in the measure $\overline\mu_{\overline{\text{III}}}$ and do not discuss it explicitly, since for the one loop order the corresponding Lagrangian integral $\mcL_{f,\overline{\text{III}},\mcF}$ vanishes.}
 \begin{align*}
-    \mcL_{f,\overline{\text{II}},\mcF} &:= \int_{(\R^d)^2}\mu_z(p)\cdot\bbbra{\frac{\delta}{\delta J(-p_1)}\circ\frac{\delta}{\delta J(-p_1-p_2)}}(\cdot)\;\overline\mu_{\overline{\text{II}}}(dp), \\
-    \mcL_{f,\overline{\text{III}},\mcF} &:= \underset{\drho_{134}(\R^d)}{\iiint} V_z(p_3,-p_2)\cdot\bbbra{\frac{\delta}{\delta J(-p_1)}\circ \frac{\delta}{\delta J(-p_3)}}(\cdot)\;\overline\mu_{\overline{\text{III}}}(dp).
+    \mcL_{f,\overline{\text{II}},\mcF} &:= \int_{(\R^d)^2}\mu_z(p)\cdot\bbbra{\frac{\delta}{\delta\hat J(-p_1)}\circ\frac{\delta}{\delta\hat J(p_1+p_2)}}(\cdot)\;\overline\mu_{\overline{\text{II}}}(dp), \\
+    \mcL_{f,\overline{\text{III}},\mcF} &:= \underset{\drho_{134}(\R^d)}{\iiint} V_z(p_3,-p_2)\cdot\bbbra{\frac{\delta}{\delta\hat J(-p_1)}\circ \frac{\delta}{\delta\hat J(-p_3)}}(\cdot)\;\overline\mu_{\overline{\text{III}}}(dp).
 \end{align*}
 Notice how we can now connect the generating function to our main object of interest, the resolvent. Since expressed with extrapoladed gaussian density, the resolvent involves a factor $\Phi(x)\cdot\Phi(y)$ combined with the density $\Phi\mapsto \exp(S_{z,R_\omega}[\Phi])$, we can extend the integral using the same field shifting technique to 
 \begin{multline}
