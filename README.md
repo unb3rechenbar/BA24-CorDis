@@ -64,3 +64,8 @@ The final version of the thesis that was used for the print version might contai
 - Figure 15 uses a wrong label on the x-axis. Although its purpose can be deduced from the legend, it should be corrected to $\text{min}(D_{\rho_\ast})$, where $\text{min}$ operates on the respective grid $G_q$ for wave vectors $q$.
 
 - Figure 9 also uses wrong labels on both axis, which should be corrected to $||\mathbf{r}||_2$ on the x-axis and $g_0(\mathbf{r})$ on the y-axis.
+
+### Known Typos
+- In Definition 2.22 (External Field Shifting) there is mistakenly $\Phi_\varphi$ used within the integrnal, which should be corrected to only $\Phi$, since it is the only introduced argment.
+
+- In Postulate 2.4 (The Moment Generating Function) the random variable has both $r$ and $R$ as its name. To avoid confusion and match overall notation, it should be corrected to $R$.

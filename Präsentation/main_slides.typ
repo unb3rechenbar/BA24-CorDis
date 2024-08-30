@@ -16,6 +16,7 @@
 
 #let vp = $bold(p)$
 #let vq = $bold(q)$
+#let vr = $bold(r)$
 
 
 #let pointset = ((0,0), (1,0.5), (3,1), (-3,4), (-2,-1), (-1,4), (0,1), (-1.5,2), (-2.5,1), (2,2))
@@ -49,7 +50,7 @@
   - What is ERM? #pause 
     - How can a simple model be build on the idea of (repulsively) interacting (finite) particles? #pause
     - Where lies our main theoretical interest? #pause
-    - What means randomness for the model? #pause
+    - What does randomness mean for the model? #pause
   - Understanding the action. #pause
     - How does it arise? #pause
     - How can a Gaussian approach help us out?
@@ -58,7 +59,7 @@
 #slide[
   == Upfront: Goals.
   === Foundations
-  - What means _generating_ with respect to boltzmann densities? #pause
+  - What does _generating_ with respect to Boltzmann densities mean? #pause
     - Is there a visual approch to calculations?
 ]
 
@@ -68,9 +69,9 @@
   #pause
   - Now, where comes the correlative nature into play?
   #pause
-    - What did we implement in our research? #pause (Has this been done before?)
-  #pause
-    - What did we *conclude*?
+  - #one-by-one(start: 3)[What did we implement in our research? ][(Has this been done before?)]
+  #pause#pause
+  - What did we *conclude*?
 ]
 
 
@@ -121,9 +122,12 @@
   #pause
   $ L(G) := D(G) - W(G). $
   #pause
-  - $D(G)$ gives the _degree_ of each node: _Number of connected edges_. #pause
-  - $W(G)$ encodes the _strength_ (and direction) of the connections.
-  #pause
+  #list-one-by-one(start: 3)[
+    $D(G)$ gives the _degree_ of each node: _Number of connected edges_.
+  ][
+    $W(G)$ encodes the _strength_ (and direction) of the connections.
+  ]
+  #pause#pause
   $
     D(G) &:= "diag"(d), &wide d_i &:= \#{e in E: v_i in e}, \
     W(G) &:= (w_(i j))_((i,j) in [N]^2), & w&: [N]^2 -> RR.
@@ -152,7 +156,7 @@
 
 #slide[
   == How to measure Eigenvalues?
-  Let $Lambda:[p]->sigma_(P)(accent(U,~)(f,r))$ map bijectively into the _point spectrum_ of the ERM Laplacian.
+  Let $Lambda:[n]->sigma_(P)(accent(U,~)(f,r))$ map bijectively into the _point spectrum_ of the ERM Laplacian.
   #pause
 
   #align(center + horizon)[
@@ -177,7 +181,7 @@
 
 #slide[
   == How to measure Eigenvalues?
-  Let $Lambda:[p]->sigma_(P)(accent(U,~)(f,r))$ map bijectively into the _point spectrum_ of the ERM Laplacian.
+  Let $Lambda:[n]->sigma_(P)(accent(U,~)(f,r))$ map bijectively into the _point spectrum_ of the ERM Laplacian.
 
   #align(center + horizon)[
     #cetz.canvas({
@@ -196,10 +200,9 @@
   #hide[
   ... results in an (unnormalized) density function 
   $
-    E |-> sum_(i in [p]) delta_(Lambda_i)(E) wide in {0,p}
+    E |-> sum_(i in [n]) delta_(Lambda_i)(E) wide in {0,...,n}
   $
   ]
-
 ]
 
 #slide[
@@ -235,13 +238,13 @@
   #pause
   ... results in an (unnormalized) density function 
   $
-    E |-> sum_(i in [p]) delta_(Lambda_i)(E) wide in {0,p}
+    E |-> sum_(i in [n]) delta_(Lambda_i)(E) wide in {0,...,n}
   $
 ]
 
 #slide[
   == The Resolvent Eigenvalue Approximation
-  .. by an example point $Lambda_i$ at $i in [p]$.
+  .. by an example point $Lambda_i$ at $i in [n]$.
   #pause
 
   #set text(size: 20pt) 
@@ -292,6 +295,16 @@
   $
     (d/(d t))^2 angle.l x_i (t),x_i (0) angle.r = -accent(U,~)(f,i |-> x_i (t))_(i,j) dot angle.l x_j (t),x_i (0) angle.r.
   $
+  #pause
+  #set text(size: 20pt)
+  #place(bottom + right, dy: 13pt)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(-2.8,-0.5))
+
+      fletcher.edge(A,B,[This is just $f_(i,j)$! \ ] + text(size: 15pt)[.. for $i eq.not j$.],label-pos: 0, center, label-anchor: "east", "->", corner: right)
+    })
+  ]
+  #set text(size: 25pt)
 ]
 
 #slide[
@@ -397,15 +410,32 @@
   Eigenvalue measurement can be done via the resolvent. Gaussian representation gives us:
   #pause
   $
-    (accent(U, ~)(f,r) - z)_(i j)^(-1) = integral_(RR^d) phi_i dot phi_j med overbrace(
-      (underbrace(
-        e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)),
-        "Boltzmann density"
-      ) dot lambda),
-      "Gaussian measure"
-    )(d phi).
+    (accent(U, ~)(f,r) - z)_(i j)^(-1) = integral_(RR^d) phi_i dot phi_j med (e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)) dot lambda)(d phi).
   $
   #pause
+  #place(bottom + right, dx: -6.3em, dy: -5.6em)[
+    $ underbrace(
+      #hide($e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r))$),
+      "Boltzmann density"
+    ) $
+  ]
+  #pause
+  #place(bottom + right, dx: -5.0em, dy: -7.2em)[
+    $ overbrace(
+      #hide[$e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)) dot lambda$],
+      "Gaussian measure"
+    ) $
+  ]
+  #pause
+  #place(bottom + left,dx: -1em, dy: -4.2em)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(4,-0.5))
+
+      fletcher.edge(A,B,text(size: 20pt)[Value in $RR$ .. \ (simplification!)],label-pos: 0, center, label-anchor: "east", "->", corner: left)
+    })
+  ]
+  #pause
+  #v(2em)
   This is already a good starting point to understand our _Correlated Disorder_ modification!
 ]
 
@@ -475,6 +505,14 @@
     [J].
   $
   #pause
+  #place(horizon + right, dy: 0.6em)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(-2.92,0.3))
+
+      fletcher.edge(A,B,text(size: 20pt)[Only free theory!],label-pos: 0, center, label-anchor: "west", "->", corner: left)
+    })
+  ]
+  #pause
   #place(bottom + left)[
     #fletcher.diagram({
       let (A,B) = ((0,0),(2,-1))
@@ -485,10 +523,67 @@
 ]
 
 #slide[
-  .. "Ex" of course is an abbreviation. #pause
-  Q: What does it include?
+  #one-by-one[
+    .. "Ex" of course is an abbreviation.
+  ][
+    Q: What does it include?
+  ][
+    To keep things simple, just "Integrals":
+  ]
 
-  $->$ Looking at different Taylor expansion terms yields different integrals.
+  
+  #pause #pause #pause
+  $
+    integral_((RR^d)^2) mu_z (vp_1,vp_2) dot (
+      delta/(delta accent(J,"^")(-vp_1)) compose delta/(delta accent(J,"^")(vp_1 + vp_2))
+    ) med (lambda times.circle accent(drho_(R_omega),"^"))(d vp)
+  $
+  #pause
+  #place(horizon + right, dx: 0.3em, dy: -1em)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(-1.4,-0.5))
+
+      fletcher.edge(A,B,text(size: 20pt)[$phi -> Phi$],label-pos: 0, center, label-anchor: "west", "->", corner: right)
+    })
+  ]
+  #pause
+  #place(top + right, dx: 0.26em, dy: 2.2em)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(-1.4,0.5))
+
+      fletcher.edge(A,B,text(size: 20pt)[$rho_R -> lambda + drho_R$],label-pos: 0, center, label-anchor: "west", "->", corner: left)
+    })
+  ]
+  #pause
+  #place(horizon + center, dx: -6.3em, dy: -0.6em)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(2,-0.3))
+
+      fletcher.edge(A,B,text(size:20pt)[for $Phi(vp_1)$],label-pos: 0, center, label-anchor: "east", "->", corner: left)
+    })
+  ]
+
+  #pause
+  #place(horizon + center,dx: -1em, dy: 0.0em)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(2,-0.6))
+
+      fletcher.edge(A,B,text(size:20pt)[for $Phi(-vp_1 - vp_2)$],label-pos: 0, center, label-anchor: "east", "->", corner: left)
+    })
+  ]
+
+  #pause
+  #place(bottom + center, dy: -4em)[
+    #text(size: 15pt)[
+      $
+        Phi |-> (integral_((RR^d)^2) Phi(vp_1) dot Phi(-vp_1-vp_2) phi_j dot mu_z (vp_1,vp_2) med d vp) dot e^((S_(z,R_omega)^((0))Phi)[J]).
+      $
+    ]
+  ]
+
+  #pause
+  #v(1fr)
+  $->$ Looking at different Taylor expansion terms of $exp(integral_((RR^d)^2) .. med d vp)$ yields different powers of integral operators.
 ]
 
 #slide[
@@ -532,7 +627,7 @@
         fletcher.edge(S,B,$vp$,left,"-<|-")
         fletcher.edge(S,C,$vq_2$,"wave")
         fletcher.edge(S,D,$vq_1$,center,label-pos: 1,"wave")
-      }), $:=-V_z (vp,-vq_1)$, $=>$, "Four-point Vertex"
+      }), $:=-V (vp,-vq_1)$, $=>$, "Four-point Vertex"
     )
   $
   #pause
@@ -583,7 +678,7 @@
     )
   $
   #pause
-  .. represented diagrams are _irreducible_: $Z_(z,R_omega)[J] = exp(sum_(C in cal(C)) C)$.
+  .. represented diagrams are _irreducible_: $Z_(z,R_omega)[J] prop exp(sum_(C in cal(C)) C)$.
 ]
 
 #slide[
@@ -675,7 +770,7 @@
     columns: (2fr, 1.2fr)
   )[
     #one-by-one[][To calculate possibility of finding particles near a given reference $r_0$ we used the _radial distribution function_ ][$
-      g_(r_0)(r) = integral_(RR^d) rho_N^((2))(r_0 + r,r) med d r,
+      g_(epsilon)(r_0,x_*) = integral_(B_(x_*,epsilon)(r_0)) rho_N^((2))(r_0,r) med d r,
     $][while $rho_N^((2))$ reflects integration of $exp(-beta dot H(r,dot))$ for remaining particles.]
   ][
     #alternatives(repeat-last: true)[][][
@@ -714,21 +809,41 @@
   $
     S_*(vq) = 1 + integral_(RR^d) (g_0(bold(r)) - 1) dot e^(ci dot vq dot bold(r)) med d bold(r).
   $
-]
 
-#slide[
-  == What does $g_0$ look like? #footnote[Looking at a soft sphere model, see later.]
   #pause
-  #align(center)[
-    #image(height:9.7em, "img/example_radial_dist_fnc_soft_spheres.png")
+  #place(bottom + center, dx: 4.8em, dy: -1.6em)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(-2,-0.5))
+
+      fletcher.edge(A,B,text(size: 20pt)[normalized to $vr_0 = 0$],label-pos: 0, center, label-anchor: "east", "->", corner: right)
+    })
   ]
 ]
 
 #slide[
-  == Resulting in the Static Structure Factor
+  #place(top + right, dx: 1em, dy: -1em, box(stroke: black + 1pt, inset: 10pt, text(size: 20pt)[Anticipation!]))
+  == What does $g_0$ look like?
   #pause
   #align(center)[
+    #image("img/example_radial_dist_fnc_soft_spheres.png")
+  ]
+]
+
+#slide[
+  #place(top + right, dx: 1em, dy: -1em, box(stroke: black + 1pt, inset: 10pt, text(size: 20pt)[Anticipation!]))
+
+  == Resulting in the Static Structure Factor
+  #align(center)[
     #image("img/example_static_structure_factor_soft_spheres.png")
+  ]
+
+  #pause
+  #place(bottom + left, dx: 3em)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(-2,-0.5))
+
+      fletcher.edge(A,B,[$S_*(bold(0)) = rho_* k_B T dot kappa$],label-pos: 0, center, label-anchor: "west", "->", corner: right)
+    })
   ]
 ]
 
@@ -869,7 +984,7 @@
   ]
   #pause
   #text(size: 20pt)[
-    $->$ Sadly no major differences in the velocity of sound noticeable.
+    $->$ No major differences in the velocity of sound noticeable.
   ]
 ]
 
@@ -880,13 +995,26 @@
   #pause
   $
     G |-> (
-      G_0(vp,0)^(-1) - rho_* dot integral_(RR^3) S_* (vp - vq) dot G(vq,z) dot V_0 (vq, vp) med d vq
+      G_0(vp,0)^(-1) - rho_* dot integral_(RR^3) S_* (vp - vq) dot G(vq,z) dot V (vq, vp) med d vq
     )^(-1).
   $
   #pause
-  There is a possibility of extention onto higher loop orders.KK
+  There is a possibility of extention onto higher loop orders.
   #pause
   $
     exp(-beta dot U(r)) approx exp(-beta dot (r - nu)^bot dot A dot (r - nu)), med (rho "mediocre")
   $
+]
+
+#slide[
+  #align(center)[
+    *#text(size: 30pt)[Thank you for your attention!]*
+  ]
+
+  #align(horizon + center)[
+    #one-by-one(start: 2)[Sources used in this presentation do not differ from the ones in the thesis. ][The Presentation, Thesis and Code are available on GitHub. \ \ ][#text(font: "American Typewriter", size: 22pt, link("https://github.com/unb3rechenbar/BA24-CorDis.git")[unb3rechenbar/BA24-CorDis.git])]
+  ]
+
+
+  #align(bottom + center)[This presentation was only possible thanks to *Typst*. ]
 ]
