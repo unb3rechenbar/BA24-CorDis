@@ -156,7 +156,7 @@
 
 #slide[
   == How to measure Eigenvalues?
-  Let $Lambda:[n]->sigma_(P)(accent(U,~)(f,r))$ map bijectively into the _point spectrum_ of the ERM Laplacian.
+  Let $Lambda:[k]->sigma_(P)(accent(U,~)(f,r))$ map bijectively into the _point spectrum_ of the ERM Laplacian.
   #pause
 
   #align(center + horizon)[
@@ -171,43 +171,18 @@
     })
   ]
   #hide[
-  ... results in an (unnormalized) density function: #pause
+  ... results in an (unnormalized) density function:
   $
-    E |-> sum_(i in [p]) delta_(Lambda_i)(E) wide in {0,p}
+    E |-> sum_(i in [k]) delta_(Lambda_i)(E) wide in {0,...,k}
   $
   ]
 
 ]
 
-#slide[
-  == How to measure Eigenvalues?
-  Let $Lambda:[n]->sigma_(P)(accent(U,~)(f,r))$ map bijectively into the _point spectrum_ of the ERM Laplacian.
-
-  #align(center + horizon)[
-    #cetz.canvas({
-      import cetz.draw: *
-
-      content((0,0.08),$#long-symbol(sym.arrow.r, 20)$, anchor: "west")
-
-      for point in realspectrum {
-        circle(point, radius: 0.1, fill: black)
-      }
-
-      rect(span_test_interval.at(0), span_test_interval.at(1), name: "testspace")
-      content((name: "testspace", anchor: "north"), [#move(dy: -17pt, [testspace $E subset RR$])], anchor: "center")
-    })
-  ]
-  #hide[
-  ... results in an (unnormalized) density function 
-  $
-    E |-> sum_(i in [n]) delta_(Lambda_i)(E) wide in {0,...,n}
-  $
-  ]
-]
 
 #slide[
   == How to measure Eigenvalues?
-  Let $Lambda:[p]->sigma_(P)(accent(U,~)(f,r))$ map bijectively into the _point spectrum_ of the ERM Laplacian.
+  Let $Lambda:[k]->sigma_(P)(accent(U,~)(f,r))$ map bijectively into the _point spectrum_ of the ERM Laplacian.
 
   #align(center + horizon)[
     #cetz.canvas({
@@ -238,13 +213,13 @@
   #pause
   ... results in an (unnormalized) density function 
   $
-    E |-> sum_(i in [n]) delta_(Lambda_i)(E) wide in {0,...,n}
+    E |-> sum_(i in [k]) delta_(Lambda_i)(E) wide in {0,...,k}
   $
 ]
 
 #slide[
   == The Resolvent Eigenvalue Approximation
-  .. by an example point $Lambda_i$ at $i in [n]$.
+  .. by an example point $Lambda_i$ at $i in [k]$.
   #pause
 
   #set text(size: 20pt) 
@@ -297,7 +272,7 @@
   $
   #pause
   #set text(size: 20pt)
-  #place(bottom + right, dy: 13pt)[
+  #place(bottom + right, dy: 1em)[
     #fletcher.diagram({
       let (A,B) = ((0,0),(-2.8,-0.5))
 
@@ -347,15 +322,13 @@
 #slide[
   == What does this mean for Eigenvalue measurement?
   #pause
-  Using a physical argument, complex analysis can be utilized for measurement. #footnote[A direct connection can be obtained, see Thesis p. 17.] 
-  #pause
-  This leads to the _resolvent_:
+  Using a physical argument, complex analysis can be utilized for measurement. #footnote[A direct connection can be obtained, see Thesis p. 17.] This leads to the _resolvent_:
   #pause
   $
-    G_N(vp,z) = sum_((i,j)) integral plus.minus 1 /(accent(U,~)(f,r)_(i,j) - delta_(i j) dot z) dot e^(ci dot vp dot (x_i - x_j)) med d x.
+    G_N (vp,z) = sum_((i,j)) integral plus.minus 1 /(accent(U,~)(f,r)_(i,j) - delta_(i j) dot z) dot e^(ci dot vp dot (x_i - x_j)) med d x.
   $
   #pause
-  Q: What are we integration over?
+  Q: What are we integrating over?
 ]
 
 #slide[
@@ -410,7 +383,7 @@
   Eigenvalue measurement can be done via the resolvent. Gaussian representation gives us:
   #pause
   $
-    (accent(U, ~)(f,r) - z)_(i j)^(-1) = integral_(RR^d) phi_i dot phi_j med (e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)) dot lambda)(d phi).
+    (accent(U, ~)(f,r) - z)_(i j)^(-1) prop integral_(RR^d) phi_i dot phi_j med (e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)) dot lambda)(d phi).
   $
   #pause
   #place(bottom + right, dx: -6.3em, dy: -5.6em)[
@@ -454,23 +427,29 @@
 ]
 
 #slide[
-  #set heading(numbering: "1.")
-  #counter(heading).update(2)
-  #counter("defcount").update(21)
-  #definitionsbox(
-    "External Field Shift",
-    [
-      For $R:Omega -> V_(d,N)$ and $Phi in bb(F)_(d,N)$ we define 
-      $
-        J |-> -1/2 dot S_(z,R_omega)^((0))(Phi) + integral_(RR^d) J(x) dot Phi(-x) + J(-x) dot Phi(x) med d x
-      $
-      the _field shifted action_ $text(S)_(z,R_omega)^((0))$ by an external field $J in cal(S)(RR^d)$.
-    ]
-  )
+  == Action Functional and Densitys
+  #pause
+  A clever modification leads to Dirac integration:
   #pause
   $
-    arrow.r.hook #h(1em) delta/(delta J(x)) text(S)_(z,R_omega)^((0))[Phi] = ci dot Phi (-x). 
+    S_(z,R_omega)(phi) = sum_(i,j) integral.double Phi_phi (x) dot Phi_phi (y) dot cal(U)(x,y) med (delta_(R_omega (i)) times.circle delta_(R_omega (j)))(d (x,y))
   $
+  #pause
+  #place(center + horizon, dx: -1.35em, dy: 0.6em)[
+    #fletcher.diagram({
+      let (A,B,C) = ((0,0),(2,-0.5),(-3.05,-0.2))
+
+      fletcher.edge(A,B,text(size: 20pt)[$rho_(R_omega) = sum_(i in [N])delta_(R_omega(i))$],label-pos: 0, center, label-anchor: "east", "->", corner: left)
+      fletcher.edge(A.zip((-1.3,0)).map(x => x.sum()),C,"->",corner: right)
+    })
+  ]
+  #pause
+  #place(center + bottom)[
+    .. coming from .. \
+    $
+      (accent(U, ~)(f,r) - z)_(i j)^(-1) prop integral_(RR^d) phi_i dot phi_j med (e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)) dot lambda)(d phi).
+    $
+  ]
 ]
 
 #slide[
@@ -489,6 +468,15 @@
       [J].$
     ]
   $
+  #pause
+  #place(horizon + left,dy: 1em)[
+    #fletcher.diagram({
+      let (A,B,C) = ((0,-0.5),(-2,0),(-4.5,0.5))
+
+      fletcher.edge(A,B,"<-",corner: right)
+      fletcher.edge(C,B,text(size: 20pt)[Possible due to \ $rho_R -> lambda + drho_R$],label-pos: 0, center, label-anchor: "west", "-", corner: right)
+    })
+  ]
 ]
 
 #slide[
@@ -504,6 +492,14 @@
     )
     [J].
   $
+  #place(horizon + left,dy: 1em)[
+    #fletcher.diagram({
+      let (A,B,C) = ((0,-0.5),(-2,0),(-4.5,0.5))
+
+      fletcher.edge(A,B,"<-",corner: right)
+      fletcher.edge(C,B,text(size: 20pt)[Possible due to \ $rho_R -> lambda + drho_R$],label-pos: 0, center, label-anchor: "west", "-", corner: right)
+    })
+  ]
   #pause
   #place(horizon + right, dy: 0.6em)[
     #fletcher.diagram({
@@ -539,19 +535,19 @@
     ) med (lambda times.circle accent(drho_(R_omega),"^"))(d vp)
   $
   #pause
-  #place(horizon + right, dx: 0.3em, dy: -1em)[
-    #fletcher.diagram({
-      let (A,B) = ((0,0),(-1.4,-0.5))
-
-      fletcher.edge(A,B,text(size: 20pt)[$phi -> Phi$],label-pos: 0, center, label-anchor: "west", "->", corner: right)
-    })
-  ]
-  #pause
   #place(top + right, dx: 0.26em, dy: 2.2em)[
     #fletcher.diagram({
       let (A,B) = ((0,0),(-1.4,0.5))
 
       fletcher.edge(A,B,text(size: 20pt)[$rho_R -> lambda + drho_R$],label-pos: 0, center, label-anchor: "west", "->", corner: left)
+    })
+  ]
+  #pause
+  #place(horizon + right, dx: 0.3em, dy: -1em)[
+    #fletcher.diagram({
+      let (A,B) = ((0,0),(-1.4,-0.5))
+
+      fletcher.edge(A,B,text(size: 20pt)[$phi -> Phi$],label-pos: 0, center, label-anchor: "west", "->", corner: right)
     })
   ]
   #pause
@@ -576,7 +572,7 @@
   #place(bottom + center, dy: -4em)[
     #text(size: 15pt)[
       $
-        Phi |-> (integral_((RR^d)^2) Phi(vp_1) dot Phi(-vp_1-vp_2) phi_j dot mu_z (vp_1,vp_2) med d vp) dot e^((S_(z,R_omega)^((0))Phi)[J]).
+        Phi |-> (integral_((RR^d)^2) Phi(vp_1) dot Phi(-vp_1-vp_2) dot mu_z (vp_1,vp_2) med d vp) dot e^((S_(z,R_omega)^((0))Phi)[J]).
       $
     ]
   ]
@@ -584,6 +580,14 @@
   #pause
   #v(1fr)
   $->$ Looking at different Taylor expansion terms of $exp(integral_((RR^d)^2) .. med d vp)$ yields different powers of integral operators.
+  #place(bottom + right, dy: 0.6em)[
+    $
+      underbrace(
+        #hide($exp(integral_((RR^d)^2) .. med d vp)$),
+        "Ex"_(cal(L)_f)
+      )
+    $
+  ]
 ]
 
 #slide[
@@ -595,7 +599,7 @@
       fletcher.edge("r", "-|>-")
     $) :=& (G_0(vp,z)) / rho_* \
     #fletcher.diagram($
-      fletcher.edge(gamma, "wave")
+      fletcher.edge("wave")
     $) :=& (bb(E)((cal(F) drho_(R))(vq) dot (cal(F) drho_(R))(-vq))) / rho_*
   $
   #pause
@@ -728,7 +732,7 @@
 #slide[
   == A small note..
   #pause
-  #one-by-one(start: 2)[The actual calculation is very tedious. ][Used aspects:]  
+  #one-by-one(start: 2)[The actual calculation is very tedious. ][Used aspects:]
   
   #pause#pause
   - Integral Operator representation of $"Ex"_(cal(L)_f)$ in _second order_. #pause
@@ -869,7 +873,7 @@
   #align(center)[
     $
       #fletcher.diagram($
-        fletcher.edge(gamma, "wave")
+        fletcher.edge("wave")
       $) := (S_*(vq)) / rho_*
     $
   ]
@@ -903,7 +907,7 @@
   This also affects the Self-Energy:
   #pause
   $
-    Sigma_(S_*)^((1))(vp,z) = 1/rho_* dot integral_(RR^d) S_*(vq) dot G_0(vp - vq,z) dot S_*(vq) med d vq.
+    Sigma_(S_*)^((1))(vp,z) = 1/rho_* dot integral_(RR^d) S_*(vq) dot G_0(vp - vq,z) dot V(vq,vp)^2 med d vq.
   $
 ]
 
