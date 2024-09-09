@@ -117,6 +117,7 @@
   A system with $N in NN$ (related) particles can be described by a mathematical _Graph_.
 ]
 
+/*
 #slide[
   Fundamentally, the properties of such graphs can be rendered in a _Laplacian Matrix_ $L$.
   #pause
@@ -135,6 +136,7 @@
   #pause
   .. special case is the _Adjacency Matrix_ $A$, where $w_(i,j) in {0,-1,1}$.
 ]
+*/
 
 #slide[
   == Definition of the ERM Laplacian Matrix
@@ -307,14 +309,14 @@
   #columns(2)[
     Implementation of two initial configurations:
     #pause
-    - $angle.l x_i (t), x_j (0) angle.r = delta_(i j)$ 
+    - $angle.l x_i (t), x_j (0) angle.r|_(t=0) = delta_(i j)$ 
     #pause
-    - $(d/(d t)) angle.l x_i (t), x_j (0) angle.r = 0$ 
+    - $(d/(d t)) angle.l x_i (t), x_j (0) angle.r|_(t=0) = 0$ 
     #pause
     .. leads to the _Resolvent representation_ (Green's function): of the ERM Laplacian: #footnote[With $x^*(t) = (i |-> x_i(t))$ and $F_(j,i)(t) := angle.l x_j (t),x_i (0) angle.r$.]
     #pause
     $
-      (cL F_(j,i))(s) = plus.minus 1/(accent(U,~)(f,x^*(t))_(i,j) - delta_(i j) dot lambda_i^2).
+      (cL F_(j,i))(s) = plus.minus 1/(accent(U,~)(f,x^*(0))_(i,j) - delta_(i j) dot lambda_i^2).
     $
   ]
 ]
@@ -325,7 +327,7 @@
   Using a physical argument, complex analysis can be utilized for measurement. #footnote[A direct connection can be obtained, see Thesis p. 17.] This leads to the _resolvent_:
   #pause
   $
-    G_N (vp,z) = sum_((i,j)) integral plus.minus 1 /(accent(U,~)(f,r)_(i,j) - delta_(i j) dot z) dot e^(ci dot vp dot (x_i - x_j)) med d x.
+    G_N (vp,z) = sum_((i,j)) integral plus.minus 1 /(accent(U,~)(f,r)_(i,j) - delta_(i j) dot z) dot e^(ci dot vp dot (r_i - r_j)) med d r.
   $
   #pause
   Q: What are we integrating over?
@@ -383,19 +385,19 @@
   Eigenvalue measurement can be done via the resolvent. Gaussian representation gives us:
   #pause
   $
-    (accent(U, ~)(f,r) - z)_(i j)^(-1) prop integral_(RR^d) phi_i dot phi_j med (e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)) dot lambda)(d phi).
+    (accent(U, ~)(f,r) - z)_(i j)^(-1) prop integral_(RR^d) phi_i dot phi_j med (e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,R_omega) - z) dot phi,phi angle.r)) dot lambda)(d phi).
   $
   #pause
   #place(bottom + right, dx: -6.3em, dy: -5.6em)[
     $ underbrace(
-      #hide($e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r))$),
+      #hide($e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,R) - z) dot phi,phi angle.r))$),
       "Boltzmann density"
     ) $
   ]
   #pause
   #place(bottom + right, dx: -5.0em, dy: -7.2em)[
     $ overbrace(
-      #hide[$e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)) dot lambda$],
+      #hide[$e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,R) - z) dot phi,phi angle.r)) dot lambda$],
       "Gaussian measure"
     ) $
   ]
@@ -420,7 +422,7 @@
   #h(2em) $arrow.r.hook$ see the Boltzmann density exponent for implicit def.: #footnote[Expansion to a functional can be argued, see thesis p. 19. ]
   #pause
   $
-    -beta/2 dot S_(z,R_omega)(phi):=-beta/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)
+    S_(z,R_omega)(phi):=-beta/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)
   $
   #pause
   - The _moment generating function_ $Z_(z, R_omega)[J]$. #pause It requires the _force field_ $J$.
@@ -432,7 +434,7 @@
   A clever modification leads to Dirac integration:
   #pause
   $
-    S_(z,R_omega)(phi) = sum_(i,j) integral.double Phi_phi (x) dot Phi_phi (y) dot cal(U)(x,y) med (delta_(R_omega (i)) times.circle delta_(R_omega (j)))(d (x,y))
+    S_(z,R_omega)(phi) prop sum_(i,j) integral.double Phi_phi (x) dot Phi_phi (y) dot cal(U)(x,y) med (delta_(R_omega (i)) times.circle delta_(R_omega (j)))(d (x,y))
   $
   #pause
   #place(center + horizon, dx: -1.35em, dy: 0.6em)[
@@ -447,7 +449,7 @@
   #place(center + bottom)[
     .. coming from .. \
     $
-      (accent(U, ~)(f,r) - z)_(i j)^(-1) prop integral_(RR^d) phi_i dot phi_j med (e^(-(beta)/2 dot lr(angle.l (accent(U, ~)(f,r) - z) dot phi,phi angle.r)) dot lambda)(d phi).
+      (accent(U, ~)(f,r) - z)_(i j)^(-1) prop integral_(RR^d) phi_i dot phi_j med (e^(S_(z,R_omega)(phi)) dot lambda)(d phi).
     $
   ]
 ]
@@ -591,6 +593,19 @@
 ]
 
 #slide[
+  == On a broad scale: Dyson Series
+  #pause
+  The generative aspect applies to the resolvent $G$. This leads to the _Dyson Series_ (Fixed Point Equation):
+  #pause
+  $
+    G = ((G_0)^(-1) - Sigma(G))^(-1). 
+  $
+  #pause
+  Hereby $G_0(p,z) = (z - rho_* dot (accent(f,"^")(0) - accent(f,"^")(p)))^(-1)$ is the _bare propagator_ and $Sigma(G)$ the _self-energy_.
+]
+
+
+#slide[
   == Feynman Diagrammatics - Edges
   .. conveniently using symmetry in Fourierspace:
   #pause
@@ -663,21 +678,21 @@
 
        fletcher.edge(B,C1,$vp$,"-|>-")
        fletcher.edge(C1,C2,"wave", bend: 90deg)
-       fletcher.edge(C1,C2,$vq$,right,"-|>-")
+       fletcher.edge(C1,C2,$vp - vq$,right,"-|>-")
        fletcher.edge(C2,E,$vp$,"-|>-")
       }),
       fletcher.diagram({
         let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
 
        fletcher.edge(C1,C2,"wave", bend: 90deg)
-       fletcher.edge(C1,C2,$vq$,right,"-|>-")
+       fletcher.edge(C1,C2,$vp - vq$,right,"-|>-")
        fletcher.edge(C2,E,$vp$,"-|>-")
       }),
       fletcher.diagram({
         let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
 
        fletcher.edge(C1,C2,"wave", bend: 90deg)
-       fletcher.edge(C1,C2,$vq$,right,"-|>-")
+       fletcher.edge(C1,C2,$vp - vq$,right,"-|>-")
       })
     )
   $
@@ -699,7 +714,7 @@
 
        fletcher.edge(B,C1,$vp$,"-|>-")
        fletcher.edge(C1,C2,"wave", bend: 90deg)
-       fletcher.edge(C1,C2,$vq$,right,label-sep: 1pt,"-|>-")
+       fletcher.edge(C1,C2,$vp - vq$,right,label-sep: 1pt,"-|>-")
        fletcher.edge(C2,E,$vp$,"-|>-")
       }),
       $
@@ -708,23 +723,26 @@
       fletcher.diagram({
         let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
 
-       fletcher.edge(B,C1,$vp$,"-|>-")
        fletcher.edge(C1,C2,"wave", bend: 90deg)
-       fletcher.edge(C1,C2,$vq$,right,label-sep: 1pt,"-|>-")
+       fletcher.edge(C1,C2,$vp - vq$,right,label-sep: 1pt,"-|>-")
        fletcher.edge(C2,E,$vp$,"-|>-")
       }),
-      $
-        = -(2 dot G_0(vp,z)) / rho_* dot integral_(RR^d) G_0(vp - vq,z) dot mu_z(vp,-vq) med d vq,
-      $,
+      move(dx: 0.55em)[
+        $
+          = -(2 dot G_0(vp,z)) / rho_* dot integral_(RR^d) G_0(vp - vq,z) dot mu_z (vp,-vq) med d vq,
+        $
+      ],
       fletcher.diagram({
         let (B,C1,C2,E) = ((-1,0),(-0.5,0),(0.5,0),(1,0))
 
        fletcher.edge(C1,C2,"wave", bend: 90deg)
-       fletcher.edge(C1,C2,$vq$,right,label-sep: 1pt,"-|>-")
+       fletcher.edge(C1,C2,$vp - vq$,right,label-sep: 1pt,"-|>-")
       }),
-      $
-        = 1/rho_* dot integral_(RR^d) G_0(vp - vq,z) med d vq.
-      $
+      move(dx: 0.6em)[
+        $
+          = 1/rho_* dot integral_(RR^d) G_0(vp - vq,z) med d vq.
+        $
+      ]
     ) 
   ]
 ]
@@ -811,11 +829,11 @@
   #pause
   .. namely given by 
   $
-    S_*(vq) = 1 + integral_(RR^d) (g_0(bold(r)) - 1) dot e^(ci dot vq dot bold(r)) med d bold(r).
+    S_*(vq) = 1 + rho_* dot integral_(RR^d) (g_0(bold(r)) - 1) dot e^(ci dot vq dot bold(r)) med d bold(r).
   $
 
   #pause
-  #place(bottom + center, dx: 4.8em, dy: -1.6em)[
+  #place(bottom + center, dx: 5.6em, dy: -1.6em)[
     #fletcher.diagram({
       let (A,B) = ((0,0),(-2,-0.5))
 
@@ -894,7 +912,7 @@
 
           fletcher.edge(B,C1,$vp$,"-|>-")
           fletcher.edge(C1,C2,"wave", bend: 90deg)
-          fletcher.edge(C1,C2,$vq$,right,label-sep: 1pt,"-|>-")
+          fletcher.edge(C1,C2,$vp - vq$,right,label-sep: 1pt,"-|>-")
           fletcher.edge(C2,E,$vp$,"-|>-")
         }),
         $
@@ -947,7 +965,7 @@
   As a consequence, the bare propagator changes:
   #pause
   $
-    G_0(vp,z) = 1/(z - rho_* dot (cal(f)(bold(0)) - S_*(vp))) eq.not underbrace(1/(z - rho_* dot (f(bold(0)) - S_*(vp))),"Our Approach").
+    G_0(vp,z) = 1/(z - rho_* dot (accent(cal(f),"^")(bold(0)) - accent(cal(f),"^")(vp))) eq.not underbrace(1/(z - rho_* dot (accent(f,"^")(bold(0)) - accent(f,"^")(vp))),"Our Approach").
   $
   #pause
   - We explicitly did not approximate the spring function.
@@ -984,15 +1002,40 @@
   == Results using the Hypernetted Chain
   #pause
   #align(center)[
-    #image(height: 9.7em,"img/results_sound_velocity.png")
+    #image(height: 9.7em,"img/min_disp_rel.png")
   ]
-  #pause
   #text(size: 20pt)[
-    $->$ No major differences in the velocity of sound noticeable.
+    $->$ Physical applicability at $rho_* > 225$.
   ]
 ]
 
 #slide[
+  == Results using the Hypernetted Chain
+  #pause
+  #align(center)[
+    #image(height: 9.7em,"img/difference_s_to_one.png")
+  ]
+  #text(size: 20pt)[
+    $->$ $S_* eq.not 0$ yields slightly higher amplitudes.
+  ]
+]
+
+#slide[
+  == Results using the Hypernetted Chain
+  #pause
+  #align(center)[
+    #image(height: 9.7em,"img/results_sound_velocity.png")
+  ]
+  #text(size: 20pt)[
+    $->$ No _major_ differences in the velocity of sound noticeable.
+  ]
+]
+
+#slide[
+  #place(top + center)[#hide[
+    = Conclusion
+  ]]
+
   == Concluding terms..
   #pause
   Adoption of the radial probability density and static structure factor introduced an integral correction in $c_(rho_*)$:
@@ -1011,6 +1054,9 @@
 ]
 
 #slide[
+  #place(top + center)[#hide[
+    = Thank you!
+  ]]
   #align(center)[
     *#text(size: 30pt)[Thank you for your attention!]*
   ]
